@@ -1,20 +1,35 @@
 import React from 'react';
+import {Navbar, Container, Nav, FormControl, Button, Form} from 'react-bootstrap';
 
-export const Header = () => {
+export const Header: React.FC = () => {
     return (
-        <header className={'container'}>
-            <div className={'row'}>
-                <div className="col-4 bg-dark text-white">
-                    <h1>Logo</h1>
-                </div>
-                <div className="col-8">
-                    <div className="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-primary">Left</button>
-                        <button type="button" className="btn btn-primary">Middle</button>
-                        <button type="button" className="btn btn-primary">Right</button>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <Navbar expand="lg" variant="dark">
+            <Container>
+                <Navbar.Brand href="/">
+                    <h1>
+                        <span style={{color: 'orange'}}>A</span>biturient<span style={{color: 'orange'}}>I</span>
+                    </h1>
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href="/tests/?subject=english" className={'p-0 m-1'}><Button
+                            variant={'warning'}>ინგლისური</Button></Nav.Link>
+                        <Nav.Link href="/tests/?subject=georgian" className={'p-0 m-1'}><Button
+                            variant={'warning'}>ქართული</Button></Nav.Link>
+                        <Nav.Link href="/tests/?subject=math" className={'p-0 m-1'}><Button
+                            variant={'warning'}>მათემატიკა</Button></Nav.Link>
+                        <Nav.Link href="/tests/?subject=history" className={'p-0 m-1'}><Button
+                            variant={'warning'}>ისტორია</Button></Nav.Link>
+                    </Nav>
+                    <Navbar.Brand href="#contact-us">
+                        <Button variant="outline-warning" className={'m-1'}>Contact Us</Button>
+                    </Navbar.Brand>
+                </Navbar.Collapse>
+
+            </Container>
+        </Navbar>
     );
-};
+}
+
+
