@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, Container, Nav, FormControl, Button, Form} from 'react-bootstrap';
+import {Button, Container, Nav, Navbar} from 'react-bootstrap';
 
 export const Header: React.FC = () => {
     return (
