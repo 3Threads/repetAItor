@@ -22,12 +22,11 @@ export const TestLists = () => {
                                                      className={'btn btn-outline-warning full-width mb-2 mt-2'}>
                                         {year}
                                     </Dropdown.Toggle>
-                                    {/*<div className={'btn btn-outline-warning full-width mb-2 mt-2'}>{year}</div>*/}
 
                                     <Dropdown.Menu className={'w-100 bg-dark'}>
                                         {[1, 2, 3, 4].map(num => (
                                             <Dropdown.Item className={'text-warning bg-dark'}
-                                                href={`/tests/${subject}/${year}/exam${num}`}>Exam {num}</Dropdown.Item>
+                                                href={`/tests/${subject}/${year}/var${num}`}>Variant {num}</Dropdown.Item>
                                         ))}
                                     </Dropdown.Menu>
                                 </Dropdown>
