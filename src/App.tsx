@@ -7,11 +7,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     return (
-        <div className="App bg-dark">
+        <div className="App">
             <BrowserRouter>
                 <Routes>
                     <Route index element={<HomePage/>}/>
-                    <Route path={'/tests'} element={<TestLists/>}/>
+                    <Route path={'/tests'}>
+                        <Route path={':subject'} element={<TestLists/>}/>
+                    </Route>
+                    <Route path={'*'} element={<h1>404 Not Found</h1>}/>
                 </Routes>
             </BrowserRouter>
         </div>
