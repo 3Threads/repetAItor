@@ -25,7 +25,7 @@ const FillInTheBlanksQuestion: React.FC<Props> = ({
     };
 
     return (
-        <div>
+        <div className={'pt-3 pb-3'}>
             <h3>Task {questionNumber}: {questionPrompt}</h3>
             <div className={'p-2'}>
                 {options.map((option, index) => (

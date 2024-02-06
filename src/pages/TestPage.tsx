@@ -3,6 +3,8 @@ import {Header} from "../components/Header";
 import {Container} from "react-bootstrap";
 import MultipleChoiceQuestion from "../components/MultipleChoiceQuestion";
 import FillInTheBlanksQuestion from "../components/FillInTheBlanksQuestion";
+import EmailQuestion from "../components/EmailQuestion";
+import EssayQuestion from "../components/EssayQuestion";
 
 
 function TestPage() {
@@ -45,7 +47,17 @@ function TestPage() {
                                              "The key to the success of the invention is to be in the right place ….. (9) the right time. It is believed that ….. (10) the 15th\n" +
                                              "century an Italian painter, Leonardo da Vinci, wrote down his idea for big iron chains ….. (11) would drive machines, …..\n" +
                                              "(12) unfortunately the technology to produce those chains didn’t exist then. This shows that even the greatest inventions\n" +
-                                             "may be useless if they are ahead of their time."} options={[]} splitter={'…..'}/>
+                                             "may be useless if they are ahead of their time."} options={[]}
+                                         splitter={'…..'}/>
+                <EmailQuestion questionNumber={7}
+                               questionPrompt={"The advertisement given below is taken from an online newspaper. Read the advertisement and write an\n" +
+                                   "email to the editor of the newspaper asking for more information about the details which are indicated. The\n" +
+                                   "beginning is given on the answer sheet. Do not write your or anybody else’s name or surname in the letter."}
+                               year={2021} variant={1}/>
+                <EssayQuestion questionNumber={8}
+                               questionPrompt={"Read the essay task and write between 120-150 words."}
+                               essayTitle={"Some people think that it’s very hard to be a doctor nowadays. Do you agree or disagree with this opinion?\n" +
+                                   "State your opinion and support it with reasons and examples."}/>
             </Container>
         </div>
     )

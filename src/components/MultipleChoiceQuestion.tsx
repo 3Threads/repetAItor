@@ -14,7 +14,7 @@ const MultipleChoiceQuestion: React.FC<Props> = ({question, choices, questionNum
     };
 
     return (
-        <div>
+        <div className={'pt-3 pb-3'}>
             <h3>Task {questionNumber}: {question}</h3>
             <ul>
                 {choices.map((choice, index) => (
