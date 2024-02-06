@@ -12,12 +12,15 @@ const MultipleChoiceQuestion: React.FC<Props> = ({question, choices, questionNum
     const handleChoiceSelect = (choice: string) => {
         setSelectedChoice(choice);
     };
+    //
+    // console.log(choices);
+    // console.log(question);
 
     return (
         <div className={'pt-3 pb-3'}>
-            <h3>Task {questionNumber}: {question}</h3>
+            {questionNumber}). {question}
             <ul>
-                {choices.map((choice, index) => (
+                {choices?.map((choice, index) => (
                     <li key={index}>
                         <label>
                             <input

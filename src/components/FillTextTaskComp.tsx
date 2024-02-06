@@ -8,7 +8,7 @@ interface Props {
     options: string[];
 }
 
-const FillInTheBlanksQuestion: React.FC<Props> = ({
+const FillTextTaskComp: React.FC<Props> = ({
                                                       questionNumber,
                                                       questionPrompt,
                                                       questionText,
@@ -46,4 +46,4 @@ const FillInTheBlanksQuestion: React.FC<Props> = ({
     );
 };
 
-export default FillInTheBlanksQuestion;
+export default FillTextTaskComp;

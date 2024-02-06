@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
-import {Image} from 'react-bootstrap';
 
 interface Props {
     questionNumber: number;
     questionPrompt: string;
-    image_link: string;
+    essayTitle: string;
 }
 
-const EmailQuestion: React.FC<Props> = ({
+const EssayTaskComp: React.FC<Props> = ({
                                             questionNumber,
                                             questionPrompt,
-                                            image_link
+                                            essayTitle
                                         }) => {
     const [answer, setAnswer] = useState<string>('');
 
@@ -22,18 +21,16 @@ const EmailQuestion: React.FC<Props> = ({
     return (
         <div className={'pt-3 pb-3'}>
             <h3>Task {questionNumber}: {questionPrompt}</h3>
-            <div className="image-parent p-2">
-                {/* Use require to dynamically import the image */}
-                <Image src={require(`../images/2021-var1.png`)} alt={"Question Image"}
-                       className="centered-image"/>
-            </div>
+
+            <b><h4>{essayTitle}</h4></b>
             <div className={"m-2"}>
+
                 <textarea
                     id="email"
                     name="email"
                     value={answer}
                     onChange={handleAnswerChange}
-                    rows={4}
+                    rows={10}
                     style={{
                         width: '80%',
                         marginLeft: '10%',
@@ -42,11 +39,11 @@ const EmailQuestion: React.FC<Props> = ({
                         borderRadius: '4px',
                         border: '1px solid #ccc',
                     }}
-                    placeholder={'Write your email here...'}
+                    placeholder={'Write your essay here...'}
                 />
             </div>
         </div>
     );
 };
 
-export default EmailQuestion;
+export default EssayTaskComp;
