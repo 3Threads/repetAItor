@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Header} from "../components/Header";
-import {Container} from "react-bootstrap";
+import {Container, Dropdown} from "react-bootstrap";
 import FillTextTaskComp from "../components/FillTextTaskComp";
 import {
     EmailTask,
@@ -50,7 +50,7 @@ function TestPage() {
 
     const parseTasks = (responseData: any[]): Task[] => {
         return responseData.map((task: any) => {
-            let created_task = null;
+            let created_task;
             if (task.task_type === "listening") {
                 const questions = task.task.questions;
                 questions.map((question: any) => {
@@ -99,66 +99,87 @@ function TestPage() {
         <div>
             <Header/>
             <Container>
-                {tasks.map((task: Task) => {
-                    switch (task.task_type) {
-                        case 'fillText':
-                            const parsed_task = task.task as FillTextTask
-                            const question = parsed_task.question as FillTextQuest;
-                            return <FillTextTaskComp questionNumber={task.task_number}
-                                                     questionPrompt={task.task_title}
-                                                     questionText={question.text} splitter={"……"}
-                                                     options={question.options}/>
-                        case 'email':
-                            const email_task = task.task as EmailTask;
-                            const email_question = email_task.question as EmailQuest;
-                            return <EmailTaskComp questionNumber={task.task_number} questionPrompt={task.task_title}
-                                                  image_link={email_question.img_link}/>
-                        case 'essay':
-                            const essay_task = task.task as EssayTask;
-                            const essay_question = essay_task.question as EssayQuest;
-                            return <EssayTaskComp questionNumber={task.task_number} questionPrompt={task.task_title}
-                                                  essayTitle={essay_question.title}/>
-                        case 'fillWithArticles':
-                            const fill_with_articles_task = task.task as FillWithArticlesTask;
-                            const fill_with_articles_question = fill_with_articles_task.question as FillWithArticlesQuest;
-                            return <FillTextTaskComp questionNumber={task.task_number}
-                                                     questionPrompt={task.task_title}
-                                                     questionText={fill_with_articles_question.text}
-                                                     splitter={"….."}
-                                                     options={[]}/>
+                <form>
+                    <ul>
+                        {tasks.map((task: Task, index: number) => {
+                            return <li key={index}>
+                                <details>
+                                    <summary>
+                                        <div
+                                            className={'btn btn-outline-warning full-width mb-2 mt-2'}
+                                            style={{textAlign: 'left', fontSize: " 20px"}}>Task {task.task_number} {task.task_title}</div>
+                                    </summary>
+                                    {(() => {
+                                        switch (task.task_type) {
+                                            case 'fillText':
+                                                const parsed_task = task.task as FillTextTask;
+                                                const question = parsed_task.question as FillTextQuest;
+                                                return (
+                                                    <FillTextTaskComp
+                                                        questionNumber={task.task_number}
+                                                        questionPrompt={task.task_title}
+                                                        questionText={question.text}
+                                                        splitter={"……"}
+                                                        options={question.options}
+                                                    />
+                                                );
+                                            case 'email':
+                                                const email_task = task.task as EmailTask;
+                                                const email_question = email_task.question as EmailQuest;
+                                                return <EmailTaskComp questionNumber={task.task_number}
+                                                                      questionPrompt={task.task_title}
+                                                                      image_link={email_question.img_link}/>
+                                            case 'essay':
+                                                const essay_task = task.task as EssayTask;
+                                                const essay_question = essay_task.question as EssayQuest;
+                                                return <EssayTaskComp questionNumber={task.task_number}
+                                                                      questionPrompt={task.task_title}
+                                                                      essayTitle={essay_question.title}/>
+                                            case 'fillWithArticles':
+                                                const fill_with_articles_task = task.task as FillWithArticlesTask;
+                                                const fill_with_articles_question = fill_with_articles_task.question as FillWithArticlesQuest;
+                                                return <FillTextTaskComp questionNumber={task.task_number}
+                                                                         questionPrompt={task.task_title}
+                                                                         questionText={fill_with_articles_question.text}
+                                                                         splitter={"….."}
+                                                                         options={[]}/>
 
-                        case 'readAndWrite':
-                            const read_and_write_task = task.task as ReadAndWriteTask;
-                            const read_and_write_question = read_and_write_task.questions as MultipleChoiceQuest[];
-                            return <MultipleQuestionTaskComp questionNumber={task.task_number}
-                                                             question={task.task_title} text={read_and_write_task.text}
-                                                             questions={read_and_write_question}/>
+                                            case 'readAndWrite':
+                                                const read_and_write_task = task.task as ReadAndWriteTask;
+                                                const read_and_write_question = read_and_write_task.questions as MultipleChoiceQuest[];
+                                                return <MultipleQuestionTaskComp questionNumber={task.task_number}
+                                                                                 question={task.task_title}
+                                                                                 text={read_and_write_task.text}
+                                                                                 questions={read_and_write_question}/>
 
-                        case 'listening':
-                            const listening_task = task.task as ListeningTask;
-                            const listening_question = listening_task.questions as MultipleChoiceQuest[];
-                            return <MultipleQuestionTaskComp questionNumber={task.task_number}
-                                                             question={task.task_title} text={""}
-                                                             questions={listening_question}/>
+                                            case 'listening':
+                                                const listening_task = task.task as ListeningTask;
+                                                const listening_question = listening_task.questions as MultipleChoiceQuest[];
+                                                return <MultipleQuestionTaskComp questionNumber={task.task_number}
+                                                                                 question={task.task_title} text={""}
+                                                                                 questions={listening_question}/>
 
-                        case 'titling':
-                            const titling_task = task.task as TitlingTask;
-                            const titling_question = titling_task.question as TitlingQuest;
-                            return <TitlingTaskComp questionNumber={task.task_number} question={task.task_title}
-                                                    titles={titling_question.titles}
-                                                    paragraphs={titling_question.paragraphs}/>
-                    }
-
-
-                    return <div>Task {task.task_number}: {task.task_title}</div>
-
-                })}
-
-
+                                            case 'titling':
+                                                const titling_task = task.task as TitlingTask;
+                                                const titling_question = titling_task.question as TitlingQuest;
+                                                return <TitlingTaskComp questionNumber={task.task_number}
+                                                                        question={task.task_title}
+                                                                        titles={titling_question.titles}
+                                                                        paragraphs={titling_question.paragraphs}/>
+                                            default:
+                                                return <div>Task {task.task_number}: {task.task_title}</div>;
+                                        }
+                                    })()}
+                                </details>
+                            </li>
+                        })}
+                    </ul>
+                    <button type={"submit"} className={'btn btn-warning mt-2 m-5'}>Complete</button>
+                </form>
             </Container>
         </div>
-    )
-        ;
+    );
+
 }
 
 export default TestPage;

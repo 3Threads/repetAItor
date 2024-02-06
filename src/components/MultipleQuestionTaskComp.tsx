@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import MultipleChoiceQuestion from "./MultipleChoiceQuestion";
 import {MultipleChoiceQuest} from "../interfaces/questions";
 

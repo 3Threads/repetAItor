@@ -26,8 +26,8 @@ const EssayTaskComp: React.FC<Props> = ({
             <div className={"m-2"}>
 
                 <textarea
-                    id="email"
-                    name="email"
+                    id={'task' + questionNumber}
+                    name={'task' + questionNumber}
                     value={answer}
                     onChange={handleAnswerChange}
                     rows={10}

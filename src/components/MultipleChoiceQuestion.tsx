@@ -12,9 +12,7 @@ const MultipleChoiceQuestion: React.FC<Props> = ({question, choices, questionNum
     const handleChoiceSelect = (choice: string) => {
         setSelectedChoice(choice);
     };
-    //
-    // console.log(choices);
-    // console.log(question);
+
 
     return (
         <div className={'pt-3 pb-3'}>

@@ -30,7 +30,10 @@ const TitlingTaskComp: React.FC<Props> = ({question, questionNumber, paragraphs,
             <ul>
                 {paragraphs.map((paragraph, index) => (
                     <li key={index + 2}>
-                        <p>{paragraph}<input type="text" value={answers[index]} className={'m-1'}
+                        <p>{paragraph}<input id={'task' + questionNumber}
+                                             name={'task' + questionNumber}
+                                             type="text" value={answers[index]}
+                                             className={'m-1'}
                                              onChange={(e) => handleAnswerChange(index, e.target.value)}/></p>
                     </li>
                 ))}
