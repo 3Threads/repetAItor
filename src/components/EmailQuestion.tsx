@@ -4,15 +4,13 @@ import {Image} from 'react-bootstrap';
 interface Props {
     questionNumber: number;
     questionPrompt: string;
-    year: number;
-    variant: number;
+    image_link: string;
 }
 
 const EmailQuestion: React.FC<Props> = ({
                                             questionNumber,
                                             questionPrompt,
-                                            year,
-                                            variant
+                                            image_link
                                         }) => {
     const [answer, setAnswer] = useState<string>('');
 
@@ -26,7 +24,7 @@ const EmailQuestion: React.FC<Props> = ({
             <h3>Task {questionNumber}: {questionPrompt}</h3>
             <div className="image-parent p-2">
                 {/* Use require to dynamically import the image */}
-                <Image src={require(`../images/${year}-var${variant}.png`)} alt={`Image ${year} - variant ${variant}`}
+                <Image src={require(`../images/2021-var1.png`)} alt={"Question Image"}
                        className="centered-image"/>
             </div>
             <div className={"m-2"}>
