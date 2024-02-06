@@ -40,6 +40,7 @@ export const Header: React.FC = () => {
                                         მათემატიკა
                                     </Tabs.Tab>
                                 </a>
+
                                 <a href={"/tests/history"} style={{ textDecoration: 'none', color: subject === "history" ? '#f08c00' : 'white' }}>
                                     <Tabs.Tab value="history">
                                         ისტორია
