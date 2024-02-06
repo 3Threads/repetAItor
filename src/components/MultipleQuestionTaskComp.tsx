@@ -20,9 +20,16 @@ const MultipleQuestionTaskComp: React.FC<Props> = ({question, questions, questio
                     <li key={index}>
                         <MultipleChoiceQuestion question={quest.question} choices={quest.options}
                                                 questionNumber={index + 1}/>
+                        <input id={'task' + questionNumber}
+                               name={'task' + questionNumber}
+                               type="text"
+                               className={'m-1'}
+                        />
                     </li>
+
                 ))}
             </ul>
+
         </div>
     );
 };
