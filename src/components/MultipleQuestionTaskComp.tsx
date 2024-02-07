@@ -1,12 +1,12 @@
 import React from 'react';
-import MultipleChoiceQuestion from "./MultipleChoiceQuestion";
-import {MultipleChoiceQuest} from "../interfaces/questions";
+import MultipleChoiceQuestionComp from "./MultipleChoiceQuestionComp";
+import {MultipleChoiceQuestion} from "../interfaces/questions";
 
 interface Props {
     questionNumber: number;
     question: string;
     text: string;
-    questions: MultipleChoiceQuest[]
+    questions: MultipleChoiceQuestion[]
 }
 
 
@@ -18,8 +18,8 @@ const MultipleQuestionTaskComp: React.FC<Props> = ({question, questions, questio
             <ul>
                 {questions.map((quest, index) => (
                     <li key={index}>
-                        <MultipleChoiceQuestion question={quest.question} choices={quest.options}
-                                                questionNumber={index + 1}/>
+                        <MultipleChoiceQuestionComp question={quest.question} choices={quest.options}
+                                                    questionNumber={index + 1}/>
                         <input id={'task' + questionNumber}
                                name={'task' + questionNumber}
                                type="text"

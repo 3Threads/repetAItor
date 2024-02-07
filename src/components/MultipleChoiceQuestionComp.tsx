@@ -6,7 +6,7 @@ interface Props {
     choices: string[];
 }
 
-const MultipleChoiceQuestion: React.FC<Props> = ({question, choices, questionNumber}) => {
+const MultipleChoiceQuestionComp: React.FC<Props> = ({question, choices, questionNumber}) => {
 
     return (
         <div className={'pt-3 pb-3'}>
@@ -24,4 +24,4 @@ const MultipleChoiceQuestion: React.FC<Props> = ({question, choices, questionNum
     );
 };
 
-export default MultipleChoiceQuestion;
+export default MultipleChoiceQuestionComp;
