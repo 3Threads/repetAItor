@@ -1,103 +1,71 @@
-import {QuestionType} from './questions';
+// Define TaskType interface
+import {QuestionType} from "./questions";
 
-interface TaskType {
+export interface TaskType {
+    questions: QuestionType[];
+
     getQuestions(): QuestionType[];
-
-    getQuestion(): QuestionType;
 }
 
-export class ListeningTask implements TaskType {
+// Define TaskType class
+abstract class TaskTypeImpl implements TaskType {
     constructor(public questions: QuestionType[]) {
-
     }
 
+    // Implement getQuestions method
     getQuestions(): QuestionType[] {
         return this.questions;
     }
+}
 
-    getQuestion(): QuestionType {
-        return this.questions[0];
+// Define ListeningTask class
+export class ListeningTask extends TaskTypeImpl {
+}
+
+// Define TitlingTask class
+export class TitlingTask extends TaskTypeImpl {
+
+    constructor(questions: QuestionType[], public titles: string[]) {
+        super(questions);
     }
 }
 
-export class TitlingTask implements TaskType {
-    constructor(public question: QuestionType) {
-    }
-
-    getQuestion(): QuestionType {
-        return this.question;
-    }
-
-    getQuestions(): QuestionType[] {
-        return [];
+// Define ReadAndWriteTask class
+export class ReadAndWriteTask extends TaskTypeImpl {
+    constructor(questions: QuestionType[], public text: string) {
+        super(questions);
     }
 }
 
-export class ReadAndWriteTask implements TaskType {
-    constructor(public text: string, public questions: QuestionType[]) {
-    }
-
-    getQuestions(): QuestionType[] {
-        return this.questions;
-    }
-
-    getQuestion(): QuestionType {
-        return this.questions[0];
+// Define FillTextTask class
+export class FillTextTask extends TaskTypeImpl {
+    constructor(questions: QuestionType[], public text: string, public options: string[]) {
+        super(questions);
     }
 }
 
-export class FillTextTask implements TaskType {
-    constructor(public question: QuestionType) {
-    }
-
-    getQuestions(): QuestionType[] {
-        return [this.question];
-    }
-
-    getQuestion(): QuestionType {
-        return this.question;
+// Define FillWithArticlesTask class
+export class FillWithArticlesTask extends TaskTypeImpl {
+    constructor(questions: QuestionType[], public text: string) {
+        super(questions);
     }
 }
 
-export class FillWithArticlesTask implements TaskType {
-    constructor(public question: QuestionType) {
-    }
-
-    getQuestions(): QuestionType[] {
-        return [this.question];
-    }
-
-    getQuestion(): QuestionType {
-        return this.question;
+// Define EmailTask class
+export class EmailTask extends TaskTypeImpl {
+    constructor(questions: QuestionType[], public imgLink: string) {
+        super(questions);
     }
 }
 
-export class EmailTask implements TaskType {
-    constructor(public question: QuestionType) {
-    }
-
-    getQuestions(): QuestionType[] {
-        return [this.question];
-    }
-
-    getQuestion(): QuestionType {
-        return this.question;
+// Define EssayTask class
+export class EssayTask extends TaskTypeImpl {
+    constructor(questions: QuestionType[], public title: string) {
+        super(questions);
     }
 }
 
-export class EssayTask implements TaskType {
-    constructor(public question: QuestionType) {
-    }
-
-    getQuestions(): QuestionType[] {
-        return [this.question];
-    }
-
-    getQuestion(): QuestionType {
-        return this.question;
-    }
-}
-
+// Define Task interface
 export class Task {
     constructor(
         public task_number: number,

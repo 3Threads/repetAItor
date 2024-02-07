@@ -1,49 +1,47 @@
 export interface QuestionType {
 }
 
-export class MultipleChoiceQuest implements QuestionType {
+
+export class MultipleChoiceQuestion implements QuestionType {
     constructor(
         public question: string,
         public options: string[],
-        public correct_option: string
+        public correctOption: string
     ) {
     }
+
 }
 
-export class TitlingQuest implements QuestionType {
+// Define the TitlingQuestion export class
+export class TitlingQuestion implements QuestionType {
     constructor(
-        public titles: string[],
-        public paragraphs: string[],
-        public correct_titles: { [key: number]: string[] }
+        public paragraph: string,
+        public correctTitles: string[]
     ) {
     }
+
 }
 
-export class FillTextQuest implements QuestionType {
-    constructor(
-        public text: string,
-        public options: string[],
-        public correct_answers: string[]
-    ) {
+// Define the FillTextQuestion export class
+export class FillTextQuestion implements QuestionType {
+    constructor(public correctAnswer: string) {
     }
+
 }
 
-export class FillWithArticlesQuest implements QuestionType {
-    constructor(
-        public text: string,
-        public correct_answers: string[][]
-    ) {
+// Define the FillWithArticlesQuestion export class
+export class FillWithArticlesQuestion implements QuestionType {
+    constructor(public correctAnswers: string[]) {
     }
+
 }
 
-export class EmailQuest implements QuestionType {
-    constructor(public img_link: string) {
-    }
+// Define the EmailQuestion export class
+export class EmailQuestion implements QuestionType {
+
 }
 
-export class EssayQuest implements QuestionType {
-    constructor(public title: string) {
-    }
-}
+// Define the EssayQuestion export class
+export class EssayQuestion implements QuestionType {
 
-export type Question = MultipleChoiceQuest | TitlingQuest | FillTextQuest | FillWithArticlesQuest | EmailQuest | EssayQuest;
+}

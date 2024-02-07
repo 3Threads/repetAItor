@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Header} from "../components/Header";
-import {Container, Dropdown} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import FillTextTaskComp from "../components/FillTextTaskComp";
 import {
     EmailTask,
@@ -12,22 +12,27 @@ import {
     Task,
     TitlingTask
 } from "../interfaces/tasks";
-import {
-    EmailQuest,
-    EssayQuest,
-    FillTextQuest,
-    FillWithArticlesQuest,
-    MultipleChoiceQuest,
-    TitlingQuest
-} from "../interfaces/questions";
 import EmailTaskComp from "../components/EmailTaskComp";
 import EssayTaskComp from "../components/EssayTaskComp";
 import MultipleQuestionTaskComp from "../components/MultipleQuestionTaskComp";
 import TitlingTaskComp from "../components/TitlingTaskComp";
+import {useParams} from "react-router-dom";
+import {
+    EmailQuestion,
+    EssayQuestion,
+    FillTextQuestion,
+    FillWithArticlesQuestion,
+    MultipleChoiceQuestion,
+    TitlingQuestion
+} from "../interfaces/questions";
 
 
 function TestPage() {
+    const {subject} = useParams();
+    const {year} = useParams();
+    const {variant} = useParams();
     const [tasks, setTasks] = useState<Task[]>([]);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,7 +44,6 @@ function TestPage() {
                 const data = await response.json();
                 const parsedTasks: Task[] = parseTasks(data); // Function to parse the response into Task instances
                 setTasks(parsedTasks);
-                // console.log(parsedTasks);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -51,55 +55,78 @@ function TestPage() {
     const parseTasks = (responseData: any[]): Task[] => {
         return responseData.map((task: any) => {
             let created_task;
+            console.log(task.task_type);
             if (task.task_type === "listening") {
-                const questions = task.task.questions;
-                questions.map((question: any) => {
-                    return new MultipleChoiceQuest(question.question, question.options, question.correct_option);
-                });
+                const curr_task = task.task as ListeningTask;
+                const questions = curr_task.questions as MultipleChoiceQuestion[];
+
                 created_task = new ListeningTask(questions);
             } else if (task.task_type === "titling") {
-                const questions = task.task.question;
-                const question = new TitlingQuest(questions.titles, questions.paragraphs, questions.correct_paragraphs);
+                const curr_task = task.task as TitlingTask;
+                const questions = curr_task.questions as TitlingQuestion[];
 
-                created_task = new TitlingTask(question);
-            } else if (task.task_type === "readAndWrite") {
-                const questions = task.task.questions;
-                questions.map((question: any) => {
-                    return new MultipleChoiceQuest(question.question, question.options, question.correct_option);
-                });
-                created_task = new ReadAndWriteTask(task.task.text, questions);
-            } else if (task.task_type === "fillText") {
-                const questions = task.task.question;
-                const question = new FillTextQuest(questions.text, questions.options, questions.correct_answers);
+                created_task = new TitlingTask(questions, curr_task.titles);
+            } else if (task.task_type === "reading") {
+                const curr_task = task.task as ReadAndWriteTask;
+                const questions = curr_task.questions as MultipleChoiceQuestion[];
 
-                created_task = new FillTextTask(question);
-            } else if (task.task_type === "fillWithArticles") {
-                const questions = task.task.question;
-                const question = new FillWithArticlesQuest(questions.text, questions.correct_answers);
+                created_task = new ReadAndWriteTask(questions, curr_task.text);
+            } else if (task.task_type === "filling") {
+                const curr_task = task.task as FillTextTask;
+                const questions = curr_task.questions as FillTextQuestion[];
 
-                created_task = new FillWithArticlesTask(question);
+                created_task = new FillTextTask(questions, curr_task.text, curr_task.options);
+            } else if (task.task_type === "articles") {
+                const curr_task = task.task as FillWithArticlesTask;
+                const questions = curr_task.questions as FillWithArticlesQuestion[];
+
+                created_task = new FillWithArticlesTask(questions, curr_task.text);
             } else if (task.task_type === "email") {
-                const questions = task.task.question;
-                const question = new EmailQuest(questions.img_link);
+                const curr_task = task.task as EmailTask;
+                const questions = curr_task.questions as EmailQuestion[];
 
-                created_task = new EmailTask(question);
+                created_task = new EmailTask(questions, curr_task.imgLink);
             } else if (task.task_type === "essay") {
-                const questions = task.task.question;
-                const question = new EssayQuest(questions.title);
+                const curr_task = task.task as EssayTask;
+                const questions = curr_task.questions as EssayQuestion[];
 
-                created_task = new EssayTask(question);
+                created_task = new EssayTask(questions, curr_task.title);
             } else {
+                console.log("aqaaa")
+                console.log(task.task_type);
                 created_task = task.task;
             }
             return new Task(task.task_number, task.task_title, task.point, task.task_type, created_task);
         })
     };
 
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        try {
+            const response = await fetch('http://localhost:8000/tasks', {
+                method: 'POST',
+                body: formData,
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Handle successful response
+            const data = await response.json();
+            console.log(data)
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+    };
+
     return (
         <div>
             <Header/>
             <Container>
-                <form>
+                <form onSubmit={handleSubmit}>
+                    <input type={"hidden"} value={subject} name={"subject"}/>
+                    <input type={"hidden"} value={year} name={"year"}/>
+                    <input type={"hidden"} value={variant} name={"variant"}/>
                     <ul>
                         {tasks.map((task: Task, index: number) => {
                             return <li key={index}>
@@ -107,65 +134,69 @@ function TestPage() {
                                     <summary>
                                         <div
                                             className={'btn btn-outline-warning full-width mb-2 mt-2'}
-                                            style={{textAlign: 'left', fontSize: " 20px"}}>Task {task.task_number} {task.task_title}</div>
+                                            style={{
+                                                textAlign: 'left',
+                                                fontSize: " 20px"
+                                            }}>Task {task.task_number} {task.task_title}</div>
                                     </summary>
                                     {(() => {
                                         switch (task.task_type) {
-                                            case 'fillText':
+                                            case 'filling':
                                                 const parsed_task = task.task as FillTextTask;
-                                                const question = parsed_task.question as FillTextQuest;
+                                                // const questions = parsed_task.getQuestions() as FillTextQuestion[];
                                                 return (
                                                     <FillTextTaskComp
                                                         questionNumber={task.task_number}
                                                         questionPrompt={task.task_title}
-                                                        questionText={question.text}
+                                                        questionText={parsed_task.text}
                                                         splitter={"……"}
-                                                        options={question.options}
+                                                        options={parsed_task.options}
                                                     />
                                                 );
                                             case 'email':
                                                 const email_task = task.task as EmailTask;
-                                                const email_question = email_task.question as EmailQuest;
+                                                // const email_question = email_task.getQuestions()[0] as EmailQuestion;
                                                 return <EmailTaskComp questionNumber={task.task_number}
                                                                       questionPrompt={task.task_title}
-                                                                      image_link={email_question.img_link}/>
+                                                                      image_link={email_task.imgLink}/>
                                             case 'essay':
                                                 const essay_task = task.task as EssayTask;
-                                                const essay_question = essay_task.question as EssayQuest;
+                                                // const essay_question = essay_task.getQuestions()[0] as EssayQuestion;
                                                 return <EssayTaskComp questionNumber={task.task_number}
                                                                       questionPrompt={task.task_title}
-                                                                      essayTitle={essay_question.title}/>
-                                            case 'fillWithArticles':
+                                                                      essayTitle={essay_task.title}/>
+                                            case 'articles':
                                                 const fill_with_articles_task = task.task as FillWithArticlesTask;
-                                                const fill_with_articles_question = fill_with_articles_task.question as FillWithArticlesQuest;
+                                                // const fill_with_articles_question = fill_with_articles_task.getQuestions()[0] as FillWithArticlesQuestion;
                                                 return <FillTextTaskComp questionNumber={task.task_number}
                                                                          questionPrompt={task.task_title}
-                                                                         questionText={fill_with_articles_question.text}
+                                                                         questionText={fill_with_articles_task.text}
                                                                          splitter={"….."}
                                                                          options={[]}/>
 
-                                            case 'readAndWrite':
+                                            case 'reading':
                                                 const read_and_write_task = task.task as ReadAndWriteTask;
-                                                const read_and_write_question = read_and_write_task.questions as MultipleChoiceQuest[];
+                                                const read_and_write_questions = read_and_write_task.getQuestions() as MultipleChoiceQuestion[];
                                                 return <MultipleQuestionTaskComp questionNumber={task.task_number}
                                                                                  question={task.task_title}
                                                                                  text={read_and_write_task.text}
-                                                                                 questions={read_and_write_question}/>
+                                                                                 questions={read_and_write_questions}/>
 
                                             case 'listening':
                                                 const listening_task = task.task as ListeningTask;
-                                                const listening_question = listening_task.questions as MultipleChoiceQuest[];
+                                                const listening_questions = listening_task.getQuestions() as MultipleChoiceQuestion[];
                                                 return <MultipleQuestionTaskComp questionNumber={task.task_number}
                                                                                  question={task.task_title} text={""}
-                                                                                 questions={listening_question}/>
+                                                                                 questions={listening_questions}/>
 
                                             case 'titling':
                                                 const titling_task = task.task as TitlingTask;
-                                                const titling_question = titling_task.question as TitlingQuest;
+                                                const titling_questions = titling_task.getQuestions() as TitlingQuestion[];
+                                                const paragraphs = titling_questions.map((question: TitlingQuestion) => question.paragraph);
                                                 return <TitlingTaskComp questionNumber={task.task_number}
                                                                         question={task.task_title}
-                                                                        titles={titling_question.titles}
-                                                                        paragraphs={titling_question.paragraphs}/>
+                                                                        titles={titling_task.titles}
+                                                                        paragraphs={paragraphs}/>
                                             default:
                                                 return <div>Task {task.task_number}: {task.task_title}</div>;
                                         }
