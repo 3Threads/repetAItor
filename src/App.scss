@@ -1,0 +1,66 @@
+.App {
+  height: 100vh;
+  color: white;
+}
+
+.full-width {
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+summary {
+  list-style-type: none;
+}
+
+.image-parent {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.centered-image {
+  max-width: 100%; /* Ensure the image doesn't exceed its container */
+  max-height: 100%; /* Ensure the image doesn't exceed its container */
+}
+
+.custom-navbar {
+  height: 66px;
+  background-color: #292b2c; /* Dark background color */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* White border line */
+}
+
+.parent {
+  display: flex;
+  justify-content: flex-end;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+#List::before {
+  border-style: none !important;
+}
+
+$PROJECT_YELLOW: warning;
+
+.project-yellow {
+  color: $PROJECT_YELLOW;
+}
+
+.btn-outline-warning {
+  //background-color: #f08c00 !important;
+  border-color: $PROJECT_YELLOW !important;
+  color: $PROJECT_YELLOW !important;
+}
+
+.btn-outline-warning:hover {
+  background-color: $PROJECT_YELLOW !important;
+  color: black !important;
+}
