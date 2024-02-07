@@ -37,7 +37,7 @@ function TestPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/tasks/2021/1/');
+                const response = await fetch('http://localhost:8000/tasks/english/2021/1/');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
