@@ -57,7 +57,6 @@ function TestPage() {
     const parseTasks = (responseData: any[]): Task[] => {
         return responseData.map((task: any) => {
             let created_task;
-            console.log(task.task_type);
             if (task.task_type === "listening") {
                 const curr_task = task.task as ListeningTask;
                 const questions = curr_task.questions as MultipleChoiceQuestion[];
@@ -94,8 +93,7 @@ function TestPage() {
 
                 created_task = new EssayTask(questions, curr_task.title);
             } else {
-                console.log("aqaaa")
-                console.log(task.task_type);
+                console.log("Wrong task type");
                 created_task = task.task;
             }
             return new Task(task.task_number, task.task_title, task.point, task.task_type, created_task);
@@ -116,7 +114,6 @@ function TestPage() {
             }
             // Handle successful response
             const data = await response.json();
-            console.log(data)
             setTaskResults(data.points);
         } catch (error) {
             console.error('Error submitting form:', error);
