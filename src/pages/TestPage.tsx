@@ -32,6 +32,7 @@ function TestPage() {
     const {year} = useParams();
     const {variant} = useParams();
     const [tasks, setTasks] = useState<Task[]>([]);
+    const [taskResults, setTaskResults] = useState([]);
 
 
     useEffect(() => {
@@ -39,7 +40,8 @@ function TestPage() {
             try {
                 const response = await fetch('http://localhost:8000/tasks/english/2021/1/');
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    console.log('Network response was not ok');
+                    return;
                 }
                 const data = await response.json();
                 const parsedTasks: Task[] = parseTasks(data); // Function to parse the response into Task instances
@@ -109,11 +111,13 @@ function TestPage() {
                 body: formData,
             });
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                console.log('Network response was not ok');
+                return;
             }
             // Handle successful response
             const data = await response.json();
             console.log(data)
+            setTaskResults(data.points);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -143,7 +147,6 @@ function TestPage() {
                                         switch (task.task_type) {
                                             case 'filling':
                                                 const parsed_task = task.task as FillTextTask;
-                                                // const questions = parsed_task.getQuestions() as FillTextQuestion[];
                                                 return (
                                                     <FillTextTaskComp
                                                         questionNumber={task.task_number}
@@ -155,19 +158,16 @@ function TestPage() {
                                                 );
                                             case 'email':
                                                 const email_task = task.task as EmailTask;
-                                                // const email_question = email_task.getQuestions()[0] as EmailQuestion;
                                                 return <EmailTaskComp questionNumber={task.task_number}
                                                                       questionPrompt={task.task_title}
                                                                       image_link={email_task.imgLink}/>
                                             case 'essay':
                                                 const essay_task = task.task as EssayTask;
-                                                // const essay_question = essay_task.getQuestions()[0] as EssayQuestion;
                                                 return <EssayTaskComp questionNumber={task.task_number}
                                                                       questionPrompt={task.task_title}
                                                                       essayTitle={essay_task.title}/>
                                             case 'articles':
                                                 const fill_with_articles_task = task.task as FillWithArticlesTask;
-                                                // const fill_with_articles_question = fill_with_articles_task.getQuestions()[0] as FillWithArticlesQuestion;
                                                 return <FillTextTaskComp questionNumber={task.task_number}
                                                                          questionPrompt={task.task_title}
                                                                          questionText={fill_with_articles_task.text}
@@ -207,6 +207,31 @@ function TestPage() {
                     </ul>
                     <button type={"submit"} className={'btn btn-warning mt-2 m-5'}>Complete</button>
                 </form>
+                {taskResults.length !== 0 && <h1 className="mt-5">Final
+                    Result: {taskResults.reduce((accumulator, taskResult) => {
+                        return accumulator + parseInt(taskResult[0]);
+                    }, 0)}</h1>
+                }
+                <ul className="list-group mt-3">
+                    {taskResults.map((taskResult, index) => (
+                        <li key={index} className="list-group-item bg-dark text-white">
+                            <h5 className="mb-3">Task {index + 1} Results:</h5>
+                            <p><strong>Total Points:</strong> {taskResult[0]}</p>
+                            {Object.keys(taskResult[1]).length !== 1 &&
+                                <div className="mb-3">
+                                    <strong>Mistakes:</strong>
+                                    <ul className="list-group mt-2">
+                                        {Object.entries(taskResult[1]).map(([subtaskId, result], subindex) => (
+                                            <li key={subindex} className="list-group-item bg-dark text-white">
+                                                Subtask {(parseInt(subtaskId) + 1) + ": " + result}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            }
+                        </li>
+                    ))}
+                </ul>
             </Container>
         </div>
     );
