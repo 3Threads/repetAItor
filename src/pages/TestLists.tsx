@@ -11,31 +11,30 @@ export const TestLists = () => {
     return (
         <div>
             <Header/>
-            <Container>
+            <Container >
                 <Row>
-                    <Col lg={8}>
-                        <h2>{subject!.charAt(0).toUpperCase() + subject!.slice(1)} Tests</h2>
-                        <div className={'row'}>
+                    <Col xs={'1'}> </Col>
+                    <Col xs={'10'} >
+                        <h2 className={'mt-3'}>{subject!.charAt(0).toUpperCase() + subject!.slice(1)} Tests</h2>
+                        <div className={'row mt-4'}>
                             {years.map(year => (
-                                <Dropdown className={'col-4'}>
-                                    <Dropdown.Toggle variant={'outline-warning'} id="dropdown-basic"
-                                                     className={'btn btn-outline-warning full-width mb-2 mt-2'}>
+                                <Dropdown data-bs-theme="dark" className={'col-4'}>
+                                    <Dropdown.Toggle id="dropdown-basic"
+                                                     className={'btn btn-primary full-width mb-2 mt-2'}>
                                         {year}
                                     </Dropdown.Toggle>
-
-                                    <Dropdown.Menu className={'w-100 bg-dark'}>
+                                    <Dropdown.Menu className={'w-100'}>
                                         {[1, 2, 3, 4].map(num => (
-                                            <Dropdown.Item className={'text-warning bg-dark'}
-                                                href={`/tests/${subject}/${year}/var${num}`}>Variant {num}</Dropdown.Item>
+                                            <Dropdown.Item
+                                                           href={`/tests/${subject}/${year}/var${num}`}>Variant {num}</Dropdown.Item>
                                         ))}
                                     </Dropdown.Menu>
                                 </Dropdown>
+
                             ))}
                         </div>
                     </Col>
-                    <Col lg={4} className={'bg-warning'}>
-                        {/* Add content for the right column */}
-                    </Col>
+                    <Col xs={'1'}> </Col>
                 </Row>
             </Container>
         </div>

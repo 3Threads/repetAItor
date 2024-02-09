@@ -30,27 +30,27 @@ export const Header: React.FC = () => {
     };
 
     return (
-        <div className={"mb-4 custom-navbar parent"}
+        <div className={"custom-navbar"}
              style={{paddingBottom: '0', display: 'flex', justifyContent: 'space-between'}}>
             <Container style={{
                 alignItems: 'center',
                 display: 'flex',
-                justifyContent: !isSmallScreen && isLoaded && showButtons ? 'space-between' : 'space-between'
+                justifyContent: 'space-between'
             }}>
 
-                <h1 style={{border: '0', margin: 0}}>
+                <h2 style={{border: '0', margin: 0}}>
                     <a href={'/'}
                        style={{
                            textDecoration: 'none',
                            color: 'white'
                        }}>
-                        <span style={{color: 'orange'}}>A</span>biturient<span style={{color: 'orange'}}>I</span>
+                        <span style={{color: 'white'}}>A</span>biturient<span style={{color: 'white'}}>I</span>
                     </a>
-                </h1>
+                </h2>
 
                 {isSmallScreen ? (
                     <Dropdown data-bs-theme="dark">
-                        <Dropdown.Toggle id="dropdown-button-dark-example1" variant={'outline-warning'}>
+                        <Dropdown.Toggle id="dropdown-button-dark-example1" className={'btn-sign-in'}>
                             List
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -76,42 +76,42 @@ export const Header: React.FC = () => {
                     <>
                         {isLoaded && (
                             <Tabs style={{display: 'flex', justifyContent: 'center', width: '100%'}} value={subject}
-                                  color="#ffc107" radius="xs">
+                                  color="#8540f5" radius="xs">
                                 <Tabs.List id={'List'}
                                            style={{display: 'flex', justifyContent: 'center', borderStyle: 'none'}}>
                                     <a href={"/tests/georgian"}
                                        style={{
                                            textDecoration: 'none',
-                                           color: subject === "georgian" ? '#ffc107' : 'white'
+                                           color: subject === 'georgian' ? '#8540f5': 'white'
                                        }}>
-                                        <Tabs.Tab style={{height: '66px'}} value="georgian">
+                                        <Tabs.Tab style={{height: '72px'}} value="georgian">
                                             ქართული
                                         </Tabs.Tab>
                                     </a>
                                     <a href={"/tests/english"}
                                        style={{
                                            textDecoration: 'none',
-                                           color: subject === "english" ? '#ffc107' : 'white'
+                                           color: subject === 'english' ? '#8540f5': 'white'
                                        }}>
-                                        <Tabs.Tab value="english" style={{height: '66px'}}>
+                                        <Tabs.Tab value="english" style={{height: '72px'}}>
                                             ინგლისური
                                         </Tabs.Tab>
                                     </a>
                                     <a href={"/tests/math"}
                                        style={{
                                            textDecoration: 'none',
-                                           color: subject === "math" ? '#ffc107' : 'white'
+                                           color: subject === 'math' ? '#8540f5': 'white'
                                        }}>
-                                        <Tabs.Tab value="math" style={{height: '66px'}}>
+                                        <Tabs.Tab value="math" style={{height: '72px'}}>
                                             მათემატიკა
                                         </Tabs.Tab>
                                     </a>
                                     <a href={"/tests/history"}
                                        style={{
                                            textDecoration: 'none',
-                                           color: subject === "history" ? '#ffc107' : 'white'
+                                           color: subject === 'history' ? '#8540f5': 'white'
                                        }}>
-                                        <Tabs.Tab value="history" style={{height: '66px'}}>
+                                        <Tabs.Tab value="history" style={{height: '72px'}}>
                                             ისტორია
                                         </Tabs.Tab>
                                     </a>
@@ -123,8 +123,8 @@ export const Header: React.FC = () => {
                 {
                     (!isSmallScreen && isLoaded) && (
                         <div style={{display: 'flex'}}>
-                            <Button variant="outline-warning" className={'m-1'}>Sign&nbsp;in</Button>
-                            <Button variant="outline-warning" className={'m-1'}>Contact&nbsp;Us</Button>
+                            <Button className={'btn-sign-in m-1'}>შესვლა</Button>
+                            <Button className={'btn-contact m-1'}>დაგვიკავშირდი</Button>
                         </div>
                     )
                 }
