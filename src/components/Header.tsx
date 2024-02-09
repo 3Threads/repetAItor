@@ -2,12 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {Button, Container, Dropdown} from 'react-bootstrap';
 import {Tabs} from "@mantine/core";
 import {useParams} from "react-router-dom";
+import LoginModal from "./LoginModal";
 
 export const Header: React.FC = () => {
     const {subject} = useParams();
     const [showButtons, setShowButtons] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         document.documentElement.setAttribute('data-mantine-color-scheme', 'dark');
@@ -67,8 +73,8 @@ export const Header: React.FC = () => {
                                 ისტორია
                             </Dropdown.Item>
                             <Dropdown.Divider/>
-                            <Dropdown.Item href="#/action-1">Sign In</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Contact Us</Dropdown.Item>
+                            <Dropdown.Item onClick={handleShow}>შესვლა</Dropdown.Item>
+                            <Dropdown.Item href="#/action-2">დაგვიკავშირდი</Dropdown.Item>
 
                         </Dropdown.Menu>
                     </Dropdown>
@@ -82,7 +88,7 @@ export const Header: React.FC = () => {
                                     <a href={"/tests/georgian"}
                                        style={{
                                            textDecoration: 'none',
-                                           color: subject === 'georgian' ? '#8540f5': 'white'
+                                           color: subject === 'georgian' ? '#8540f5' : 'white'
                                        }}>
                                         <Tabs.Tab style={{height: '72px'}} value="georgian">
                                             ქართული
@@ -91,7 +97,7 @@ export const Header: React.FC = () => {
                                     <a href={"/tests/english"}
                                        style={{
                                            textDecoration: 'none',
-                                           color: subject === 'english' ? '#8540f5': 'white'
+                                           color: subject === 'english' ? '#8540f5' : 'white'
                                        }}>
                                         <Tabs.Tab value="english" style={{height: '72px'}}>
                                             ინგლისური
@@ -100,7 +106,7 @@ export const Header: React.FC = () => {
                                     <a href={"/tests/math"}
                                        style={{
                                            textDecoration: 'none',
-                                           color: subject === 'math' ? '#8540f5': 'white'
+                                           color: subject === 'math' ? '#8540f5' : 'white'
                                        }}>
                                         <Tabs.Tab value="math" style={{height: '72px'}}>
                                             მათემატიკა
@@ -109,7 +115,7 @@ export const Header: React.FC = () => {
                                     <a href={"/tests/history"}
                                        style={{
                                            textDecoration: 'none',
-                                           color: subject === 'history' ? '#8540f5': 'white'
+                                           color: subject === 'history' ? '#8540f5' : 'white'
                                        }}>
                                         <Tabs.Tab value="history" style={{height: '72px'}}>
                                             ისტორია
@@ -123,11 +129,12 @@ export const Header: React.FC = () => {
                 {
                     (!isSmallScreen && isLoaded) && (
                         <div style={{display: 'flex'}}>
-                            <Button className={'btn-sign-in m-1'}>შესვლა</Button>
+                            <Button className={'btn-sign-in m-1'} onClick={handleShow}>შესვლა</Button>
                             <Button className={'btn-contact m-1'}>დაგვიკავშირდი</Button>
                         </div>
                     )
                 }
+                <LoginModal show={show} handleClose={handleClose}/>
             </Container>
         </div>
     );
