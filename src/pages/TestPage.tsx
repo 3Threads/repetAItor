@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Header} from "../components/Header";
-import {Container} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import FillTextTaskComp from "../components/FillTextTaskComp";
 import {
     EmailTask,
@@ -25,6 +25,9 @@ import {
     MultipleChoiceQuestion,
     TitlingQuestion
 } from "../interfaces/questions";
+
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCaretDown} from '@fortawesome/free-solid-svg-icons';
 
 
 function TestPage() {
@@ -134,11 +137,24 @@ function TestPage() {
                                 <details>
                                     <summary>
                                         <div
-                                            className={'btn btn-outline-warning full-width mb-2 mt-2'}
+                                            className={'btn btn-primary full-width mb-2 mt-2'}
                                             style={{
                                                 textAlign: 'left',
                                                 fontSize: " 20px"
-                                            }}>Task {task.task_number} {task.task_title}</div>
+                                            }}>
+                                            <Row>
+                                                <Col xs={10} ms={11}>
+                                                    Task {task.task_number} {task.task_title}
+                                                </Col>
+                                                <Col xs={2} ms={1} style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'flex-end'
+                                                }}>
+                                                    <FontAwesomeIcon icon={faCaretDown} beat size={"2xl"}/>
+                                                </Col>
+                                            </Row>
+                                        </div>
                                     </summary>
                                     {(() => {
                                         switch (task.task_type) {
@@ -202,7 +218,7 @@ function TestPage() {
                             </li>
                         })}
                     </ul>
-                    <button type={"submit"} className={'btn btn-warning mt-2 m-5'}>Complete</button>
+                    <button type={"submit"} className={'btn-sign-in mt-2 m-5'}>Complete</button>
                 </form>
                 {taskResults.length !== 0 && <h1 className="mt-5">Final
                     Result: {taskResults.reduce((accumulator, taskResult) => {

@@ -26,7 +26,7 @@ export const TestLists = () => {
                                     <Dropdown.Menu className={'w-100'}>
                                         {[1, 2, 3, 4].map(num => (
                                             <Dropdown.Item
-                                                           href={`/tests/${subject}/${year}/var${num}`}>Variant {num}</Dropdown.Item>
+                                                           href={`/tests/${subject}/${year}/${num}`}>ვარიანტი {num}</Dropdown.Item>
                                         ))}
                                     </Dropdown.Menu>
                                 </Dropdown>
