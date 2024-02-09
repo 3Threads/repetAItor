@@ -21,7 +21,6 @@ const EmailTaskComp: React.FC<Props> = ({
 
     return (
         <div className={'pt-3 pb-3'}>
-            <h3>Task {questionNumber}: {questionPrompt}</h3>
             <div className="image-parent p-2">
                 {/* Use require to dynamically import the image */}
                 <Image src={require(`../images/2021-var1.png`)} alt={"Question Image"}

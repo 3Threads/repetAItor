@@ -18,7 +18,6 @@ const TitlingTaskComp: React.FC<Props> = ({question, questionNumber, paragraphs,
     };
     return (
         <div className={'pt-3 pb-3'}>
-            <h3>Task {questionNumber}: {question}</h3>
             <h4>Which paragraph</h4>
             <ul>
                 {titles.map((title, index) => (

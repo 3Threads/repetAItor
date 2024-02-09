@@ -13,7 +13,6 @@ interface Props {
 const MultipleQuestionTaskComp: React.FC<Props> = ({question, questions, questionNumber, text}) => {
     return (
         <div className={'pt-3 pb-3'}>
-            <h3>Task {questionNumber}: {question}</h3>
             <h4>{text}</h4>
             <ul>
                 {questions.map((quest, index) => (

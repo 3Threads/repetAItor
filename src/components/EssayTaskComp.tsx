@@ -20,8 +20,6 @@ const EssayTaskComp: React.FC<Props> = ({
 
     return (
         <div className={'pt-3 pb-3'}>
-            <h3>Task {questionNumber}: {questionPrompt}</h3>
-
             <b><h4>{essayTitle}</h4></b>
             <div className={"m-2"}>
 

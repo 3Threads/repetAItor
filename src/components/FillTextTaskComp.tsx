@@ -26,7 +26,6 @@ const FillTextTaskComp: React.FC<Props> = ({
 
     return (
         <div className={'pt-3 pb-3'}>
-            <h3>Task {questionNumber}: {questionPrompt}</h3>
             <div className={'p-2'}>
                 {options.map((option, index) => (
                     <label className={'p-1'}>{String.fromCharCode(65 + index)}). {option}</label>
