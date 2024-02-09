@@ -3,14 +3,10 @@ import {Image} from 'react-bootstrap';
 
 interface Props {
     questionNumber: number;
-    questionPrompt: string;
-    image_link: string;
 }
 
 const EmailTaskComp: React.FC<Props> = ({
-                                            questionNumber,
-                                            questionPrompt,
-                                            image_link
+                                            questionNumber
                                         }) => {
     const [answer, setAnswer] = useState<string>('');
 

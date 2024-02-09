@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {HomePage} from "./pages/HomePage";
 import {TestLists} from "./pages/TestLists";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TestPage from "./pages/TestPage";
+import TasksPage from "./pages/TasksPage";
 
 function App() {
     return (
@@ -13,7 +13,7 @@ function App() {
                 <Routes>
                     <Route index element={<HomePage/>}/>
                     <Route path={'/tests/:subject'} element={<TestLists/>}/>
-                    <Route path={'/tests/:subject/:year/:variant'} element={<TestPage/>}/>
+                    <Route path={'/tests/:subject/:year/:variant'} element={<TasksPage/>}/>
                     <Route path={'*'} element={<h1>404 Not Found</h1>}/>
                 </Routes>
             </BrowserRouter>

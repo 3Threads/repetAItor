@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 
 interface Props {
     questionNumber: number;
-    questionPrompt: string;
     questionText: string;
     splitter: string;
     options: string[];
@@ -10,7 +9,6 @@ interface Props {
 
 const FillTextTaskComp: React.FC<Props> = ({
                                                questionNumber,
-                                               questionPrompt,
                                                questionText,
                                                splitter,
                                                options

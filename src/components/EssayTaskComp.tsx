@@ -2,13 +2,11 @@ import React, {useState} from 'react';
 
 interface Props {
     questionNumber: number;
-    questionPrompt: string;
     essayTitle: string;
 }
 
 const EssayTaskComp: React.FC<Props> = ({
                                             questionNumber,
-                                            questionPrompt,
                                             essayTitle
                                         }) => {
     const [answer, setAnswer] = useState<string>('');

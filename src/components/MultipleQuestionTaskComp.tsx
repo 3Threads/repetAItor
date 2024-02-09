@@ -4,15 +4,14 @@ import {MultipleChoiceQuestion} from "../interfaces/questions";
 
 interface Props {
     questionNumber: number;
-    question: string;
     text: string;
     questions: MultipleChoiceQuestion[]
 }
 
 
-const MultipleQuestionTaskComp: React.FC<Props> = ({question, questions, questionNumber, text}) => {
+const MultipleQuestionTaskComp: React.FC<Props> = ({questions, questionNumber, text}) => {
     return (
-        <div className={'pt-3 pb-3'}>
+        <div className={'px-3 pb-3'}>
             <h4>{text}</h4>
             <ul>
                 {questions.map((quest, index) => (

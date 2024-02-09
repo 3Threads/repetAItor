@@ -30,7 +30,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCaretDown} from '@fortawesome/free-solid-svg-icons';
 
 
-function TestPage() {
+function TasksPage() {
     const {subject} = useParams();
     const {year} = useParams();
     const {variant} = useParams();
@@ -163,26 +163,20 @@ function TestPage() {
                                                 return (
                                                     <FillTextTaskComp
                                                         questionNumber={task.task_number}
-                                                        questionPrompt={task.task_title}
                                                         questionText={parsed_task.text}
                                                         splitter={"……"}
                                                         options={parsed_task.options}
                                                     />
                                                 );
                                             case 'email':
-                                                const email_task = task.task as EmailTask;
-                                                return <EmailTaskComp questionNumber={task.task_number}
-                                                                      questionPrompt={task.task_title}
-                                                                      image_link={email_task.imgLink}/>
+                                                return <EmailTaskComp questionNumber={task.task_number}/>
                                             case 'essay':
                                                 const essay_task = task.task as EssayTask;
                                                 return <EssayTaskComp questionNumber={task.task_number}
-                                                                      questionPrompt={task.task_title}
                                                                       essayTitle={essay_task.title}/>
                                             case 'articles':
                                                 const fill_with_articles_task = task.task as FillWithArticlesTask;
                                                 return <FillTextTaskComp questionNumber={task.task_number}
-                                                                         questionPrompt={task.task_title}
                                                                          questionText={fill_with_articles_task.text}
                                                                          splitter={"….."}
                                                                          options={[]}/>
@@ -191,7 +185,6 @@ function TestPage() {
                                                 const read_and_write_task = task.task as ReadAndWriteTask;
                                                 const read_and_write_questions = read_and_write_task.getQuestions() as MultipleChoiceQuestion[];
                                                 return <MultipleQuestionTaskComp questionNumber={task.task_number}
-                                                                                 question={task.task_title}
                                                                                  text={read_and_write_task.text}
                                                                                  questions={read_and_write_questions}/>
 
@@ -199,7 +192,7 @@ function TestPage() {
                                                 const listening_task = task.task as ListeningTask;
                                                 const listening_questions = listening_task.getQuestions() as MultipleChoiceQuestion[];
                                                 return <MultipleQuestionTaskComp questionNumber={task.task_number}
-                                                                                 question={task.task_title} text={""}
+                                                                                 text={""}
                                                                                  questions={listening_questions}/>
 
                                             case 'titling':
@@ -251,4 +244,4 @@ function TestPage() {
 
 }
 
-export default TestPage;
+export default TasksPage;
