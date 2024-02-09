@@ -96,3 +96,15 @@ a {
   background-color: #2f2348 !important;
   color: white;
 }
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+::placeholder {
+  color: dimgray !important;
+}

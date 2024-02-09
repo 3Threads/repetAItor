@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {Form} from "react-bootstrap";
-import {Tabs} from "@mantine/core/lib";
+import {Tabs} from "@mantine/core";
 
 interface Props {
     show: boolean;
@@ -10,79 +10,95 @@ interface Props {
 }
 
 function LoginModal({show, handleClose}: Props) {
-    const [tabValue, setTabValue] = useState('login');
+    const [tabValue, setTabValue] = useState('signin'); // Default value is "signin"
+    const close = () => {
+        setTimeout(() => {
+            setTabValue('signin');
+        }, 1000);
+
+        handleClose();
+    }
+
+    const RegisterModalBody = (
+        <Form>
+            <Form.Group className="mb-3" controlId="registerForm.ControlInput1">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                    type="Username"
+                    placeholder="User1"
+                    style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
+                    autoFocus
+                />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
+                <Form.Label>Register Email address</Form.Label>
+                <Form.Control
+                    type="email"
+                    placeholder="name@example.com"
+                    style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
+                    autoFocus
+                />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
+                />
+            </Form.Group>
+        </Form>
+    );
+
+    const SignInModalBody = (
+        <Form>
+            {/* Sign In form fields */}
+            <Form.Group className="mb-3" controlId="signInForm.ControlInput1">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control
+                    type="email"
+                    placeholder="name@example.com"
+                    style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
+                    autoFocus
+                />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
+                />
+            </Form.Group>
+            {/* Add more fields if needed */}
+        </Form>
+    );
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose} centered>
-                <Modal.Header closeButton className={"modal-color"}>
+            <Modal show={show} onHide={close} centered>
+                <Modal.Header className={"modal-color"} style={{paddingTop: '0', paddingBottom: '0'}}>
                     <Tabs style={{display: 'flex', justifyContent: 'center', width: '100%'}} value={tabValue}
                           color="#8540f5" radius="xs">
                         <Tabs.List id={'List'}
                                    style={{display: 'flex', justifyContent: 'center', borderStyle: 'none'}}>
-                            <a href={"/tests/georgian"}
-                               style={{
-                                   textDecoration: 'none',
-                                   color: tabValue === 'georgian' ? '#8540f5' : 'white'
-                               }}>
-                                <Tabs.Tab style={{height: '72px'}} value="georgian">
-                                    ქართული
-                                </Tabs.Tab>
-                            </a>
-                            <a href={"/tests/english"}
-                               style={{
-                                   textDecoration: 'none',
-                                   color: subject === 'english' ? '#8540f5' : 'white'
-                               }}>
-                                <Tabs.Tab value="english" style={{height: '72px'}}>
-                                    ინგლისური
-                                </Tabs.Tab>
-                            </a>
-                            <a href={"/tests/math"}
-                               style={{
-                                   textDecoration: 'none',
-                                   color: subject === 'math' ? '#8540f5' : 'white'
-                               }}>
-                                <Tabs.Tab value="math" style={{height: '72px'}}>
-                                    მათემატიკა
-                                </Tabs.Tab>
-                            </a>
-                            <a href={"/tests/history"}
-                               style={{
-                                   textDecoration: 'none',
-                                   color: subject === 'history' ? '#8540f5' : 'white'
-                               }}>
-                                <Tabs.Tab value="history" style={{height: '72px'}}>
-                                    ისტორია
-                                </Tabs.Tab>
-                            </a>
+                            <Tabs.Tab style={{height: '60px'}} value="register" onClick={() => setTabValue('register')}>
+                                რეგისტრაცია
+                            </Tabs.Tab>
+                            <Tabs.Tab style={{height: '60px'}} value="signin" onClick={() => setTabValue('signin')}>
+                                ავტორიზაცია
+                            </Tabs.Tab>
                         </Tabs.List>
                     </Tabs>
                 </Modal.Header>
                 <Modal.Body className={"modal-color"}>
-                    <Form>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="name@example.com"
-                                autoFocus
-                            />
-                        </Form.Group>
-                        <Form.Group
-                            className="mb-3"
-                            controlId="exampleForm.ControlTextarea1"
-                        >
-                            <Form.Label>Example textarea</Form.Label>
-                            <Form.Control as="textarea" rows={3}/>
-                        </Form.Group>
-                    </Form>
+                    {tabValue === 'register' ? RegisterModalBody : SignInModalBody}
                 </Modal.Body>
                 <Modal.Footer className={"modal-color"}>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="primary" onClick={close}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="sign-in" style={{height: 'auto'}} onClick={close}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
