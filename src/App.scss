@@ -92,19 +92,49 @@ a {
   --_tab-hover-color: #2f2348;
 }
 
-.modal-color{
+.modal-color {
   background-color: #2f2348 !important;
   color: white;
 }
 
 .modal-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .modal-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 ::placeholder {
   color: dimgray !important;
+}
+
+
+.homepage-image {
+  width: 100%;
+  height: auto;
+}
+
+.image-overlay-container {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.overlay-content h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.overlay-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+
+.card {
+  background-color: #2f2348 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px !important;
+  color: white !important;
 }
