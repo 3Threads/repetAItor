@@ -1,10 +1,10 @@
 import React from 'react';
-import {Header} from "../components/Header";
+import {Header} from "../components/commonComponents/Header";
 import {Container} from "react-bootstrap";
-import WelcomeImage from "../components/WelcomeImage";
-import HowItWorks from "../components/HowItWorks";
-import {Services} from "../components/Services";
-import Footer from "../components/Footer";
+import WelcomeImage from "../components/homepageComponents/WelcomeImage";
+import HowItWorks from "../components/homepageComponents/HowItWorks";
+import {Services} from "../components/homepageComponents/Services";
+import Footer from "../components/commonComponents/Footer";
 
 export const HomePage = () => {
     return <>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Header} from "../components/Header";
+import {Header} from "../components/commonComponents/Header";
 import {useParams} from "react-router-dom";
 import {Col, Container, Dropdown, Row} from "react-bootstrap";
 

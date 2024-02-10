@@ -19,7 +19,7 @@ const EmailTaskComp: React.FC<Props> = ({
         <div className={'pt-3 px-3 pb-3'}>
             <div className="image-parent p-2">
                 {/* Use require to dynamically import the image */}
-                <Image src={require(`../images/2021-var1.png`)} alt={"Question Image"}
+                <Image src={require(`../../images/2021-var1.png`)} alt={"Question Image"}
                        className="centered-image"/>
             </div>
             <div className={"m-2"} style={{paddingTop: '20px'}}>

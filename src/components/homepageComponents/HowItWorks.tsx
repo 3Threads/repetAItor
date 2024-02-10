@@ -1,5 +1,5 @@
 import { Card, Col, Row } from "react-bootstrap";
-import aiphoto from "../images/aiphoto.jpg";
+import aiphoto from "../../images/aiphoto.jpg";
 import React from "react";
 
 export const HowItWorks = () => {

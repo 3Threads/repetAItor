@@ -1,6 +1,6 @@
 import React from 'react';
 import MultipleChoiceQuestionComp from "./MultipleChoiceQuestionComp";
-import {MultipleChoiceQuestion} from "../interfaces/questions";
+import {MultipleChoiceQuestion} from "../../interfaces/questions";
 
 interface Props {
     questionNumber: number;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Card, Col, Row} from "react-bootstrap";
-import aiphoto from "../images/aiphoto.jpg";
+import aiphoto from "../../images/aiphoto.jpg";
 
 interface Props {
     questionNumber: number;

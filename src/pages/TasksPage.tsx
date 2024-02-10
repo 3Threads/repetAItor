@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Header} from "../components/Header";
+import {Header} from "../components/commonComponents/Header";
 import {Col, Container, Row} from "react-bootstrap";
-import FillTextTaskComp from "../components/FillTextTaskComp";
+import FillTextTaskComp from "../components/taskComponents/FillTextTaskComp";
 import {
     EmailTask,
     EssayTask,
@@ -12,10 +12,10 @@ import {
     Task,
     TitlingTask
 } from "../interfaces/tasks";
-import EmailTaskComp from "../components/EmailTaskComp";
-import EssayTaskComp from "../components/EssayTaskComp";
-import MultipleQuestionTaskComp from "../components/MultipleQuestionTaskComp";
-import TitlingTaskComp from "../components/TitlingTaskComp";
+import EmailTaskComp from "../components/taskComponents/EmailTaskComp";
+import EssayTaskComp from "../components/taskComponents/EssayTaskComp";
+import MultipleQuestionTaskComp from "../components/taskComponents/MultipleQuestionTaskComp";
+import TitlingTaskComp from "../components/taskComponents/TitlingTaskComp";
 import {useParams} from "react-router-dom";
 import {
     EmailQuestion,

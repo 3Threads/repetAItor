@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
                         <h5 style={{fontWeight: 'bold'}}>Navigation</h5>
                         <ul className="list-unstyled">
                             <li><a className={'footer-a'}
-                                href="/">Home</a></li>
+                                href="/public">Home</a></li>
                             <li><a className={'footer-a'}
                                    href="/about">About Us</a></li>
                             <li><a className={'footer-a'}
