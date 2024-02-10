@@ -16,13 +16,13 @@ const EmailTaskComp: React.FC<Props> = ({
 
 
     return (
-        <div className={'pt-3 pb-3'}>
+        <div className={'pt-3 px-3 pb-3'}>
             <div className="image-parent p-2">
                 {/* Use require to dynamically import the image */}
                 <Image src={require(`../images/2021-var1.png`)} alt={"Question Image"}
                        className="centered-image"/>
             </div>
-            <div className={"m-2"}>
+            <div className={"m-2"} style={{paddingTop: '20px'}}>
                 <textarea
                     id={'task' + questionNumber}
                     name={'task' + questionNumber}
@@ -35,8 +35,9 @@ const EmailTaskComp: React.FC<Props> = ({
                         padding: '8px',
                         fontSize: '18px',
                         borderRadius: '4px',
-                        border: '1px solid #ccc',
+                        // border: '1px solid #ccc',
                     }}
+                    className = {'test-input'}
                     placeholder={'Write your email here...'}
                 />
             </div>

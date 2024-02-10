@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {Card, Col, Row} from "react-bootstrap";
+import aiphoto from "../images/aiphoto.jpg";
 
 interface Props {
     questionNumber: number;
@@ -23,12 +25,22 @@ const FillTextTaskComp: React.FC<Props> = ({
     };
 
     return (
-        <div className={'pt-3 pb-3'}>
-            <div className={'p-2'}>
+        <div className={'px-5 pt-3 pb-3'} style={{textAlign: 'justify'}}>
+            <Row className="justify-content-center">
                 {options.map((option, index) => (
-                    <label className={'p-1'}>{String.fromCharCode(65 + index)}). {option}</label>
+                    <Col xs={12} sm={6} lg={2} key={index}>
+                        <Card className="shadow mb-4">
+                            <Card.Body style={{padding: '0', paddingTop:'2px', paddingBottom: '2px'}}>
+                                <Card.Text className="text-center">
+                                    {String.fromCharCode(65 + index)}) {option}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 ))}
-            </div>
+            </Row>
+
+
             <p>{questionParts.map((questionPart, index) => {
                 if (index === questionParts.length - 1) {
                     return <span key={index}>{questionPart}</span>
@@ -36,7 +48,10 @@ const FillTextTaskComp: React.FC<Props> = ({
                     return <span key={index}>{questionPart} <input id={'task' + questionNumber}
                                                                    name={'task' + questionNumber}
                                                                    type="text"
-                                                                   value={answers[index]} className={'m-1'}
+                                                                   value={answers[index]}
+                                                                   className={'test-input m-1'}
+                                                                   style={{width: '50px'}}
+                                                                   placeholder={'Answer'}
                                                                    onChange={(e) => handleAnswerChange(index, e.target.value)}/> </span>
                 }
             })}</p>

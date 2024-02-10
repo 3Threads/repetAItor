@@ -11,7 +11,7 @@ interface Props {
 
 const MultipleQuestionTaskComp: React.FC<Props> = ({questions, questionNumber, text}) => {
     return (
-        <div className={'px-3 pb-3'}>
+        <div className={'px-3 pb-3 '}>
             <h4>{text}</h4>
             <ul>
                 {questions.map((quest, index) => (
@@ -21,7 +21,8 @@ const MultipleQuestionTaskComp: React.FC<Props> = ({questions, questionNumber, t
                         <input id={'task' + questionNumber}
                                name={'task' + questionNumber}
                                type="text"
-                               className={'m-1'}
+                               placeholder={'Answer'}
+                               className={'test-input m-1'}
                         />
                     </li>
 

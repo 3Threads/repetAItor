@@ -17,10 +17,9 @@ const EssayTaskComp: React.FC<Props> = ({
 
 
     return (
-        <div className={'pt-3 pb-3'}>
+        <div className={'pt-3 px-3 pb-3'}>
             <b><h4>{essayTitle}</h4></b>
-            <div className={"m-2"}>
-
+            <div className={"m-2"} style={{paddingTop: '20px'}}>
                 <textarea
                     id={'task' + questionNumber}
                     name={'task' + questionNumber}
@@ -33,8 +32,9 @@ const EssayTaskComp: React.FC<Props> = ({
                         padding: '8px',
                         fontSize: '18px',
                         borderRadius: '4px',
-                        border: '1px solid #ccc',
+                        // border: '1px solid #ccc',
                     }}
+                    className={'test-input'}
                     placeholder={'Write your essay here...'}
                 />
             </div>

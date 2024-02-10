@@ -17,7 +17,7 @@ const TitlingTaskComp: React.FC<Props> = ({question, questionNumber, paragraphs,
         setAnswers(newAnswers);
     };
     return (
-        <div className={'pt-3 pb-3'}>
+        <div className={'pt-3 pb-3 px-3'}>
             <h4>Which paragraph</h4>
             <ul>
                 {titles.map((title, index) => (
@@ -26,14 +26,16 @@ const TitlingTaskComp: React.FC<Props> = ({question, questionNumber, paragraphs,
                     </li>
                 ))}
             </ul>
-            <ul>
+            <ul style={{paddingTop: '14px'}}>
                 {paragraphs.map((paragraph, index) => (
                     <li key={index + 2}>
-                        <p>{paragraph}<input id={'task' + questionNumber}
-                                             name={'task' + questionNumber}
-                                             type="text" value={answers[index]}
-                                             className={'m-1'}
-                                             onChange={(e) => handleAnswerChange(index, e.target.value)}/></p>
+                        <p>{paragraph} - <input id={'task' + questionNumber}
+                                                name={'task' + questionNumber}
+                                                type="text"
+                                                value={answers[index]}
+                                                placeholder={'Answer'}
+                                                className={'test-input m-1'}
+                                                onChange={(e) => handleAnswerChange(index, e.target.value)}/></p>
                     </li>
                 ))}
             </ul>

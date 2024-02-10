@@ -36,6 +36,17 @@ summary {
   --bs-dropdown-link-hover-bg: #2f2348 !important;
 }
 
+.test-input {
+  background-color: #171122;
+  color: lightgray;
+  border-color: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.7rem;
+}
+
+.test-input:focus, select:focus, textarea:focus, button:focus {
+  outline: 1px solid #6d2bf2;
+}
+
 .custom-navbar {
   height: 74px;
   background-color: #171122; /* Dark background color */
@@ -56,6 +67,17 @@ summary {
 .btn-primary:hover {
   background-color: #8540f5 !important;
   border-color: #8540f5 !important;
+}
+
+.btn-task {
+  color: white !important;
+  border-color: #2f2348 !important;
+  background-color: transparent!important;
+}
+
+.btn-task:hover {
+  background-color: #2f2348 !important;
+  border-color: #2f2348 !important;
 }
 
 .btn-sign-in {
@@ -89,7 +111,7 @@ summary {
 }
 
 .footer-a:hover {
-  color:  #8540f5;
+  color: #8540f5;
 }
 
 #List::before {

@@ -9,7 +9,7 @@ interface Props {
 const MultipleChoiceQuestionComp: React.FC<Props> = ({question, choices, questionNumber}) => {
 
     return (
-        <div className={'pt-3 pb-3'}>
+        <div className={'pt-3 pb-1'}>
             {questionNumber}). {question}
             <ul>
                 {choices.map((choice, index) => (

@@ -127,117 +127,125 @@ function TasksPage() {
         <div>
             <Header/>
             <Container>
-                <form onSubmit={handleSubmit}>
-                    <input type={"hidden"} value={subject} name={"subject"}/>
-                    <input type={"hidden"} value={year} name={"year"}/>
-                    <input type={"hidden"} value={variant} name={"variant"}/>
-                    <ul>
-                        {tasks.map((task: Task, index: number) => {
-                            return <li key={index}>
-                                <details>
-                                    <summary>
-                                        <div
-                                            className={'btn btn-primary full-width mb-2 mt-2'}
-                                            style={{
-                                                textAlign: 'left',
-                                                fontSize: " 20px"
-                                            }}>
-                                            <Row>
-                                                <Col xs={10} ms={11}>
-                                                    Task {task.task_number} {task.task_title}
-                                                </Col>
-                                                <Col xs={2} ms={1} style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'flex-end'
-                                                }}>
-                                                    <FontAwesomeIcon icon={faCaretDown} beat size={"2xl"}/>
-                                                </Col>
-                                            </Row>
+                <Row>
+                    <Col xs={'1'}> </Col>
+                    <Col xs={'10'} style={{paddingLeft: '0', paddingTop:'20px'}}>
+                        <form onSubmit={handleSubmit}>
+                            <input type={"hidden"} value={subject} name={"subject"}/>
+                            <input type={"hidden"} value={year} name={"year"}/>
+                            <input type={"hidden"} value={variant} name={"variant"}/>
+                            <ul>
+                                {tasks.map((task: Task, index: number) => {
+                                    return <li key={index}>
+                                        <details>
+                                            <summary>
+                                                <div
+                                                    className={'btn btn-task full-width mb-2 mt-2'}
+                                                    style={{
+                                                        textAlign: 'left',
+                                                        fontSize: " 20px"
+                                                    }}>
+                                                    <Row>
+                                                        <Col>
+                                                            Task {task.task_number} {task.task_title}
+                                                        </Col>
+                                                        <Col xs={'auto'} ms={'auto'} style={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'flex-end'
+                                                        }}>
+                                                            <FontAwesomeIcon icon={faCaretDown} size={"xl"}/>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </summary>
+                                            {(() => {
+                                                switch (task.task_type) {
+                                                    case 'filling':
+                                                        const parsed_task = task.task as FillTextTask;
+                                                        return (
+                                                            <FillTextTaskComp
+                                                                questionNumber={task.task_number}
+                                                                questionText={parsed_task.text}
+                                                                splitter={"……"}
+                                                                options={parsed_task.options}
+                                                            />
+                                                        );
+                                                    case 'email':
+                                                        return <EmailTaskComp questionNumber={task.task_number}/>
+                                                    case 'essay':
+                                                        const essay_task = task.task as EssayTask;
+                                                        return <EssayTaskComp questionNumber={task.task_number}
+                                                                              essayTitle={essay_task.title}/>
+                                                    case 'articles':
+                                                        const fill_with_articles_task = task.task as FillWithArticlesTask;
+                                                        return <FillTextTaskComp questionNumber={task.task_number}
+                                                                                 questionText={fill_with_articles_task.text}
+                                                                                 splitter={"….."}
+                                                                                 options={[]}/>
+
+                                                    case 'reading':
+                                                        const read_and_write_task = task.task as ReadAndWriteTask;
+                                                        const read_and_write_questions = read_and_write_task.getQuestions() as MultipleChoiceQuestion[];
+                                                        return <MultipleQuestionTaskComp
+                                                            questionNumber={task.task_number}
+                                                            text={read_and_write_task.text}
+                                                            questions={read_and_write_questions}/>
+
+                                                    case 'listening':
+                                                        const listening_task = task.task as ListeningTask;
+                                                        const listening_questions = listening_task.getQuestions() as MultipleChoiceQuestion[];
+                                                        return <MultipleQuestionTaskComp
+                                                            questionNumber={task.task_number}
+                                                            text={""}
+                                                            questions={listening_questions}/>
+
+                                                    case 'titling':
+                                                        const titling_task = task.task as TitlingTask;
+                                                        const titling_questions = titling_task.getQuestions() as TitlingQuestion[];
+                                                        const paragraphs = titling_questions.map((question: TitlingQuestion) => question.paragraph);
+                                                        return <TitlingTaskComp questionNumber={task.task_number}
+                                                                                question={task.task_title}
+                                                                                titles={titling_task.titles}
+                                                                                paragraphs={paragraphs}/>
+                                                    default:
+                                                        return <div>Task {task.task_number}: {task.task_title}</div>;
+                                                }
+                                            })()}
+                                        </details>
+                                    </li>
+                                })}
+                            </ul>
+                            <button type={"submit"} className={'btn-sign-in mt-2 m-5'}>Complete</button>
+                        </form>
+                        {taskResults.length !== 0 && <h1 className="mt-5">Final
+                            Result: {taskResults.reduce((accumulator, taskResult) => {
+                                return accumulator + parseInt(taskResult[0]);
+                            }, 0)}</h1>
+                        }
+                        <ul className="list-group mt-3">
+                            {taskResults.map((taskResult, index) => (
+                                <li key={index} className="list-group-item bg-dark text-white">
+                                    <h5 className="mb-3">Task {index + 1} Results:</h5>
+                                    <p><strong>Total Points:</strong> {taskResult[0]}</p>
+                                    {Object.keys(taskResult[1]).length !== 1 &&
+                                        <div className="mb-3">
+                                            <strong>Mistakes:</strong>
+                                            <ul className="list-group mt-2">
+                                                {Object.entries(taskResult[1]).map(([subtaskId, result], subindex) => (
+                                                    <li key={subindex} className="list-group-item bg-dark text-white">
+                                                        Subtask {(parseInt(subtaskId) + 1) + ": " + result}
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
-                                    </summary>
-                                    {(() => {
-                                        switch (task.task_type) {
-                                            case 'filling':
-                                                const parsed_task = task.task as FillTextTask;
-                                                return (
-                                                    <FillTextTaskComp
-                                                        questionNumber={task.task_number}
-                                                        questionText={parsed_task.text}
-                                                        splitter={"……"}
-                                                        options={parsed_task.options}
-                                                    />
-                                                );
-                                            case 'email':
-                                                return <EmailTaskComp questionNumber={task.task_number}/>
-                                            case 'essay':
-                                                const essay_task = task.task as EssayTask;
-                                                return <EssayTaskComp questionNumber={task.task_number}
-                                                                      essayTitle={essay_task.title}/>
-                                            case 'articles':
-                                                const fill_with_articles_task = task.task as FillWithArticlesTask;
-                                                return <FillTextTaskComp questionNumber={task.task_number}
-                                                                         questionText={fill_with_articles_task.text}
-                                                                         splitter={"….."}
-                                                                         options={[]}/>
-
-                                            case 'reading':
-                                                const read_and_write_task = task.task as ReadAndWriteTask;
-                                                const read_and_write_questions = read_and_write_task.getQuestions() as MultipleChoiceQuestion[];
-                                                return <MultipleQuestionTaskComp questionNumber={task.task_number}
-                                                                                 text={read_and_write_task.text}
-                                                                                 questions={read_and_write_questions}/>
-
-                                            case 'listening':
-                                                const listening_task = task.task as ListeningTask;
-                                                const listening_questions = listening_task.getQuestions() as MultipleChoiceQuestion[];
-                                                return <MultipleQuestionTaskComp questionNumber={task.task_number}
-                                                                                 text={""}
-                                                                                 questions={listening_questions}/>
-
-                                            case 'titling':
-                                                const titling_task = task.task as TitlingTask;
-                                                const titling_questions = titling_task.getQuestions() as TitlingQuestion[];
-                                                const paragraphs = titling_questions.map((question: TitlingQuestion) => question.paragraph);
-                                                return <TitlingTaskComp questionNumber={task.task_number}
-                                                                        question={task.task_title}
-                                                                        titles={titling_task.titles}
-                                                                        paragraphs={paragraphs}/>
-                                            default:
-                                                return <div>Task {task.task_number}: {task.task_title}</div>;
-                                        }
-                                    })()}
-                                </details>
-                            </li>
-                        })}
-                    </ul>
-                    <button type={"submit"} className={'btn-sign-in mt-2 m-5'}>Complete</button>
-                </form>
-                {taskResults.length !== 0 && <h1 className="mt-5">Final
-                    Result: {taskResults.reduce((accumulator, taskResult) => {
-                        return accumulator + parseInt(taskResult[0]);
-                    }, 0)}</h1>
-                }
-                <ul className="list-group mt-3">
-                    {taskResults.map((taskResult, index) => (
-                        <li key={index} className="list-group-item bg-dark text-white">
-                            <h5 className="mb-3">Task {index + 1} Results:</h5>
-                            <p><strong>Total Points:</strong> {taskResult[0]}</p>
-                            {Object.keys(taskResult[1]).length !== 1 &&
-                                <div className="mb-3">
-                                    <strong>Mistakes:</strong>
-                                    <ul className="list-group mt-2">
-                                        {Object.entries(taskResult[1]).map(([subtaskId, result], subindex) => (
-                                            <li key={subindex} className="list-group-item bg-dark text-white">
-                                                Subtask {(parseInt(subtaskId) + 1) + ": " + result}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            }
-                        </li>
-                    ))}
-                </ul>
+                                    }
+                                </li>
+                            ))}
+                        </ul>
+                    </Col>
+                    <Col xs={'1'}> </Col>
+                </Row>
             </Container>
         </div>
     );
