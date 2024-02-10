@@ -16,7 +16,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({name, description, price, onCl
                 <Card.Title>{name}</Card.Title>
                 <Card.Text>{description}</Card.Text>
                 <Card.Text>Price: ${price}</Card.Text>
-                <Button onClick={onClickSubscribe}>Subscribe</Button>
+                <Button className={'btn-sign-in'} style={{height: 'auto'}} onClick={onClickSubscribe}>Subscribe</Button>
             </Card.Body>
         </Card>
     );

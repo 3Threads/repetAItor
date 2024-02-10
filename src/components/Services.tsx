@@ -12,7 +12,7 @@ export const Services = () => {
         <div className={"pb-4"}>
             <h1>Our Services</h1>
             <Row>
-                <Col sm={4} xs={12} className={"py-1"}>
+                <Col sm={12} xs={12} lg={4} className={"py-1"}>
                     <ServiceCard
                         name="Daily Subscription"
                         description="Get access to our services on a daily basis."
@@ -20,7 +20,7 @@ export const Services = () => {
                         onClickSubscribe={() => handleSubscribe('Daily')}
                     />
                 </Col>
-                <Col sm={4} xs={12} className={"py-1"}>
+                <Col sm={12} xs={12} lg={4} className={"py-1"}>
                     <ServiceCard
                         name="Monthly Subscription"
                         description="Get access to our services on a monthly basis."
@@ -28,7 +28,7 @@ export const Services = () => {
                         onClickSubscribe={() => handleSubscribe('Monthly')}
                     />
                 </Col>
-                <Col sm={4} xs={12} className={"py-1"}>
+                <Col sm={12} xs={12} lg={4} className={"py-1"}>
                     <ServiceCard
                         name="Annual Subscription"
                         description="Get access to our services on an annual basis."
