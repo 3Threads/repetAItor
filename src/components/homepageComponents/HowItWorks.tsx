@@ -1,57 +1,50 @@
-import { Card, Col, Row } from "react-bootstrap";
+import {Card, Col, Row} from "react-bootstrap";
 import aiphoto from "../../images/aiphoto.jpg";
 import React from "react";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faAddressCard} from '@fortawesome/free-solid-svg-icons';
+import {faBagShopping} from '@fortawesome/free-solid-svg-icons';
+import {faPenToSquare} from '@fortawesome/free-solid-svg-icons';
+import {faCheckDouble} from '@fortawesome/free-solid-svg-icons';
+
 
 export const HowItWorks = () => {
     return (
         <div className={"py-5"}>
-            <h2 className="text-center mb-4">How It Works</h2>
-            <h5>Our AI will help you:</h5>
+            <h2 className="text-center mb-4">როგორ მუშაობს?</h2>
             <Row className="justify-content-center">
-                <Col xs={12} sm={6} lg={3}>
-                    <Card className="shadow mb-4">
-                        <Card.Img variant="top" src={aiphoto} />
-                        <Card.Body>
-                            <Card.Title className="text-center">Step 1</Card.Title>
-                            <Card.Text className="text-center">
-                                Sign up for an account
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={12} sm={6} lg={3}>
-                    <Card className="shadow mb-4">
-                        <Card.Img variant="top" src={aiphoto} />
-                        <Card.Body>
-                            <Card.Title className="text-center">Step 2</Card.Title>
-                            <Card.Text className="text-center">
-                                Explore our features
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={12} sm={6} lg={3}>
-                    <Card className="shadow mb-4">
-                        <Card.Img variant="top" src={aiphoto} />
-                        <Card.Body>
-                            <Card.Title className="text-center">Step 3</Card.Title>
-                            <Card.Text className="text-center">
-                                Start using our platform
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={12} sm={6} lg={3}>
-                    <Card className="shadow mb-4">
-                        <Card.Img variant="top" src={aiphoto} />
-                        <Card.Body>
-                            <Card.Title className="text-center">Step 4</Card.Title>
-                            <Card.Text className="text-center">
-                                Start using our platform
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
+                {[
+                    {
+                        icon: faAddressCard,
+                        title: "ნაბიჯი 1",
+                        text: "გაიარე რეგისტრაცია"
+                    },
+                    {
+                        icon: faBagShopping,
+                        title: "ნაბიჯი 2",
+                        text: "აირჩიე შენთვის სასურველი სერვისი"
+                    },
+                    {
+                        icon: faPenToSquare,
+                        title: "ნაბიჯი 3",
+                        text: "დაწერე ეროვნული გამოცდების ანალოგი ტესტი"
+                    },
+                    {
+                        icon: faCheckDouble,
+                        title: "ნაბიჯი 4",
+                        text: "გაეცანი შეფასებას, მიიღე რჩევები და განვითარდი"
+                    }
+                ].map((step, index) => (
+                    <Col key={index} xs={12} sm={6} lg={3} style={{display: 'flex'}}>
+                        <Card className="shadow mb-4" style={{flex: 1}}>
+                            <FontAwesomeIcon icon={step.icon} size={'6x'} style={{paddingTop: '20px'}}/>
+                            <Card.Body>
+                                <Card.Title className="text-center">{step.title}</Card.Title>
+                                <Card.Text className="text-center">{step.text}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
             </Row>
         </div>
     );
