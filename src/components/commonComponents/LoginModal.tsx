@@ -3,7 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {Form} from "react-bootstrap";
 import {Tabs} from "@mantine/core";
-import {UserContext} from "../../UserContext"; // Import UserContext
+import {UserContext} from "../../contexts/UserContext";
+
 interface Props {
     show: boolean;
     handleClose: () => void;
@@ -26,19 +27,68 @@ function LoginModal({show, handleClose}: Props) {
         handleClose();
     }
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         // Perform login and get user data
-        const userData = {
-            name: username,
-            email: loginMail,
-        };
+        try {
+            const response = await fetch('http://localhost:8000/login/' + loginMail + "/" + loginPassword);
 
-        setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData)); // Save user data to local storage
+            if (!response.ok) {
+                // Handle error
+                return
+            }
+
+            const data = await response.json();
+            console.log(data.user.username, data.user.email)
+            const userData = {
+                name: data.user.username,
+                email: data.user.email,
+            };
+
+            setUser(userData);
+            localStorage.setItem('user', JSON.stringify(userData)); // Save user data to local storage
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     };
 
+    const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            const response = await fetch('http://localhost:8000/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username,
+                    email: registerMail,
+                    password: registerPassword
+                })
+            });
+
+            if (!response.ok) {
+                // Handle error
+                return
+            }
+
+            const data = await response.json();
+            console.log(data.user.username, data.user.email)
+            const userData = {
+                name: data.user.username,
+                email: data.user.email,
+            };
+
+            setUser(userData);
+            localStorage.setItem('user', JSON.stringify(userData)); // Save user data to local storage
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+    };
+
+
     const RegisterModalBody = (
-        <Form onSubmit={handleLogin}>
+        <Form onSubmit={handleRegister}>
             <Form.Group className="mb-3" controlId="registerForm.ControlInput1">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
@@ -47,6 +97,7 @@ function LoginModal({show, handleClose}: Props) {
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
                     autoFocus
                     onChange={(e) => setUsername(e.target.value)}
+                    value={username}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
@@ -56,6 +107,7 @@ function LoginModal({show, handleClose}: Props) {
                     placeholder="name@example.com"
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
                     onChange={(e) => setRegisterMail(e.target.value)}
+                    value={registerMail}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
@@ -65,6 +117,7 @@ function LoginModal({show, handleClose}: Props) {
                     placeholder="Password"
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
                     onChange={(e) => setRegisterPassword(e.target.value)}
+                    value={registerPassword}
                 />
             </Form.Group>
         </Form>
