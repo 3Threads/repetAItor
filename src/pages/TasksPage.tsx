@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Header} from "../components/commonComponents/Header";
 import {Col, Container, Row} from "react-bootstrap";
 import FillTextTaskComp from "../components/taskComponents/FillTextTaskComp";
@@ -28,6 +28,7 @@ import {
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCaretDown} from '@fortawesome/free-solid-svg-icons';
+import {UserContext} from "../contexts/UserContext";
 
 
 function TasksPage() {
@@ -37,6 +38,8 @@ function TasksPage() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [taskResults, setTaskResults] = useState([]);
 
+    const {user, setUser} = useContext(UserContext);
+    console.log(user);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -129,7 +132,7 @@ function TasksPage() {
             <Container>
                 <Row>
                     <Col xs={'1'}> </Col>
-                    <Col xs={'10'} style={{paddingLeft: '0', paddingTop:'20px'}}>
+                    <Col xs={'10'} style={{paddingLeft: '0', paddingTop: '20px'}}>
                         <form onSubmit={handleSubmit}>
                             <input type={"hidden"} value={subject} name={"subject"}/>
                             <input type={"hidden"} value={year} name={"year"}/>

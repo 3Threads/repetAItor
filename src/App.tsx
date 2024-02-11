@@ -6,7 +6,7 @@ import {HomePage} from "./pages/HomePage";
 import {TestLists} from "./pages/TestLists";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TasksPage from "./pages/TasksPage";
-import { UserProvider } from './UserContext'; // Import UserProvider
+import { UserProvider } from './contexts/UserContext'; // Import UserProvider
 
 function App() {
     return (
