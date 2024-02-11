@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Header} from "../components/commonComponents/Header";
 import {Col, Container, Row} from "react-bootstrap";
 import FillTextTaskComp from "../components/taskComponents/FillTextTaskComp";
@@ -27,7 +27,14 @@ import {
 } from "../interfaces/questions";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCaretDown} from '@fortawesome/free-solid-svg-icons';
+import {
+    faCaretDown,
+    faCaretUp,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+    faCircleCheck,
+    faCircleXmark,
+} from '@fortawesome/free-regular-svg-icons';
 
 
 function TasksPage() {
@@ -36,6 +43,7 @@ function TasksPage() {
     const {variant} = useParams();
     const [tasks, setTasks] = useState<Task[]>([]);
     const [taskResults, setTaskResults] = useState([]);
+    const [userAnswers, setUserAnswers] = useState<string[][]>([]);
 
 
     useEffect(() => {
@@ -117,7 +125,9 @@ function TasksPage() {
             }
             // Handle successful response
             const data = await response.json();
+            const user_answers = data.answers;
             setTaskResults(data.points);
+            setUserAnswers(data.answers);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -129,12 +139,12 @@ function TasksPage() {
             <Container>
                 <Row>
                     <Col xs={'1'}> </Col>
-                    <Col xs={'10'} style={{paddingLeft: '0', paddingTop:'20px'}}>
+                    <Col xs={'10'} style={{paddingLeft: '12px', paddingTop: '20px'}}>
                         <form onSubmit={handleSubmit}>
                             <input type={"hidden"} value={subject} name={"subject"}/>
                             <input type={"hidden"} value={year} name={"year"}/>
                             <input type={"hidden"} value={variant} name={"variant"}/>
-                            <ul>
+                            <ul style={{paddingLeft: '0px'}}>
                                 {tasks.map((task: Task, index: number) => {
                                     return <li key={index}>
                                         <details>
@@ -225,21 +235,96 @@ function TasksPage() {
                         }
                         <ul className="list-group mt-3">
                             {taskResults.map((taskResult, index) => (
-                                <li key={index} className="list-group-item bg-dark text-white">
-                                    <h5 className="mb-3">Task {index + 1} Results:</h5>
-                                    <p><strong>Total Points:</strong> {taskResult[0]}</p>
-                                    {Object.keys(taskResult[1]).length !== 1 &&
-                                        <div className="mb-3">
-                                            <strong>Mistakes:</strong>
-                                            <ul className="list-group mt-2">
-                                                {Object.entries(taskResult[1]).map(([subtaskId, result], subindex) => (
-                                                    <li key={subindex} className="list-group-item bg-dark text-white">
-                                                        Subtask {(parseInt(subtaskId) + 1) + ": " + result}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    }
+                                <li key={index} className="text-white">
+                                    <details>
+                                        <summary>
+                                            <div
+                                                className={'btn btn-task full-width mb-2 mt-2'}
+                                                style={{
+                                                    textAlign: 'left',
+                                                    fontSize: " 20px"
+                                                }}>
+                                                <Row>
+                                                    <Col>
+                                                        დავალება {index + 1} - ჯამური ქულა: {taskResult[0]}
+                                                    </Col>
+                                                    <Col xs={'auto'} ms={'auto'} style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'flex-end'
+                                                    }}>
+                                                        <FontAwesomeIcon icon={faCaretDown} size={"xl"}/>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </summary>
+                                        {Object.keys(taskResult[1]).length !== 1 &&
+                                            <div className="mb-3">
+                                                <ul style={{
+                                                    paddingTop: '6px',
+                                                    paddingBottom: '6px',
+                                                    paddingLeft: '32px',
+                                                    paddingRight: '32px'
+                                                }}>
+                                                    <Row>
+
+                                                        {Object.entries(taskResult[1]).map(([subtaskId, result], subindex) => (
+                                                            <Col sm={12} lg={6} key={subindex}>
+
+                                                                <li key={subindex}>
+                                                                    {userAnswers[index][parseInt(subtaskId)] === result ? (
+                                                                        <div style={{
+                                                                            display: 'flex',
+                                                                            alignItems: 'center',
+                                                                            paddingTop: '10px'
+                                                                        }}>
+                                                                            <FontAwesomeIcon icon="check-square"/>
+
+                                                                            <FontAwesomeIcon icon={faCircleCheck}
+                                                                                             className={'task-icon'}
+                                                                                             size={'lg'}
+                                                                                             color={'green'}
+                                                                            />
+                                                                            <div style={{paddingLeft: '10px'}}>
+                                                                                <div>
+                                                                                    შეკითხვა {(parseInt(subtaskId) + 1)}
+                                                                                </div>
+                                                                                <div style={{color: "dimgray"}}>
+                                                                                    {"შენი პასუხი: " + (userAnswers[index][parseInt(subtaskId)] === '' ? 'N/A' : userAnswers[index][parseInt(subtaskId)])
+                                                                                        + ", სწორი პასუხი: " + result}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div style={{
+                                                                            display: 'flex',
+                                                                            alignItems: 'center',
+                                                                            paddingTop: '10px',
+                                                                        }}>
+                                                                            <FontAwesomeIcon icon={faCircleXmark}
+                                                                                             className={'task-icon'}
+                                                                                             size={'lg'}
+                                                                                             color={'red'}
+                                                                            />
+                                                                            <div style={{paddingLeft: '10px'}}>
+                                                                                <div>
+                                                                                    შეკითხვა {(parseInt(subtaskId) + 1)}
+                                                                                </div>
+                                                                                <div style={{color: "dimgray"}}>
+                                                                                    {"შენი პასუხი: " + (userAnswers[index][parseInt(subtaskId)] === '' ? 'N/A' : userAnswers[index][parseInt(subtaskId)])
+                                                                                        + ", სწორი პასუხი: " + result}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    )}
+                                                                </li>
+                                                            </Col>
+                                                        ))}
+                                                    </Row>
+                                                </ul>
+                                            </div>
+                                        }
+                                    </details>
                                 </li>
                             ))}
                         </ul>

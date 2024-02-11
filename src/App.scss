@@ -72,7 +72,7 @@ summary {
 .btn-task {
   color: white !important;
   border-color: #2f2348 !important;
-  background-color: transparent!important;
+  background-color: transparent !important;
 }
 
 .btn-task:hover {
@@ -169,4 +169,10 @@ summary {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 10px !important;
   color: white !important;
+}
+
+.task-icon {
+  padding: 20px;
+  background-color: #2f2348;
+  border-radius: 18px;
 }
