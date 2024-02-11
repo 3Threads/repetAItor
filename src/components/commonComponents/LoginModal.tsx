@@ -1,16 +1,23 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react'; // Import useContext
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {Form} from "react-bootstrap";
 import {Tabs} from "@mantine/core";
-
+import {UserContext} from "../../UserContext"; // Import UserContext
 interface Props {
     show: boolean;
     handleClose: () => void;
 }
 
 function LoginModal({show, handleClose}: Props) {
+    const {user, setUser} = useContext(UserContext); // Use UserContext
     const [tabValue, setTabValue] = useState('signin'); // Default value is "signin"
+    const [username, setUsername] = useState("")
+    const [loginMail, setLoginMail] = useState("")
+    const [registerMail, setRegisterMail] = useState("")
+    const [loginPassword, setLoginPassword] = useState("")
+    const [registerPassword, setRegisterPassword] = useState("")
+
     const close = () => {
         setTimeout(() => {
             setTabValue('signin');
@@ -19,8 +26,19 @@ function LoginModal({show, handleClose}: Props) {
         handleClose();
     }
 
+    const handleLogin = () => {
+        // Perform login and get user data
+        const userData = {
+            name: username,
+            email: loginMail,
+        };
+
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData)); // Save user data to local storage
+    };
+
     const RegisterModalBody = (
-        <Form>
+        <Form onSubmit={handleLogin}>
             <Form.Group className="mb-3" controlId="registerForm.ControlInput1">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
@@ -28,6 +46,7 @@ function LoginModal({show, handleClose}: Props) {
                     placeholder="User1"
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
                     autoFocus
+                    onChange={(e) => setUsername(e.target.value)}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
@@ -36,7 +55,7 @@ function LoginModal({show, handleClose}: Props) {
                     type="email"
                     placeholder="name@example.com"
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
-                    autoFocus
+                    onChange={(e) => setRegisterMail(e.target.value)}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
@@ -45,13 +64,14 @@ function LoginModal({show, handleClose}: Props) {
                     type="password"
                     placeholder="Password"
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
+                    onChange={(e) => setRegisterPassword(e.target.value)}
                 />
             </Form.Group>
         </Form>
     );
 
     const SignInModalBody = (
-        <Form>
+        <Form onSubmit={handleLogin}>
             {/* Sign In form fields */}
             <Form.Group className="mb-3" controlId="signInForm.ControlInput1">
                 <Form.Label>Email address</Form.Label>
@@ -60,6 +80,7 @@ function LoginModal({show, handleClose}: Props) {
                     placeholder="name@example.com"
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
                     autoFocus
+                    onChange={(e) => setLoginMail(e.target.value)}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
@@ -68,6 +89,7 @@ function LoginModal({show, handleClose}: Props) {
                     type="password"
                     placeholder="Password"
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
+                    onChange={(e) => setLoginPassword(e.target.value)}
                 />
             </Form.Group>
             {/* Add more fields if needed */}
@@ -98,7 +120,10 @@ function LoginModal({show, handleClose}: Props) {
                     <Button variant="primary" onClick={close}>
                         Close
                     </Button>
-                    <Button variant="sign-in" style={{height: 'auto'}} onClick={close}>
+                    <Button variant="sign-in" style={{height: 'auto'}} onClick={() => {
+                        handleLogin();
+                        close()
+                    }}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
