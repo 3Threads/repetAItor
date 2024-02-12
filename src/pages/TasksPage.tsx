@@ -141,11 +141,14 @@ function TasksPage() {
                             <input type={"hidden"} value={subject} name={"subject"}/>
                             <input type={"hidden"} value={year} name={"year"}/>
                             <input type={"hidden"} value={variant} name={"variant"}/>
-                            <Accordion alwaysOpen style={{paddingLeft: '0px'}} className={"btn-task"}>
+                            <Accordion alwaysOpen style={{paddingLeft: '0px'}}>
                                 {tasks.map((task: Task, index: number) => {
-                                    return <Accordion.Item eventKey={"" + index}>
+                                    return <Accordion.Item eventKey={"" + index} className={"btn-accordion"}>
                                         <Accordion.Header
-                                            className={"btn-task"}>Task {task.task_number} {task.task_title}</Accordion.Header>
+                                            className={"btn-task"}
+                                        >
+                                            Task {task.task_number} {task.task_title}
+                                        </Accordion.Header>
                                         <Accordion.Body>
                                             {(() => {
                                                 switch (task.task_type) {
@@ -205,20 +208,22 @@ function TasksPage() {
 
                                 })}
                             </Accordion>
-                            <button type={"submit"} className={'btn-sign-in mt-2 m-5'}>Complete</button>
+                            <button type={"submit"} className={'btn-sign-in mt-2 mb-5'} style={{float:'right'}}>Complete</button>
                         </form>
-                        {taskResults.length !== 0 && <h1 className="mt-5">Final
+                        {taskResults.length !== 0 && <h1 className="mt-5" style={{paddingTop:'40px'}}>Final
                             Result: {taskResults.reduce((accumulator, taskResult) => {
                                 return accumulator + parseInt(taskResult[0]);
                             }, 0)}</h1>
                         }
 
-                        <Accordion alwaysOpen style={{paddingLeft: '0px'}} className={"btn-task"}>
+                        <Accordion alwaysOpen style={{paddingLeft: '0px'}}>
                             {taskResults.map((taskResult, index) => (
-                                <Accordion.Item eventKey={"" + index}>
+                                <Accordion.Item eventKey={"" + index} className={"btn-accordion"}>
                                     <Accordion.Header
-                                        className={"btn-task"}>დავალება {index + 1} - ჯამური
-                                        ქულა: {taskResult[0]}</Accordion.Header>
+                                        className={"btn-task"}
+                                    >
+                                        დავალება {index + 1} - ჯამური ქულა: {taskResult[0]}
+                                    </Accordion.Header>
                                     <Accordion.Body>
                                         {Object.keys(taskResult[1]).length !== 1 &&
                                             <div className="mb-3">
@@ -229,7 +234,6 @@ function TasksPage() {
                                                     paddingRight: '32px'
                                                 }}>
                                                     <Row>
-
                                                         {Object.entries(taskResult[1]).map(([subtaskId, result], subindex) => (
                                                             <Col sm={12} lg={6} key={subindex}>
 
@@ -294,12 +298,9 @@ function TasksPage() {
                     <Col xs={'1'}> </Col>
                 </Row>
             </Container>
-
             <Footer/>
         </div>
-    )
-        ;
-
+    );
 }
 
 export default TasksPage;

@@ -3,8 +3,8 @@ import aiphoto from "../../images/aiphoto.jpg";
 import React from "react";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faAddressCard} from '@fortawesome/free-solid-svg-icons';
-import {faBagShopping} from '@fortawesome/free-solid-svg-icons';
-import {faPenToSquare} from '@fortawesome/free-solid-svg-icons';
+import {faBriefcase} from '@fortawesome/free-solid-svg-icons';
+import {faPenToSquare} from '@fortawesome/free-regular-svg-icons';
 import {faCheckDouble} from '@fortawesome/free-solid-svg-icons';
 
 
@@ -20,7 +20,7 @@ export const HowItWorks = () => {
                         text: "გაიარე რეგისტრაცია"
                     },
                     {
-                        icon: faBagShopping,
+                        icon: faBriefcase,
                         title: "ნაბიჯი 2",
                         text: "აირჩიე შენთვის სასურველი სერვისი"
                     },
@@ -37,7 +37,7 @@ export const HowItWorks = () => {
                 ].map((step, index) => (
                     <Col key={index} xs={12} sm={6} lg={3} style={{display: 'flex'}}>
                         <Card className="shadow mb-4" style={{flex: 1}}>
-                            <FontAwesomeIcon icon={step.icon} size={'6x'} style={{paddingTop: '20px'}}/>
+                            <FontAwesomeIcon icon={step.icon}  size={'6x'} style={{paddingTop: '20px'}}/>
                             <Card.Body>
                                 <Card.Title className="text-center">{step.title}</Card.Title>
                                 <Card.Text className="text-center">{step.text}</Card.Text>

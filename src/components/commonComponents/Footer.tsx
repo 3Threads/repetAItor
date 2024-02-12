@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
             bottom: 0,
             width: '100%',
             marginTop: 'auto',
-            paddingTop: '10px',
+            paddingTop: '80px',
         }}>
             <Container>
                 <Row>

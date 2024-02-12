@@ -74,13 +74,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
                 <Card.Text style={{marginTop: 'auto'}}>
                     {checked && (
                         <div style={{textAlign: "center", width: "100%"}}>
-                            <h3 style={{marginTop: '14px', marginBottom: '20px'}}>${annualPrice}</h3>
+                            <h3 style={{ marginBottom: '20px'}}>${annualPrice}</h3>
                         </div>
                     )}
 
                     {!checked && price &&
                         <div style={{textAlign: "center", width: "100%"}}>
-                            <h3 style={{marginTop: '14px', marginBottom: '20px'}}>${price}</h3>
+                            <h3 style={{ marginBottom: '20px'}}>${price}</h3>
                         </div>}
                     {price && annualPrice && <CustomSwitch checked={checked} setChecked={setChecked}/>}
 
