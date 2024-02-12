@@ -30,35 +30,37 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 
     return (
         <Card style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            <Card.Body style={{display: 'flex', flexDirection: 'column', paddingBottom:'10px'}}>
+            <Card.Body style={{display: 'flex', flexDirection: 'column', paddingBottom: '10px'}}>
                 <Card.Title>{name}</Card.Title>
                 <Card.Text>{description}</Card.Text>
-                <Card.Text style={{marginBottom:'0'}}>
+                <Card.Text style={{marginBottom: '0'}}>
                     <ul style={{paddingLeft: '4px'}}>
                         {offers.map((offer, index) =>
 
                             <li key={index} style={{display: 'flex', alignItems: 'flex-start', paddingBottom: '16px'}}>
                                 {index < lastIndex ? (
-                                    <FontAwesomeIcon icon={faCircleCheck}
-                                                     size={'lg'}
-                                                     color={'green'}
-                                                     style={{
-                                                         padding: '8px',
-                                                         paddingTop: '0px',
-                                                         display: 'flex',
-                                                         alignItems: 'flex-start'
-                                                     }}
+                                    <FontAwesomeIcon
+                                        icon={faCircleCheck}
+                                        size={'lg'}
+                                        color={'green'}
+                                        style={{
+                                            padding: '8px',
+                                            paddingTop: '0px',
+                                            display: 'flex',
+                                            alignItems: 'flex-start'
+                                        }}
                                     />
                                 ) : (
-                                    <FontAwesomeIcon icon={faCircleXmark}
-                                                     size={'lg'}
-                                                     color={'red'}
-                                                     style={{
-                                                         padding: '8px',
-                                                         paddingTop: '0px',
-                                                         display: 'flex',
-                                                         alignItems: 'flex-start'
-                                                     }}
+                                    <FontAwesomeIcon
+                                        icon={faCircleXmark}
+                                        size={'lg'}
+                                        color={'red'}
+                                        style={{
+                                            padding: '8px',
+                                            paddingTop: '0px',
+                                            display: 'flex',
+                                            alignItems: 'flex-start'
+                                        }}
                                     />
                                 )
                                 }

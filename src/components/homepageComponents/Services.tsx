@@ -46,20 +46,36 @@ export const Services = () => {
                         lastIndex={3}
                         price={10}
                         annualPrice={50}
-                        monthlyButton={<Button className={'btn-sign-in'} style={{
-                            height: 'auto',
-                            width: '100%',
-                            marginTop: '20px',
-                            marginBottom: '8px'
-                        }}
-                                               onClick={() => handleSubscribe('Free')}>Subscribe</Button>}
-                        annuallyButton={<Button className={'btn-sign-in'} style={{
-                            height: 'auto',
-                            width: '100%',
-                            marginTop: '20px',
-                            marginBottom: '8px'
-                        }}
-                                                onClick={() => handleSubscribe('Free annually')}>Subscribe</Button>}
+                        monthlyButton=
+                            {
+                                <Button
+                                    className={'btn-sign-in'}
+                                    style={{
+                                        height: 'auto',
+                                        width: '100%',
+                                        marginTop: '20px',
+                                        marginBottom: '8px'
+                                    }}
+                                    onClick={() => handleSubscribe('Free')}
+                                >
+                                    Subscribe
+                                </Button>
+                            }
+                        annuallyButton=
+                            {
+                                <Button
+                                    className={'btn-sign-in'}
+                                    style={{
+                                        height: 'auto',
+                                        width: '100%',
+                                        marginTop: '20px',
+                                        marginBottom: '8px'
+                                    }}
+                                    onClick={() => handleSubscribe('Free annually')}
+                                >
+                                    Subscribe
+                                </Button>
+                            }
                     />
                 </Col>
                 <Col sm={12} xs={12} lg={4} className={"py-1"}>
@@ -79,20 +95,35 @@ export const Services = () => {
                         lastIndex={6}
                         price={10}
                         annualPrice={50}
-                        monthlyButton={<Button className={'btn-sign-in'} style={{
-                            height: 'auto',
-                            width: '100%',
-                            marginTop: '20px',
-                            marginBottom: '8px'
-                        }}
-                                               onClick={() => handleSubscribe('Free')}>Subscribe</Button>}
-                        annuallyButton={<Button className={'btn-sign-in'} style={{
-                            height: 'auto',
-                            width: '100%',
-                            marginTop: '20px',
-                            marginBottom: '8px'
-                        }}
-                                                onClick={() => handleSubscribe('Free annually')}>Subscribe</Button>}
+                        monthlyButton=
+                            {
+                                <Button
+                                    className={'btn-sign-in'}
+                                    style={{
+                                        height: 'auto',
+                                        width: '100%',
+                                        marginTop: '20px',
+                                        marginBottom: '8px'
+                                    }}
+                                    onClick={() => handleSubscribe('Free')}
+                                >
+                                    Subscribe
+                                </Button>
+                            }
+                        annuallyButton=
+                            {
+                                <Button className={'btn-sign-in'}
+                                        style={{
+                                            height: 'auto',
+                                            width: '100%',
+                                            marginTop: '20px',
+                                            marginBottom: '8px'
+                                        }}
+                                        onClick={() => handleSubscribe('Free annually')}
+                                >
+                                    Subscribe
+                                </Button>
+                            }
                     />
                 </Col>
             </Row>
