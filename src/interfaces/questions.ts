@@ -15,8 +15,7 @@ export class MultipleChoiceQuestion implements QuestionType {
 // Define the TitlingQuestion export class
 export class TitlingQuestion implements QuestionType {
     constructor(
-        public paragraph: string,
-        public correctTitles: string[]
+        public title: string,
     ) {
     }
 

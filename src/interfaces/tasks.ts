@@ -25,7 +25,7 @@ export class ListeningTask extends TaskTypeImpl {
 // Define TitlingTask class
 export class TitlingTask extends TaskTypeImpl {
 
-    constructor(questions: QuestionType[], public titles: string[]) {
+    constructor(questions: QuestionType[], public paragraphs: string[]) {
         super(questions);
     }
 }

@@ -75,7 +75,7 @@ function TasksPage() {
                 const curr_task = task.task as TitlingTask;
                 const questions = curr_task.questions as TitlingQuestion[];
 
-                created_task = new TitlingTask(questions, curr_task.titles);
+                created_task = new TitlingTask(questions, curr_task.paragraphs);
             } else if (task.task_type === "reading") {
                 const curr_task = task.task as ReadAndWriteTask;
                 const questions = curr_task.questions as MultipleChoiceQuestion[];
@@ -194,10 +194,10 @@ function TasksPage() {
                                                     case 'titling':
                                                         const titling_task = task.task as TitlingTask;
                                                         const titling_questions = titling_task.getQuestions() as TitlingQuestion[];
-                                                        const paragraphs = titling_questions.map((question: TitlingQuestion) => question.paragraph);
+                                                        const paragraphs = titling_questions.map((question: TitlingQuestion) => question.title);
                                                         return <TitlingTaskComp questionNumber={task.task_number}
                                                                                 question={task.task_title}
-                                                                                titles={titling_task.titles}
+                                                                                titles={titling_task.paragraphs}
                                                                                 paragraphs={paragraphs}/>
                                                     default:
                                                         return <div>Task {task.task_number}: {task.task_title}</div>;
