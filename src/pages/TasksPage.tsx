@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Header} from "../components/commonComponents/Header";
-import {Col, Container, Row} from "react-bootstrap";
+import {Accordion, Col, Container, Row} from "react-bootstrap";
 import FillTextTaskComp from "../components/taskComponents/FillTextTaskComp";
 import {
     EmailTask,
@@ -27,14 +27,8 @@ import {
 } from "../interfaces/questions";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {
-    faCaretDown,
-    faCaretUp,
-} from '@fortawesome/free-solid-svg-icons';
-import {
-    faCircleCheck,
-    faCircleXmark,
-} from '@fortawesome/free-regular-svg-icons';
+import {faCaretDown,} from '@fortawesome/free-solid-svg-icons';
+import {faCircleCheck, faCircleXmark,} from '@fortawesome/free-regular-svg-icons';
 import {UserContext} from "../contexts/UserContext";
 import Footer from "../components/commonComponents/Footer";
 
@@ -147,31 +141,12 @@ function TasksPage() {
                             <input type={"hidden"} value={subject} name={"subject"}/>
                             <input type={"hidden"} value={year} name={"year"}/>
                             <input type={"hidden"} value={variant} name={"variant"}/>
-                            <ul style={{paddingLeft: '0px'}}>
+                            <Accordion alwaysOpen style={{paddingLeft: '0px'}} className={"btn-task"}>
                                 {tasks.map((task: Task, index: number) => {
-                                    return <li key={index}>
-                                        <details>
-                                            <summary>
-                                                <div
-                                                    className={'btn btn-task full-width mb-2 mt-2'}
-                                                    style={{
-                                                        textAlign: 'left',
-                                                        fontSize: " 20px"
-                                                    }}>
-                                                    <Row>
-                                                        <Col>
-                                                            Task {task.task_number} {task.task_title}
-                                                        </Col>
-                                                        <Col xs={'auto'} ms={'auto'} style={{
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            justifyContent: 'flex-end'
-                                                        }}>
-                                                            <FontAwesomeIcon icon={faCaretDown} size={"xl"}/>
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                            </summary>
+                                    return <Accordion.Item eventKey={"" + index}>
+                                        <Accordion.Header
+                                            className={"btn-task"}>Task {task.task_number} {task.task_title}</Accordion.Header>
+                                        <Accordion.Body>
                                             {(() => {
                                                 switch (task.task_type) {
                                                     case 'filling':
@@ -225,10 +200,11 @@ function TasksPage() {
                                                         return <div>Task {task.task_number}: {task.task_title}</div>;
                                                 }
                                             })()}
-                                        </details>
-                                    </li>
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+
                                 })}
-                            </ul>
+                            </Accordion>
                             <button type={"submit"} className={'btn-sign-in mt-2 m-5'}>Complete</button>
                         </form>
                         {taskResults.length !== 0 && <h1 className="mt-5">Final
@@ -236,31 +212,14 @@ function TasksPage() {
                                 return accumulator + parseInt(taskResult[0]);
                             }, 0)}</h1>
                         }
-                        <ul className="list-group mt-3">
+
+                        <Accordion alwaysOpen style={{paddingLeft: '0px'}} className={"btn-task"}>
                             {taskResults.map((taskResult, index) => (
-                                <li key={index} className="text-white">
-                                    <details>
-                                        <summary>
-                                            <div
-                                                className={'btn btn-task full-width mb-2 mt-2'}
-                                                style={{
-                                                    textAlign: 'left',
-                                                    fontSize: " 20px"
-                                                }}>
-                                                <Row>
-                                                    <Col>
-                                                        დავალება {index + 1} - ჯამური ქულა: {taskResult[0]}
-                                                    </Col>
-                                                    <Col xs={'auto'} ms={'auto'} style={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'flex-end'
-                                                    }}>
-                                                        <FontAwesomeIcon icon={faCaretDown} size={"xl"}/>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </summary>
+                                <Accordion.Item eventKey={"" + index}>
+                                    <Accordion.Header
+                                        className={"btn-task"}>დავალება {index + 1} - ჯამური
+                                        ქულა: {taskResult[0]}</Accordion.Header>
+                                    <Accordion.Body>
                                         {Object.keys(taskResult[1]).length !== 1 &&
                                             <div className="mb-3">
                                                 <ul style={{
@@ -327,17 +286,18 @@ function TasksPage() {
                                                 </ul>
                                             </div>
                                         }
-                                    </details>
-                                </li>
+                                    </Accordion.Body>
+                                </Accordion.Item>
                             ))}
-                        </ul>
+                        </Accordion>
                     </Col>
                     <Col xs={'1'}> </Col>
                 </Row>
                 <Footer/>
             </Container>
         </div>
-    );
+    )
+        ;
 
 }
 
