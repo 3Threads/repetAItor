@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Container, Dropdown} from 'react-bootstrap';
 import {Tabs} from "@mantine/core";
 import {useParams} from "react-router-dom";
 import LoginModal from "./LoginModal";
+import {UserContext} from "../../contexts/UserContext";
 
 export const Header: React.FC = () => {
     const {subject} = useParams();
@@ -11,6 +12,7 @@ export const Header: React.FC = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const [show, setShow] = useState(false);
+    const {user, setUser} = useContext(UserContext);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -129,7 +131,17 @@ export const Header: React.FC = () => {
                 {
                     (!isSmallScreen && isLoaded) && (
                         <div style={{display: 'flex'}}>
-                            <Button className={'btn-sign-in m-1'} onClick={handleShow}>შესვლა</Button>
+                            {
+                                user ? (
+                                    <div>
+                                        <span>{user.name}</span>
+                                        <Button className={'btn-sign-in m-1'}
+                                                onClick={() => setUser(null)}>გამოსვლა</Button>
+                                    </div>
+                                ) : (
+                                    <Button className={'btn-sign-in m-1'} onClick={handleShow}>შესვლა</Button>
+                                )
+                            }
                             <Button className={'btn-contact m-1'}>დაგვიკავშირდი</Button>
                         </div>
                     )
