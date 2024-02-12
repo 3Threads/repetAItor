@@ -179,13 +179,23 @@ function LoginModal({show, handleClose}: Props) {
                         <Tabs.List id={'List'}
                                    style={{display: 'flex', justifyContent: 'center', borderStyle: 'none'}}>
                             <Tabs.Tab style={{height: '60px'}} value="register" onClick={() => {
-                                setMessage("");
+                                setLoginMail("")
+                                setLoginPassword("")
+                                setUsername("")
+                                setRegisterMail("")
+                                setRegisterPassword("")
+                                setMessage("")
                                 setTabValue('register')
                             }}>
                                 რეგისტრაცია
                             </Tabs.Tab>
                             <Tabs.Tab style={{height: '60px'}} value="signin" onClick={() => {
-                                setMessage("");
+                                setLoginMail("")
+                                setLoginPassword("")
+                                setUsername("")
+                                setRegisterMail("")
+                                setRegisterPassword("")
+                                setMessage("")
                                 setTabValue('signin')
                             }}>
                                 ავტორიზაცია

@@ -1,5 +1,5 @@
 import {Button, Col, Image, Row} from "react-bootstrap";
-import aiphoto from "../../images/aiphoto.jpg";
+import aiphoto from "../../images/aiphoto5.png";
 import React from "react";
 
 export const WelcomeImage = () => {
