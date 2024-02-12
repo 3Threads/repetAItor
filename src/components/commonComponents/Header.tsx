@@ -4,6 +4,9 @@ import {Tabs} from "@mantine/core";
 import {useParams} from "react-router-dom";
 import LoginModal from "./LoginModal";
 import {UserContext} from "../../contexts/UserContext";
+import {faUser} from "@fortawesome/free-regular-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars} from "@fortawesome/free-solid-svg-icons";
 
 export const Header: React.FC = () => {
     const {subject} = useParams();
@@ -45,7 +48,6 @@ export const Header: React.FC = () => {
                 display: 'flex',
                 justifyContent: 'space-between'
             }}>
-
                 <h2 style={{border: '0', margin: 0}}>
                     <a href={'/'}
                        style={{
@@ -57,29 +59,52 @@ export const Header: React.FC = () => {
                 </h2>
 
                 {isSmallScreen ? (
-                    <Dropdown data-bs-theme="dark">
-                        <Dropdown.Toggle id="dropdown-button-dark-example1" className={'btn-sign-in'}>
-                            List
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item href={"/tests/georgian"}>
-                                ქართული
-                            </Dropdown.Item>
-                            <Dropdown.Item href={"/tests/english"}>
-                                ინგლისური
-                            </Dropdown.Item>
-                            <Dropdown.Item href={"/tests/math"}>
-                                მათემატიკა
-                            </Dropdown.Item>
-                            <Dropdown.Item href={"/tests/history"}>
-                                ისტორია
-                            </Dropdown.Item>
-                            <Dropdown.Divider/>
-                            <Dropdown.Item onClick={handleShow}>შესვლა</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">დაგვიკავშირდი</Dropdown.Item>
-
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <div style={{display: 'flex', justifyContent: 'space-between', order: '2', width:'110px'}}>
+                        <Dropdown data-bs-theme="dark">
+                            <Dropdown.Toggle className={'btn-sign-in'}
+                                             style={{
+                                                 padding: '12px',
+                                                 backgroundColor: '#8540f5',
+                                                 borderRadius: '20px',
+                                             }}>
+                                <FontAwesomeIcon icon={faUser} size={'xl'}/>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {
+                                    user ? (
+                                        <div>
+                                            <Dropdown.Item>{user.name}</Dropdown.Item>
+                                            <Dropdown.Divider/>
+                                            <Dropdown.Item onClick={() => setUser(null)}>გამოსვლა</Dropdown.Item>
+                                        </div>
+                                    ) : (
+                                        <Dropdown.Item onClick={handleShow}>შესვლა</Dropdown.Item>
+                                    )
+                                }
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <Dropdown data-bs-theme="dark">
+                            <Dropdown.Toggle className={'btn-contact'}>
+                                <FontAwesomeIcon icon={faBars} size={"2xl"}/>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href={"/tests/georgian"}>
+                                    ქართული
+                                </Dropdown.Item>
+                                <Dropdown.Item href={"/tests/english"}>
+                                    ინგლისური
+                                </Dropdown.Item>
+                                <Dropdown.Item href={"/tests/math"}>
+                                    მათემატიკა
+                                </Dropdown.Item>
+                                <Dropdown.Item href={"/tests/history"}>
+                                    ისტორია
+                                </Dropdown.Item>
+                                <Dropdown.Divider/>
+                                <Dropdown.Item href="#/action-2">დაგვიკავშირდი</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
                 ) : (
                     <>
                         {isLoaded && (
@@ -127,27 +152,44 @@ export const Header: React.FC = () => {
                             </Tabs>
                         )}
                     </>
-                )}
+                )
+                }
                 {
                     (!isSmallScreen && isLoaded) && (
                         <div style={{display: 'flex'}}>
                             {
                                 user ? (
-                                    <div>
-                                        <span>{user.name}</span>
-                                        <Button className={'btn-sign-in m-1'}
-                                                onClick={() => setUser(null)}>გამოსვლა</Button>
+                                    <div style={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
+                                        <Dropdown data-bs-theme="dark">
+                                            <Dropdown.Toggle className={'btn-sign-in'}
+                                                             style={{
+                                                                 padding: '12px',
+                                                                 backgroundColor: '#8540f5',
+                                                                 borderRadius: '20px',
+                                                             }}>
+                                                <FontAwesomeIcon icon={faUser} size={'xl'}/>
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item>{user.name}</Dropdown.Item>
+                                                <Dropdown.Divider/>
+                                                <Dropdown.Item onClick={() => setUser(null)}>გამოსვლა</Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                        <Button className={'btn-contact m-1'}>დაგვიკავშირდი</Button>
                                     </div>
                                 ) : (
-                                    <Button className={'btn-sign-in m-1'} onClick={handleShow}>შესვლა</Button>
+                                    <div style={{display: 'flex'}}>
+                                        <Button className={'btn-sign-in m-1'} onClick={handleShow}>შესვლა</Button>
+                                        <Button className={'btn-contact m-1'}>დაგვიკავშირდი</Button>
+                                    </div>
                                 )
                             }
-                            <Button className={'btn-contact m-1'}>დაგვიკავშირდი</Button>
                         </div>
                     )
                 }
                 <LoginModal show={show} handleClose={handleClose}/>
             </Container>
         </div>
-    );
+    )
+        ;
 }
