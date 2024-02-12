@@ -206,7 +206,7 @@ function LoginModal({show, handleClose}: Props) {
                 <Form onSubmit={tabValue === 'register' ? handleRegister : handleLogin}>
                     <Modal.Body className={"modal-color"}>
                         {tabValue === 'register' ? RegisterModalBody : SignInModalBody}
-                        <div>{message}</div>
+                        <div className={'error-message'}>{message}</div>
                     </Modal.Body>
                     <Modal.Footer className={"modal-color"}>
                         <Button variant="primary" onClick={close}>
