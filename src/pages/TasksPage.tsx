@@ -36,6 +36,7 @@ import {
     faCircleXmark,
 } from '@fortawesome/free-regular-svg-icons';
 import {UserContext} from "../contexts/UserContext";
+import Footer from "../components/commonComponents/Footer";
 
 
 function TasksPage() {
@@ -333,6 +334,7 @@ function TasksPage() {
                     </Col>
                     <Col xs={'1'}> </Col>
                 </Row>
+                <Footer/>
             </Container>
         </div>
     );
