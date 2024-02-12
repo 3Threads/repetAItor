@@ -1,6 +1,7 @@
 // ServiceCard.tsx
-import React from 'react';
+import React, {useState} from 'react';
 import {Card, Col, Row} from 'react-bootstrap';
+import CustomSwitch from "./CustomSwitch";
 
 interface ServiceCardProps {
     name: string;
@@ -12,7 +13,17 @@ interface ServiceCardProps {
     annuallyButton?: React.ReactNode;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({name, description, offers, price, annualPrice, monthlyButton, annuallyButton}) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({
+                                                     name,
+                                                     description,
+                                                     offers,
+                                                     price,
+                                                     annualPrice,
+                                                     monthlyButton,
+                                                     annuallyButton
+                                                 }) => {
+    const [checked, setChecked] = useState(false);
+
     return (
         <Card>
             <Card.Body>
@@ -22,17 +33,27 @@ const ServiceCard: React.FC<ServiceCardProps> = ({name, description, offers, pri
                     <ul>
                         {offers.map((offer, index) => <li key={index}>{offer}</li>)}
                     </ul>
+                    {checked && (
+                        <div style={{textAlign: "center", width: "100%"}}>
+                            <h3>${annualPrice}/annually</h3>
+                        </div>
+                    )}
+
+                    {!checked && price &&
+                        <div style={{textAlign: "center", width: "100%"}}>
+                            <h3>${price}/monthly</h3>
+                        </div>}
+                    {price && annualPrice && <CustomSwitch checked={checked} setChecked={setChecked}/>}
+
+                    {checked && <div>
+                        {annuallyButton}
+                    </div>}
+                    {!checked && price &&
+                        <div>
+                            {monthlyButton}
+                        </div>}
                 </Card.Text>
-                <Row>
-                    <Col xs={6}>
-                        {price && <Card.Text>Price: ${price}</Card.Text>}
-                        {price && monthlyButton}
-                    </Col>
-                    <Col xs={6}>
-                        {annualPrice && <Card.Text>Annual Price: ${annualPrice}</Card.Text>}
-                        {annualPrice && annuallyButton}
-                    </Col>
-                </Row>
+
 
             </Card.Body>
         </Card>

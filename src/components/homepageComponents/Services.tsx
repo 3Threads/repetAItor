@@ -26,9 +26,9 @@ export const Services = () => {
                         offers={['Offer 1', 'Offer 2']}
                         price={10}
                         annualPrice={50}
-                        monthlyButton={<Button className={'btn-sign-in'} style={{height: 'auto'}}
+                        monthlyButton={<Button className={'btn-sign-in my-3'} style={{height: 'auto', width: '100%',}}
                                                onClick={() => handleSubscribe('Free')}>Subscribe</Button>}
-                        annuallyButton={<Button className={'btn-sign-in'} style={{height: 'auto'}}
+                        annuallyButton={<Button className={'btn-sign-in my-3'} style={{height: 'auto', width: '100%',}}
                                                 onClick={() => handleSubscribe('Free annually')}>Subscribe</Button>}
                     />
                 </Col>
@@ -39,9 +39,9 @@ export const Services = () => {
                         offers={['Offer 1', 'Offer 2']}
                         price={10}
                         annualPrice={50}
-                        monthlyButton={<Button className={'btn-sign-in'} style={{height: 'auto'}}
+                        monthlyButton={<Button className={'btn-sign-in my-3'} style={{height: 'auto', width: '100%',}}
                                                onClick={() => handleSubscribe('Free')}>Subscribe</Button>}
-                        annuallyButton={<Button className={'btn-sign-in'} style={{height: 'auto'}}
+                        annuallyButton={<Button className={'btn-sign-in my-3'} style={{height: 'auto', width: '100%',}}
                                                 onClick={() => handleSubscribe('Free annually')}>Subscribe</Button>}
                     />
                 </Col>
