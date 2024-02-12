@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Header} from "../components/commonComponents/Header";
 import {Col, Container, Row} from "react-bootstrap";
 import FillTextTaskComp from "../components/taskComponents/FillTextTaskComp";
@@ -35,6 +35,7 @@ import {
     faCircleCheck,
     faCircleXmark,
 } from '@fortawesome/free-regular-svg-icons';
+import {UserContext} from "../contexts/UserContext";
 
 
 function TasksPage() {
@@ -45,6 +46,8 @@ function TasksPage() {
     const [taskResults, setTaskResults] = useState([]);
     const [userAnswers, setUserAnswers] = useState<string[][]>([]);
 
+    const {user, setUser} = useContext(UserContext);
+    console.log(user);
 
     useEffect(() => {
         const fetchData = async () => {

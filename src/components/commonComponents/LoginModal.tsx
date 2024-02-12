@@ -88,7 +88,7 @@ function LoginModal({show, handleClose}: Props) {
 
 
     const RegisterModalBody = (
-        <Form onSubmit={handleRegister}>
+        <div>
             <Form.Group className="mb-3" controlId="registerForm.ControlInput1">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
@@ -120,11 +120,11 @@ function LoginModal({show, handleClose}: Props) {
                     value={registerPassword}
                 />
             </Form.Group>
-        </Form>
+        </div>
     );
 
     const SignInModalBody = (
-        <Form onSubmit={handleLogin}>
+        <div>
             {/* Sign In form fields */}
             <Form.Group className="mb-3" controlId="signInForm.ControlInput1">
                 <Form.Label>Email address</Form.Label>
@@ -134,6 +134,7 @@ function LoginModal({show, handleClose}: Props) {
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
                     autoFocus
                     onChange={(e) => setLoginMail(e.target.value)}
+                    value={loginMail}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
@@ -143,10 +144,11 @@ function LoginModal({show, handleClose}: Props) {
                     placeholder="Password"
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
                     onChange={(e) => setLoginPassword(e.target.value)}
+                    value={loginPassword}
                 />
             </Form.Group>
             {/* Add more fields if needed */}
-        </Form>
+        </div>
     );
 
     return (
@@ -166,20 +168,21 @@ function LoginModal({show, handleClose}: Props) {
                         </Tabs.List>
                     </Tabs>
                 </Modal.Header>
-                <Modal.Body className={"modal-color"}>
-                    {tabValue === 'register' ? RegisterModalBody : SignInModalBody}
-                </Modal.Body>
-                <Modal.Footer className={"modal-color"}>
-                    <Button variant="primary" onClick={close}>
-                        Close
-                    </Button>
-                    <Button variant="sign-in" style={{height: 'auto'}} onClick={() => {
-                        handleLogin();
-                        close()
-                    }}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
+                <Form onSubmit={tabValue === 'register' ? handleRegister : handleLogin}>
+                    <Modal.Body className={"modal-color"}>
+                        {tabValue === 'register' ? RegisterModalBody : SignInModalBody}
+                    </Modal.Body>
+                    <Modal.Footer className={"modal-color"}>
+                        <Button variant="primary" onClick={close}>
+                            დახურვა
+                        </Button>
+                        <Button type={"submit"} variant="sign-in" style={{height: 'auto'}} onClick={() => {
+                            close()
+                        }}>
+                            {tabValue === 'register' ? "რეგისტრაცია" : "შესვლა"}
+                        </Button>
+                    </Modal.Footer>
+                </Form>
             </Modal>
         </div>
     );
