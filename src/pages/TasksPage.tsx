@@ -131,7 +131,7 @@ function TasksPage() {
     };
 
     return (
-        <div>
+        <div style={{display: 'flex', flexDirection: 'column', minHeight: "100vh"}}>
             <Header/>
             <Container>
                 <Row>
@@ -293,8 +293,9 @@ function TasksPage() {
                     </Col>
                     <Col xs={'1'}> </Col>
                 </Row>
-                <Footer/>
             </Container>
+
+            <Footer/>
         </div>
     )
         ;
