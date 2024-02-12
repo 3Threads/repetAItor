@@ -10,38 +10,88 @@ export const Services = () => {
 
     return (
         <div className={"pb-4"}>
-            <h1>Our Services</h1>
+            <h1>სერვისები</h1>
             <Row>
                 <Col sm={12} xs={12} lg={4} className={"py-1"}>
                     <ServiceCard
-                        name="Free"
-                        description="Get access to our services on a daily basis."
-                        offers={['Offer 1', 'Offer 2']}
+                        name="უფასო"
+                        description=""
+                        lastIndex={1}
+                        offers={
+                            [
+                                'წვდომა ყველა საგნის ტესტზე',
+                                'ტესტური პასუხების შეფასება',
+                                'წერილობითი პასუხების შეფასება (AI)',
+                                'რჩევების მიღება წერილობითი დავალების უკეთ შესასრულებლად',
+                                'რჩევების მიღება ცოდნის გასაღრმავებლად',
+                                'წვდომა დამატებით სავარჯიშოებზე',
+                            ]
+                        }
                     />
                 </Col>
                 <Col sm={12} xs={12} lg={4} className={"py-1"}>
                     <ServiceCard
-                        name="Premium"
-                        description="Get access to our services on a monthly basis."
-                        offers={['Offer 1', 'Offer 2']}
+                        name="პრემიუმი"
+                        description=""
+                        offers={
+                            [
+                                'წვდომა ყველა საგნის ტესტზე',
+                                'ტესტური პასუხების შეფასება',
+                                'წერილობითი პასუხების შეფასება (AI)',
+                                'რჩევების მიღება წერილობითი დავალების უკეთ შესასრულებლად',
+                                'რჩევების მიღება ცოდნის გასაღრმავებლად',
+                                'წვდომა დამატებით სავარჯიშოებზე',
+                            ]
+                        }
+                        lastIndex={3}
                         price={10}
                         annualPrice={50}
-                        monthlyButton={<Button className={'btn-sign-in my-3'} style={{height: 'auto', width: '100%',}}
+                        monthlyButton={<Button className={'btn-sign-in'} style={{
+                            height: 'auto',
+                            width: '100%',
+                            marginTop: '20px',
+                            marginBottom: '8px'
+                        }}
                                                onClick={() => handleSubscribe('Free')}>Subscribe</Button>}
-                        annuallyButton={<Button className={'btn-sign-in my-3'} style={{height: 'auto', width: '100%',}}
+                        annuallyButton={<Button className={'btn-sign-in'} style={{
+                            height: 'auto',
+                            width: '100%',
+                            marginTop: '20px',
+                            marginBottom: '8px'
+                        }}
                                                 onClick={() => handleSubscribe('Free annually')}>Subscribe</Button>}
                     />
                 </Col>
                 <Col sm={12} xs={12} lg={4} className={"py-1"}>
                     <ServiceCard
-                        name="Ultimate"
-                        description="Get access to our services on an annual basis."
-                        offers={['Offer 1', 'Offer 2']}
+                        name="ულიმიტო"
+                        description=""
+                        offers={
+                            [
+                                'წვდომა ყველა საგნის ტესტზე',
+                                'ტესტური პასუხების შეფასება',
+                                'წერილობითი პასუხების შეფასება (AI)',
+                                'რჩევების მიღება წერილობითი დავალების უკეთ შესასრულებლად',
+                                'რჩევების მიღება ცოდნის გასაღრმავებლად',
+                                'წვდომა დამატებით სავარჯიშოებზე',
+                            ]
+                        }
+                        lastIndex={6}
                         price={10}
                         annualPrice={50}
-                        monthlyButton={<Button className={'btn-sign-in my-3'} style={{height: 'auto', width: '100%',}}
+                        monthlyButton={<Button className={'btn-sign-in'} style={{
+                            height: 'auto',
+                            width: '100%',
+                            marginTop: '20px',
+                            marginBottom: '8px'
+                        }}
                                                onClick={() => handleSubscribe('Free')}>Subscribe</Button>}
-                        annuallyButton={<Button className={'btn-sign-in my-3'} style={{height: 'auto', width: '100%',}}
+                        annuallyButton={<Button className={'btn-sign-in'} style={{
+                            height: 'auto',
+                            width: '100%',
+                            marginTop: '20px',
+                            marginBottom: '8px'
+                        }}
                                                 onClick={() => handleSubscribe('Free annually')}>Subscribe</Button>}
                     />
                 </Col>

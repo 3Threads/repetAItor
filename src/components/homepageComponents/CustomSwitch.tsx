@@ -11,8 +11,8 @@ const CustomSwitch: React.FC<CustomSwitchProps> = ({checked, setChecked}) => {
         <div className={`custom-switch ${checked ? 'checked' : ''}`} onClick={() => setChecked(!checked)}>
             <div className="switch-slider"/>
             <div className="switch-text">
-                <span className="monthly">Monthly</span>
-                <span className="annually">Annually</span>
+                <span className="monthly" style={{paddingLeft: '8px'}}>Monthly</span>
+                <span className="annually" style={{paddingRight: '8px'}}>Annually</span>
             </div>
         </div>
     );

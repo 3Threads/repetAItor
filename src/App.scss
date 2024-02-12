@@ -188,19 +188,15 @@ summary {
   background: #2f2348;
   position: relative;
   border-radius: 15px;
-  border: 1px solid #8540f5;
+  border: 1px solid #6d2bf2;
   cursor: pointer;
 }
 
 .switch-slider {
   position: absolute;
-  top: 2px;
-  bottom: 2px;
-  left: 1%;
-  right: 1%;
-  width: 49%;
-  height: 25px;
-  background: #8540f5;
+  width: 50%;
+  height: 100%;
+  background: #6d2bf2;
   border-radius: 15px;
   transition: all 0.3s ease;
 }
