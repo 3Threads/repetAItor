@@ -19,6 +19,8 @@ function LoginModal({show, handleClose}: Props) {
     const [loginPassword, setLoginPassword] = useState("")
     const [registerPassword, setRegisterPassword] = useState("")
 
+    const [message, setMessage] = useState("");
+
     const close = () => {
         setTimeout(() => {
             setTabValue('signin');
@@ -27,13 +29,15 @@ function LoginModal({show, handleClose}: Props) {
         handleClose();
     }
 
-    const handleLogin = async () => {
+    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         // Perform login and get user data
         try {
             const response = await fetch('http://localhost:8000/login/' + loginMail + "/" + loginPassword);
 
             if (!response.ok) {
                 // Handle error
+                setMessage("ელ. ფოსტა ან პაროლი არასწორია")
                 return
             }
 
@@ -46,6 +50,13 @@ function LoginModal({show, handleClose}: Props) {
 
             setUser(userData);
             localStorage.setItem('user', JSON.stringify(userData)); // Save user data to local storage
+            handleClose();
+            setLoginMail("")
+            setLoginPassword("")
+            setUsername("")
+            setRegisterMail("")
+            setRegisterPassword("")
+            setMessage("")
 
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -69,6 +80,7 @@ function LoginModal({show, handleClose}: Props) {
 
             if (!response.ok) {
                 // Handle error
+                setMessage("რეგისტრაცია ვერ მოხერხდა")
                 return
             }
 
@@ -81,6 +93,13 @@ function LoginModal({show, handleClose}: Props) {
 
             setUser(userData);
             localStorage.setItem('user', JSON.stringify(userData)); // Save user data to local storage
+            handleClose();
+            setLoginMail("")
+            setLoginPassword("")
+            setUsername("")
+            setRegisterMail("")
+            setRegisterPassword("")
+            setMessage("")
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -159,10 +178,16 @@ function LoginModal({show, handleClose}: Props) {
                           color="#8540f5" radius="xs">
                         <Tabs.List id={'List'}
                                    style={{display: 'flex', justifyContent: 'center', borderStyle: 'none'}}>
-                            <Tabs.Tab style={{height: '60px'}} value="register" onClick={() => setTabValue('register')}>
+                            <Tabs.Tab style={{height: '60px'}} value="register" onClick={() => {
+                                setMessage("");
+                                setTabValue('register')
+                            }}>
                                 რეგისტრაცია
                             </Tabs.Tab>
-                            <Tabs.Tab style={{height: '60px'}} value="signin" onClick={() => setTabValue('signin')}>
+                            <Tabs.Tab style={{height: '60px'}} value="signin" onClick={() => {
+                                setMessage("");
+                                setTabValue('signin')
+                            }}>
                                 ავტორიზაცია
                             </Tabs.Tab>
                         </Tabs.List>
@@ -171,14 +196,13 @@ function LoginModal({show, handleClose}: Props) {
                 <Form onSubmit={tabValue === 'register' ? handleRegister : handleLogin}>
                     <Modal.Body className={"modal-color"}>
                         {tabValue === 'register' ? RegisterModalBody : SignInModalBody}
+                        <div>{message}</div>
                     </Modal.Body>
                     <Modal.Footer className={"modal-color"}>
                         <Button variant="primary" onClick={close}>
                             დახურვა
                         </Button>
-                        <Button type={"submit"} variant="sign-in" style={{height: 'auto'}} onClick={() => {
-                            close()
-                        }}>
+                        <Button type={"submit"} variant="sign-in" style={{height: 'auto'}}>
                             {tabValue === 'register' ? "რეგისტრაცია" : "შესვლა"}
                         </Button>
                     </Modal.Footer>
