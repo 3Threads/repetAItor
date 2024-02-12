@@ -2,6 +2,7 @@ import React from 'react';
 import {Header} from "../components/commonComponents/Header";
 import {useParams} from "react-router-dom";
 import {Col, Container, Dropdown, Row} from "react-bootstrap";
+import Footer from "../components/commonComponents/Footer";
 
 export const TestLists = () => {
     const {subject} = useParams();
@@ -11,10 +12,10 @@ export const TestLists = () => {
     return (
         <div>
             <Header/>
-            <Container >
+            <Container>
                 <Row>
                     <Col xs={'1'}> </Col>
-                    <Col xs={'10'} >
+                    <Col xs={'10'}>
                         <h2 className={'mt-3'}>{subject!.charAt(0).toUpperCase() + subject!.slice(1)} Tests</h2>
                         <div className={'row mt-4'}>
                             {years.map(year => (
@@ -26,7 +27,7 @@ export const TestLists = () => {
                                     <Dropdown.Menu className={'w-100'}>
                                         {[1, 2, 3, 4].map(num => (
                                             <Dropdown.Item
-                                                           href={`/tests/${subject}/${year}/${num}`}>ვარიანტი {num}</Dropdown.Item>
+                                                href={`/tests/${subject}/${year}/${num}`}>ვარიანტი {num}</Dropdown.Item>
                                         ))}
                                     </Dropdown.Menu>
                                 </Dropdown>
@@ -36,6 +37,7 @@ export const TestLists = () => {
                     </Col>
                     <Col xs={'1'}> </Col>
                 </Row>
+                <Footer/>
             </Container>
         </div>
     );

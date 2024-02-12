@@ -19,6 +19,8 @@ function LoginModal({show, handleClose}: Props) {
     const [loginPassword, setLoginPassword] = useState("")
     const [registerPassword, setRegisterPassword] = useState("")
 
+    const [message, setMessage] = useState("");
+
     const close = () => {
         setTimeout(() => {
             setTabValue('signin');
@@ -27,13 +29,15 @@ function LoginModal({show, handleClose}: Props) {
         handleClose();
     }
 
-    const handleLogin = async () => {
+    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         // Perform login and get user data
         try {
             const response = await fetch('http://localhost:8000/login/' + loginMail + "/" + loginPassword);
 
             if (!response.ok) {
                 // Handle error
+                setMessage("ელ. ფოსტა ან პაროლი არასწორია")
                 return
             }
 
@@ -46,6 +50,13 @@ function LoginModal({show, handleClose}: Props) {
 
             setUser(userData);
             localStorage.setItem('user', JSON.stringify(userData)); // Save user data to local storage
+            handleClose();
+            setLoginMail("")
+            setLoginPassword("")
+            setUsername("")
+            setRegisterMail("")
+            setRegisterPassword("")
+            setMessage("")
 
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -69,6 +80,7 @@ function LoginModal({show, handleClose}: Props) {
 
             if (!response.ok) {
                 // Handle error
+                setMessage("რეგისტრაცია ვერ მოხერხდა")
                 return
             }
 
@@ -81,6 +93,13 @@ function LoginModal({show, handleClose}: Props) {
 
             setUser(userData);
             localStorage.setItem('user', JSON.stringify(userData)); // Save user data to local storage
+            handleClose();
+            setLoginMail("")
+            setLoginPassword("")
+            setUsername("")
+            setRegisterMail("")
+            setRegisterPassword("")
+            setMessage("")
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -88,7 +107,7 @@ function LoginModal({show, handleClose}: Props) {
 
 
     const RegisterModalBody = (
-        <Form onSubmit={handleRegister}>
+        <div>
             <Form.Group className="mb-3" controlId="registerForm.ControlInput1">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
@@ -120,11 +139,11 @@ function LoginModal({show, handleClose}: Props) {
                     value={registerPassword}
                 />
             </Form.Group>
-        </Form>
+        </div>
     );
 
     const SignInModalBody = (
-        <Form onSubmit={handleLogin}>
+        <div>
             {/* Sign In form fields */}
             <Form.Group className="mb-3" controlId="signInForm.ControlInput1">
                 <Form.Label>Email address</Form.Label>
@@ -134,6 +153,7 @@ function LoginModal({show, handleClose}: Props) {
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
                     autoFocus
                     onChange={(e) => setLoginMail(e.target.value)}
+                    value={loginMail}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
@@ -143,10 +163,11 @@ function LoginModal({show, handleClose}: Props) {
                     placeholder="Password"
                     style={{backgroundColor: '#2f2348', color: 'lightgray', borderColor: 'rgba(255, 255, 255, 0.1)'}}
                     onChange={(e) => setLoginPassword(e.target.value)}
+                    value={loginPassword}
                 />
             </Form.Group>
             {/* Add more fields if needed */}
-        </Form>
+        </div>
     );
 
     return (
@@ -157,29 +178,45 @@ function LoginModal({show, handleClose}: Props) {
                           color="#8540f5" radius="xs">
                         <Tabs.List id={'List'}
                                    style={{display: 'flex', justifyContent: 'center', borderStyle: 'none'}}>
-                            <Tabs.Tab style={{height: '60px'}} value="register" onClick={() => setTabValue('register')}>
+                            <Tabs.Tab style={{height: '60px'}} value="register" onClick={() => {
+                                setLoginMail("")
+                                setLoginPassword("")
+                                setUsername("")
+                                setRegisterMail("")
+                                setRegisterPassword("")
+                                setMessage("")
+                                setTabValue('register')
+                            }}>
                                 რეგისტრაცია
                             </Tabs.Tab>
-                            <Tabs.Tab style={{height: '60px'}} value="signin" onClick={() => setTabValue('signin')}>
+                            <Tabs.Tab style={{height: '60px'}} value="signin" onClick={() => {
+                                setLoginMail("")
+                                setLoginPassword("")
+                                setUsername("")
+                                setRegisterMail("")
+                                setRegisterPassword("")
+                                setMessage("")
+                                setTabValue('signin')
+                            }}>
                                 ავტორიზაცია
                             </Tabs.Tab>
                         </Tabs.List>
                     </Tabs>
                 </Modal.Header>
-                <Modal.Body className={"modal-color"}>
-                    {tabValue === 'register' ? RegisterModalBody : SignInModalBody}
-                </Modal.Body>
-                <Modal.Footer className={"modal-color"}>
-                    <Button variant="primary" onClick={close}>
-                        Close
-                    </Button>
-                    <Button variant="sign-in" style={{height: 'auto'}} onClick={() => {
-                        handleLogin();
-                        close()
-                    }}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
+                <Form onSubmit={tabValue === 'register' ? handleRegister : handleLogin}>
+                    <Modal.Body className={"modal-color"}>
+                        {tabValue === 'register' ? RegisterModalBody : SignInModalBody}
+                        <div>{message}</div>
+                    </Modal.Body>
+                    <Modal.Footer className={"modal-color"}>
+                        <Button variant="primary" onClick={close}>
+                            დახურვა
+                        </Button>
+                        <Button type={"submit"} variant="sign-in" style={{height: 'auto'}}>
+                            {tabValue === 'register' ? "რეგისტრაცია" : "შესვლა"}
+                        </Button>
+                    </Modal.Footer>
+                </Form>
             </Modal>
         </div>
     );

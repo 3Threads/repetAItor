@@ -1,6 +1,6 @@
 import React from "react";
 import ServiceCard from "./ServiceCard";
-import {Col, Row} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 
 export const Services = () => {
     const handleSubscribe = (service: string) => {
@@ -14,26 +14,35 @@ export const Services = () => {
             <Row>
                 <Col sm={12} xs={12} lg={4} className={"py-1"}>
                     <ServiceCard
-                        name="Daily Subscription"
+                        name="Free"
                         description="Get access to our services on a daily basis."
-                        price={1}
-                        onClickSubscribe={() => handleSubscribe('Daily')}
+                        offers={['Offer 1', 'Offer 2']}
                     />
                 </Col>
                 <Col sm={12} xs={12} lg={4} className={"py-1"}>
                     <ServiceCard
-                        name="Monthly Subscription"
+                        name="Premium"
                         description="Get access to our services on a monthly basis."
+                        offers={['Offer 1', 'Offer 2']}
                         price={10}
-                        onClickSubscribe={() => handleSubscribe('Monthly')}
+                        annualPrice={50}
+                        monthlyButton={<Button className={'btn-sign-in'} style={{height: 'auto'}}
+                                               onClick={() => handleSubscribe('Free')}>Subscribe</Button>}
+                        annuallyButton={<Button className={'btn-sign-in'} style={{height: 'auto'}}
+                                                onClick={() => handleSubscribe('Free annually')}>Subscribe</Button>}
                     />
                 </Col>
                 <Col sm={12} xs={12} lg={4} className={"py-1"}>
                     <ServiceCard
-                        name="Annual Subscription"
+                        name="Ultimate"
                         description="Get access to our services on an annual basis."
-                        price={100}
-                        onClickSubscribe={() => handleSubscribe('Annual')}
+                        offers={['Offer 1', 'Offer 2']}
+                        price={10}
+                        annualPrice={50}
+                        monthlyButton={<Button className={'btn-sign-in'} style={{height: 'auto'}}
+                                               onClick={() => handleSubscribe('Free')}>Subscribe</Button>}
+                        annuallyButton={<Button className={'btn-sign-in'} style={{height: 'auto'}}
+                                                onClick={() => handleSubscribe('Free annually')}>Subscribe</Button>}
                     />
                 </Col>
             </Row>
