@@ -8,7 +8,8 @@ const Footer: React.FC = () => {
             backgroundColor: 'transparent',
             bottom: 0,
             width: '100%',
-            paddingTop: '120px',
+            marginTop: 'auto',
+            paddingTop: '10px',
         }}>
             <Container>
                 <Row>

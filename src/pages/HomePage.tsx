@@ -7,15 +7,15 @@ import {Services} from "../components/homepageComponents/Services";
 import Footer from "../components/commonComponents/Footer";
 
 export const HomePage = () => {
-    return <>
+    return <div style={{display: 'flex', flexDirection: 'column', minHeight: "100vh"}}>
         <Header/>
 
         <Container className="image-overlay-container mt-5">
             <WelcomeImage/>
             <HowItWorks/>
             <Services/>
-            <Footer/>
         </Container>
 
-    </>;
+        <Footer/>
+    </div>;
 };

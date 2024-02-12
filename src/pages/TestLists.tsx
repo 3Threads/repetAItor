@@ -10,7 +10,7 @@ export const TestLists = () => {
     years.reverse();
 
     return (
-        <div>
+        <div style={{display: 'flex', flexDirection: 'column', height: "100vh"}}>
             <Header/>
             <Container>
                 <Row>
@@ -37,8 +37,8 @@ export const TestLists = () => {
                     </Col>
                     <Col xs={'1'}> </Col>
                 </Row>
-                <Footer/>
             </Container>
+            <Footer/>
         </div>
     );
 };
