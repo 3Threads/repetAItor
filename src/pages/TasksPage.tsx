@@ -88,7 +88,6 @@ function TasksPage() {
                 created_task = new FillWithArticlesTask(questions, curr_task.text);
             } else if (task.task_type === "email") {
                 const curr_task = task.task as EmailTask;
-                console.log(task.task)
                 const questions = curr_task.questions as EmailQuestion[];
 
                 created_task = new EmailTask(questions, curr_task.text);
