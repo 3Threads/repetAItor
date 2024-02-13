@@ -16,7 +16,7 @@ export const Services = () => {
                     <ServiceCard
                         name="უფასო"
                         description=""
-                        lastIndex={1}
+                        lastIndex={2}
                         offers={
                             [
                                 'წვდომა ყველა საგნის ტესტზე',
