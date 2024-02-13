@@ -11,7 +11,7 @@ interface Props {
 }
 
 function LoginModal({show, handleClose}: Props) {
-    const {user, setUser} = useContext(UserContext); // Use UserContext
+    const {setUser} = useContext(UserContext); // Use UserContext
     const [tabValue, setTabValue] = useState('signin'); // Default value is "signin"
     const [username, setUsername] = useState("")
     const [loginMail, setLoginMail] = useState("")
@@ -111,7 +111,7 @@ function LoginModal({show, handleClose}: Props) {
     const RegisterModalBody = (
         <div>
             <Form.Group className="mb-3" controlId="registerForm.ControlInput1">
-                <Form.Label>Username</Form.Label>
+                <Form.Label>ზედმეტსახელი</Form.Label>
                 <Form.Control
                     type="Username"
                     placeholder="User1"
@@ -122,7 +122,7 @@ function LoginModal({show, handleClose}: Props) {
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
-                <Form.Label>Register Email address</Form.Label>
+                <Form.Label>მეილის მისამართი</Form.Label>
                 <Form.Control
                     type="email"
                     placeholder="name@example.com"
@@ -132,7 +132,7 @@ function LoginModal({show, handleClose}: Props) {
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>პაროლი</Form.Label>
                 <Form.Control
                     type="password"
                     placeholder="Password"
@@ -148,7 +148,7 @@ function LoginModal({show, handleClose}: Props) {
         <div>
             {/* Sign In form fields */}
             <Form.Group className="mb-3" controlId="signInForm.ControlInput1">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>მეილის მისამართი</Form.Label>
                 <Form.Control
                     type="email"
                     placeholder="name@example.com"
@@ -159,7 +159,7 @@ function LoginModal({show, handleClose}: Props) {
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="signInForm.ControlInput2">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>პაროლი</Form.Label>
                 <Form.Control
                     type="password"
                     placeholder="Password"
@@ -168,7 +168,6 @@ function LoginModal({show, handleClose}: Props) {
                     value={loginPassword}
                 />
             </Form.Group>
-            {/* Add more fields if needed */}
         </div>
     );
 
