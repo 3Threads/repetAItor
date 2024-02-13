@@ -14,8 +14,7 @@ function TasksResults({taskResults, userAnswers}: Props) {
     return (
         <>
             {
-                taskResults.length !== 0 && <h1 className="mt-5" style={{paddingTop: '40px'}}>Final
-                    Result: {taskResults.reduce((accumulator, taskResult) => {
+                taskResults.length !== 0 && <h1 className="mt-5" style={{paddingTop: '40px'}}>საბოლოო ქულა: {taskResults.reduce((accumulator, taskResult) => {
                         return accumulator + parseInt(taskResult[0]);
                     }, 0)}</h1>
             }

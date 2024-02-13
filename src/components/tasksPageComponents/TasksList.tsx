@@ -144,7 +144,7 @@ function TasksList({setTaskResults, setUserAnswers}: Props) {
                             <Accordion.Header
                                 className={"btn-task"}
                             >
-                                Task {task.task_number} {task.task_title}
+                                Task {task.task_number} {task.task_title} {task.point} ქულა
                             </Accordion.Header>
                             <Accordion.Body>
                                 {(() => {
