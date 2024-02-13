@@ -24,6 +24,7 @@ import {
 import MultipleQuestionTaskComp from "../taskComponents/MultipleQuestionTaskComp";
 import TitlingTaskComp from "../taskComponents/TitlingTaskComp";
 import {useParams} from "react-router-dom";
+import {Loader} from "@mantine/core";
 
 interface Props {
     setTaskResults: React.Dispatch<React.SetStateAction<any[]>>;
@@ -35,18 +36,26 @@ function TasksList({setTaskResults, setUserAnswers}: Props) {
     const {year} = useParams();
     const {variant} = useParams();
     const [tasks, setTasks] = useState<Task[]>([]);
-
+    const [loading, setLoading] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
                 const response = await fetch('http://localhost:8000/tasks/' + subject + '/' + year + '/' + variant);
                 if (!response.ok) {
-                    console.log('Network response was not ok');
+                    const data = await response.json();
+                    console.log(data.message)
+                    setLoading(false);
+                    setErrorMessage(data.message);
+                    setTasks([])
                     return;
                 }
                 const data = await response.json();
-                const parsedTasks: Task[] = parseTasks(data); // Function to parse the response into Task instances
+                const parsedTasks: Task[] = parseTasks(data.tasks); // Function to parse the response into Task instances
+                setLoading(false);
+                setErrorMessage("")
                 setTasks(parsedTasks);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -124,83 +133,88 @@ function TasksList({setTaskResults, setUserAnswers}: Props) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type={"hidden"} value={subject} name={"subject"}/>
-            <input type={"hidden"} value={year} name={"year"}/>
-            <input type={"hidden"} value={variant} name={"variant"}/>
-            <Accordion alwaysOpen style={{paddingLeft: '0px'}}>
-                {tasks.map((task: Task, index: number) => {
-                    return <Accordion.Item eventKey={"" + index} className={"btn-accordion"}>
-                        <Accordion.Header
-                            className={"btn-task"}
-                        >
-                            Task {task.task_number} {task.task_title}
-                        </Accordion.Header>
-                        <Accordion.Body>
-                            {(() => {
-                                switch (task.task_type) {
-                                    case 'filling':
-                                        const parsed_task = task.task as FillTextTask;
-                                        return (
-                                            <FillTextTaskComp
+        <>
+            {tasks.length > 0 && <form onSubmit={handleSubmit}>
+                <input type={"hidden"} value={subject} name={"subject"}/>
+                <input type={"hidden"} value={year} name={"year"}/>
+                <input type={"hidden"} value={variant} name={"variant"}/>
+                <Accordion alwaysOpen style={{paddingLeft: '0px'}}>
+                    {tasks.map((task: Task, index: number) => {
+                        return <Accordion.Item eventKey={"" + index} className={"btn-accordion"}>
+                            <Accordion.Header
+                                className={"btn-task"}
+                            >
+                                Task {task.task_number} {task.task_title}
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                {(() => {
+                                    switch (task.task_type) {
+                                        case 'filling':
+                                            const parsed_task = task.task as FillTextTask;
+                                            return (
+                                                <FillTextTaskComp
+                                                    questionNumber={task.task_number}
+                                                    questionText={parsed_task.text}
+                                                    splitter={"……"}
+                                                    options={parsed_task.options}
+                                                />
+                                            );
+                                        case 'email':
+                                            const email_task: EmailTask = task.task as EmailTask
+                                            return <EmailTaskComp questionNumber={task.task_number}
+                                                                  emailText={email_task.text}/>
+                                        case 'essay':
+                                            const essay_task = task.task as EssayTask;
+                                            return <EssayTaskComp questionNumber={task.task_number}
+                                                                  essayTitle={essay_task.title}/>
+                                        case 'articles':
+                                            const fill_with_articles_task = task.task as FillWithArticlesTask;
+                                            return <FillTextTaskComp questionNumber={task.task_number}
+                                                                     questionText={fill_with_articles_task.text}
+                                                                     splitter={"….."}
+                                                                     options={[]}/>
+
+                                        case 'reading':
+                                            const read_and_write_task = task.task as ReadAndWriteTask;
+                                            const read_and_write_questions = read_and_write_task.getQuestions() as MultipleChoiceQuestion[];
+                                            return <MultipleQuestionTaskComp
                                                 questionNumber={task.task_number}
-                                                questionText={parsed_task.text}
-                                                splitter={"……"}
-                                                options={parsed_task.options}
-                                            />
-                                        );
-                                    case 'email':
-                                        const email_task: EmailTask = task.task as EmailTask
-                                        return <EmailTaskComp questionNumber={task.task_number}
-                                                              emailText={email_task.text}/>
-                                    case 'essay':
-                                        const essay_task = task.task as EssayTask;
-                                        return <EssayTaskComp questionNumber={task.task_number}
-                                                              essayTitle={essay_task.title}/>
-                                    case 'articles':
-                                        const fill_with_articles_task = task.task as FillWithArticlesTask;
-                                        return <FillTextTaskComp questionNumber={task.task_number}
-                                                                 questionText={fill_with_articles_task.text}
-                                                                 splitter={"….."}
-                                                                 options={[]}/>
+                                                text={read_and_write_task.text}
+                                                questions={read_and_write_questions}/>
 
-                                    case 'reading':
-                                        const read_and_write_task = task.task as ReadAndWriteTask;
-                                        const read_and_write_questions = read_and_write_task.getQuestions() as MultipleChoiceQuestion[];
-                                        return <MultipleQuestionTaskComp
-                                            questionNumber={task.task_number}
-                                            text={read_and_write_task.text}
-                                            questions={read_and_write_questions}/>
+                                        case 'listening':
+                                            const listening_task = task.task as ListeningTask;
+                                            const listening_questions = listening_task.getQuestions() as MultipleChoiceQuestion[];
+                                            return <MultipleQuestionTaskComp
+                                                questionNumber={task.task_number}
+                                                text={""}
+                                                questions={listening_questions}/>
 
-                                    case 'listening':
-                                        const listening_task = task.task as ListeningTask;
-                                        const listening_questions = listening_task.getQuestions() as MultipleChoiceQuestion[];
-                                        return <MultipleQuestionTaskComp
-                                            questionNumber={task.task_number}
-                                            text={""}
-                                            questions={listening_questions}/>
+                                        case 'titling':
+                                            const titling_task = task.task as TitlingTask;
+                                            const titling_questions = titling_task.getQuestions() as TitlingQuestion[];
+                                            const paragraphs = titling_questions.map((question: TitlingQuestion) => question.title);
+                                            return <TitlingTaskComp questionNumber={task.task_number}
+                                                                    question={task.task_title}
+                                                                    titles={titling_task.paragraphs}
+                                                                    paragraphs={paragraphs}/>
+                                        default:
+                                            return <div>Task {task.task_number}: {task.task_title}</div>;
+                                    }
+                                })()}
+                            </Accordion.Body>
+                        </Accordion.Item>
 
-                                    case 'titling':
-                                        const titling_task = task.task as TitlingTask;
-                                        const titling_questions = titling_task.getQuestions() as TitlingQuestion[];
-                                        const paragraphs = titling_questions.map((question: TitlingQuestion) => question.title);
-                                        return <TitlingTaskComp questionNumber={task.task_number}
-                                                                question={task.task_title}
-                                                                titles={titling_task.paragraphs}
-                                                                paragraphs={paragraphs}/>
-                                    default:
-                                        return <div>Task {task.task_number}: {task.task_title}</div>;
-                                }
-                            })()}
-                        </Accordion.Body>
-                    </Accordion.Item>
-
-                })}
-            </Accordion>
-            <button type={"submit"} className={'btn-sign-in mt-2 mb-5'}
-                    style={{float: 'right'}}>Complete
-            </button>
-        </form>
+                    })}
+                </Accordion>
+                <button type={"submit"} className={'btn-sign-in mt-2 mb-5'}
+                        style={{float: 'right'}}>დასრულება
+                </button>
+            </form>
+            }
+            {loading && <div style={{width: "100%", textAlign: "center"}}><Loader color="#8540f5"/></div>}
+            {errorMessage && <h1 style={{width: "100%", textAlign: "center"}}>{errorMessage}</h1>}
+        </>
     )
 }
 
