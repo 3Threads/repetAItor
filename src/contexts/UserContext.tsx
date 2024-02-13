@@ -2,6 +2,7 @@
 import React, {createContext, useState, useEffect, ReactNode} from 'react';
 
 interface User {
+    id: number;
     name: string;
     email: string;
     subscriptionType: string;

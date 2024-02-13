@@ -44,6 +44,7 @@ function LoginModal({show, handleClose}: Props) {
             const data = await response.json();
             console.log(data.user)
             const userData = {
+                id: data.user.id,
                 name: data.user.username,
                 email: data.user.email,
                 subscriptionType: data.user.subscribe_type
@@ -88,6 +89,7 @@ function LoginModal({show, handleClose}: Props) {
             const data = await response.json();
             console.log(data.user)
             const userData = {
+                id: data.user.id,
                 name: data.user.username,
                 email: data.user.email,
                 subscriptionType: data.user.subscribe_type

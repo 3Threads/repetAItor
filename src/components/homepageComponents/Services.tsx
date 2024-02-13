@@ -1,11 +1,32 @@
-import React from "react";
+import React, {useContext} from "react";
 import ServiceCard from "./ServiceCard";
 import {Button, Col, Row} from "react-bootstrap";
+import {UserContext} from "../../contexts/UserContext";
 
 export const Services = () => {
-    const handleSubscribe = (service: string) => {
-        // Handle subscription logic here
-        console.log(`Subscribed to ${service}`);
+    const {user} = useContext(UserContext); // Use UserContext
+
+    const handleSubscribe = async (service: string) => {
+        try {
+            const response = await fetch('http://localhost:8000/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: user?.id,
+                    subscribe_type: service
+                })
+            });
+
+            if (!response.ok) {
+                // Handle error
+                console.log("subscription ver qna")
+                return
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
     };
 
     return (
@@ -56,7 +77,7 @@ export const Services = () => {
                                         marginTop: '20px',
                                         marginBottom: '8px'
                                     }}
-                                    onClick={() => handleSubscribe('Free')}
+                                    onClick={() => handleSubscribe('PremiumMonthly')}
                                 >
                                     Subscribe
                                 </Button>
@@ -71,7 +92,7 @@ export const Services = () => {
                                         marginTop: '20px',
                                         marginBottom: '8px'
                                     }}
-                                    onClick={() => handleSubscribe('Free annually')}
+                                    onClick={() => handleSubscribe('PremiumAnnually')}
                                 >
                                     Subscribe
                                 </Button>
@@ -105,7 +126,7 @@ export const Services = () => {
                                         marginTop: '20px',
                                         marginBottom: '8px'
                                     }}
-                                    onClick={() => handleSubscribe('Free')}
+                                    onClick={() => handleSubscribe('UltimateMonthly')}
                                 >
                                     Subscribe
                                 </Button>
@@ -119,7 +140,7 @@ export const Services = () => {
                                             marginTop: '20px',
                                             marginBottom: '8px'
                                         }}
-                                        onClick={() => handleSubscribe('Free annually')}
+                                        onClick={() => handleSubscribe('UltimateAnnually')}
                                 >
                                     Subscribe
                                 </Button>
