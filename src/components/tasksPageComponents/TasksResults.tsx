@@ -29,7 +29,7 @@ function TasksResults({taskResults, userAnswers}: Props) {
                             დავალება {index + 1} - ჯამური ქულა: {taskResult[0]}
                         </Accordion.Header>
                         <Accordion.Body>
-                            {Object.keys(taskResult[1]).length !== 1 &&
+                            {taskResult[1].length !== 1 &&
                                 <div className="mb-3">
                                     <ul style={{
                                         paddingTop: '6px',
@@ -38,11 +38,11 @@ function TasksResults({taskResults, userAnswers}: Props) {
                                         paddingRight: '32px'
                                     }}>
                                         <Row>
-                                            {Object.entries(taskResult[1]).map(([subtaskId, result], subindex) => (
+                                            {taskResult[1].map((result: any, subindex: any) => (
                                                 <Col sm={12} lg={6} key={subindex}>
 
                                                     <li key={subindex}>
-                                                        {userAnswers[index][parseInt(subtaskId)] === result ? (
+                                                        {result[0] > 0 ? (
                                                             <div style={{
                                                                 display: 'flex',
                                                                 alignItems: 'center',
@@ -57,11 +57,11 @@ function TasksResults({taskResults, userAnswers}: Props) {
                                                                 />
                                                                 <div style={{paddingLeft: '10px'}}>
                                                                     <div>
-                                                                        შეკითხვა {(parseInt(subtaskId) + 1)}
+                                                                        შეკითხვა {(parseInt(subindex) + 1)}
                                                                     </div>
                                                                     <div style={{color: "dimgray"}}>
-                                                                        {"შენი პასუხი: " + (userAnswers[index][parseInt(subtaskId)] === '' ? 'N/A' : userAnswers[index][parseInt(subtaskId)])
-                                                                            + ", სწორი პასუხი: " + result}
+                                                                        {"შენი პასუხი: " + (userAnswers[index][parseInt(subindex)] === '' ? 'N/A' : userAnswers[index][parseInt(subindex)])
+                                                                            + ", სწორი პასუხი: " + result[1]}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -78,11 +78,11 @@ function TasksResults({taskResults, userAnswers}: Props) {
                                                                 />
                                                                 <div style={{paddingLeft: '10px'}}>
                                                                     <div>
-                                                                        შეკითხვა {(parseInt(subtaskId) + 1)}
+                                                                        შეკითხვა {(parseInt(subindex) + 1)}
                                                                     </div>
                                                                     <div style={{color: "dimgray"}}>
-                                                                        {"შენი პასუხი: " + (userAnswers[index][parseInt(subtaskId)] === '' ? 'N/A' : userAnswers[index][parseInt(subtaskId)])
-                                                                            + ", სწორი პასუხი: " + result}
+                                                                        {"შენი პასუხი: " + (userAnswers[index][parseInt(subindex)] === '' ? 'N/A' : userAnswers[index][parseInt(subindex)])
+                                                                            + ", სწორი პასუხი: " + result[1]}
                                                                     </div>
                                                                 </div>
                                                             </div>
