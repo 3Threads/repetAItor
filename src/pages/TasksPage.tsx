@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Header} from "../components/commonComponents/Header";
 import {Accordion, Col, Container, Row} from "react-bootstrap";
 import FillTextTaskComp from "../components/taskComponents/FillTextTaskComp";
@@ -27,9 +27,7 @@ import {
 } from "../interfaces/questions";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCaretDown,} from '@fortawesome/free-solid-svg-icons';
 import {faCircleCheck, faCircleXmark,} from '@fortawesome/free-regular-svg-icons';
-import {UserContext} from "../contexts/UserContext";
 import Footer from "../components/commonComponents/Footer";
 
 
@@ -40,9 +38,6 @@ function TasksPage() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [taskResults, setTaskResults] = useState([]);
     const [userAnswers, setUserAnswers] = useState<string[][]>([]);
-
-    const {user, setUser} = useContext(UserContext);
-    console.log(user);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -163,7 +158,8 @@ function TasksPage() {
                                                             />
                                                         );
                                                     case 'email':
-                                                        return <EmailTaskComp questionNumber={task.task_number}/>
+                                                        return <EmailTaskComp questionNumber={task.task_number}
+                                                                              emailText={"<b>sadasd</b>asdas"}/>
                                                     case 'essay':
                                                         const essay_task = task.task as EssayTask;
                                                         return <EssayTaskComp questionNumber={task.task_number}
@@ -208,9 +204,11 @@ function TasksPage() {
 
                                 })}
                             </Accordion>
-                            <button type={"submit"} className={'btn-sign-in mt-2 mb-5'} style={{float:'right'}}>Complete</button>
+                            <button type={"submit"} className={'btn-sign-in mt-2 mb-5'}
+                                    style={{float: 'right'}}>Complete
+                            </button>
                         </form>
-                        {taskResults.length !== 0 && <h1 className="mt-5" style={{paddingTop:'40px'}}>Final
+                        {taskResults.length !== 0 && <h1 className="mt-5" style={{paddingTop: '40px'}}>Final
                             Result: {taskResults.reduce((accumulator, taskResult) => {
                                 return accumulator + parseInt(taskResult[0]);
                             }, 0)}</h1>

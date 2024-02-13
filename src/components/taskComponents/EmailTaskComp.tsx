@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {Image} from 'react-bootstrap';
 
 interface Props {
     questionNumber: number;
+    emailText: string;
 }
 
 const EmailTaskComp: React.FC<Props> = ({
-                                            questionNumber
+                                            questionNumber,
+                                            emailText,
                                         }) => {
     const [answer, setAnswer] = useState<string>('');
 
@@ -17,10 +18,8 @@ const EmailTaskComp: React.FC<Props> = ({
 
     return (
         <div className={'pt-3 px-3 pb-3'}>
-            <div className="image-parent p-2">
-                {/* Use require to dynamically import the image */}
-                <Image src={require(`../../images/2021-var1.png`)} alt={"Question Image"}
-                       className="centered-image"/>
+            <div className="p-2">
+                <div dangerouslySetInnerHTML={{__html: emailText}}/>
             </div>
             <div className={"m-2"} style={{paddingTop: '20px'}}>
                 <textarea
@@ -37,7 +36,7 @@ const EmailTaskComp: React.FC<Props> = ({
                         borderRadius: '4px',
                         // border: '1px solid #ccc',
                     }}
-                    className = {'test-input'}
+                    className={'test-input'}
                     placeholder={'Write your email here...'}
                 />
             </div>
