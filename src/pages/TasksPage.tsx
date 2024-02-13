@@ -88,9 +88,10 @@ function TasksPage() {
                 created_task = new FillWithArticlesTask(questions, curr_task.text);
             } else if (task.task_type === "email") {
                 const curr_task = task.task as EmailTask;
+                console.log(task.task)
                 const questions = curr_task.questions as EmailQuestion[];
 
-                created_task = new EmailTask(questions, curr_task.imgLink);
+                created_task = new EmailTask(questions, curr_task.text);
             } else if (task.task_type === "essay") {
                 const curr_task = task.task as EssayTask;
                 const questions = curr_task.questions as EssayQuestion[];
@@ -158,8 +159,9 @@ function TasksPage() {
                                                             />
                                                         );
                                                     case 'email':
+                                                        const email_task: EmailTask = task.task as EmailTask
                                                         return <EmailTaskComp questionNumber={task.task_number}
-                                                                              emailText={"<b>sadasd</b>asdas"}/>
+                                                                              emailText={email_task.text}/>
                                                     case 'essay':
                                                         const essay_task = task.task as EssayTask;
                                                         return <EssayTaskComp questionNumber={task.task_number}

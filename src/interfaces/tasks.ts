@@ -53,7 +53,7 @@ export class FillWithArticlesTask extends TaskTypeImpl {
 
 // Define EmailTask class
 export class EmailTask extends TaskTypeImpl {
-    constructor(questions: QuestionType[], public imgLink: string) {
+    constructor(questions: QuestionType[], public text: string) {
         super(questions);
     }
 }
