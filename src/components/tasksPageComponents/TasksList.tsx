@@ -148,7 +148,17 @@ function TasksList({setTaskResults, setUserAnswers}: Props) {
                                 <Accordion.Header
                                     className={"btn-task"}
                                 >
-                                    Task {task.task_number} {task.task_title} {task.point} ქულა
+                                    <div>
+                                        <div style={{display: 'inline-block', marginRight: '10px', marginBottom:'10px'}}>
+                                            Task {task.task_number}
+                                        </div>
+                                        <div style={{display: 'inline-block', color: '#8540f5'}}>
+                                            ({task.point} ქულა)
+                                        </div>
+                                        <div>
+                                            {task.task_title}
+                                        </div>
+                                    </div>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     {(() => {

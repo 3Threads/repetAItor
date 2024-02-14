@@ -17,16 +17,17 @@ const TitlingTaskComp: React.FC<Props> = ({question, questionNumber, paragraphs,
         setAnswers(newAnswers);
     };
     return (
-        <div className={'pt-3 pb-3 px-3'}>
-            <h4>Which paragraph</h4>
-            <ul>
+        <div>
+            <ul className={'large-window'} style={{textAlign: 'justify'}}>
                 {titles.map((title, index) => (
                     <li key={index}>
                         <p>{title}</p>
                     </li>
                 ))}
             </ul>
-            <ul style={{paddingTop: '14px'}}>
+            <h4>Which paragraph</h4>
+
+            <ul className={'ul-window'} style={{paddingTop: '14px'}}>
                 {paragraphs.map((paragraph, index) => (
                     <li key={index + 2}>
                         <p>{paragraph} - <input id={'task' + questionNumber}

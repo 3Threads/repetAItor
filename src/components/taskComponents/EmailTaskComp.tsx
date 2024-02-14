@@ -31,7 +31,7 @@ const EmailTaskComp: React.FC<Props> = ({
 
     return (
         <div>
-            <div className="px-5 pb-3 pt-3" style={{textAlign:'justify'}}>
+            <div className="large-window" style={{textAlign:'justify'}}>
                 <div dangerouslySetInnerHTML={{__html: styledEmailText}}/>
             </div>
             <div className={"m-2"} style={{paddingTop: '20px'}}>
@@ -41,14 +41,8 @@ const EmailTaskComp: React.FC<Props> = ({
                     value={answer}
                     onChange={handleAnswerChange}
                     rows={4}
-                    style={{
-                        width: '80%',
-                        marginLeft: '10%',
-                        padding: '8px',
-                        fontSize: '18px',
-                        borderRadius: '4px',
-                    }}
-                    className={'test-input'}
+
+                    className={'test-input big-test-input'}
                     placeholder={user?.subscriptionType === 'Free' ? 'You need to upgrade to write your answer here...': 'Write your essay here...'}
                     disabled={user?.subscriptionType === 'Free'}
                 />
@@ -58,15 +52,7 @@ const EmailTaskComp: React.FC<Props> = ({
                     value={answer}
                     onChange={handleAnswerChange}
                     rows={4}
-                    style={{
-                        width: '80%',
-                        marginLeft: '10%',
-                        padding: '8px',
-                        fontSize: '18px',
-                        borderRadius: '4px',
-                        // border: '1px solid #ccc',
-                    }}
-                    className={'test-input'}
+                    className={'test-input big-test-input'}
                     placeholder={'Write your essay here...'}
                     hidden
                 />}

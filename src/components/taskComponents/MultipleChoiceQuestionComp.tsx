@@ -10,8 +10,8 @@ const MultipleChoiceQuestionComp: React.FC<Props> = ({question, choices, questio
 
     return (
         <div className={'pt-3 pb-1'}>
-            {questionNumber}). {question}
-            <ul>
+            {questionNumber}) {question}
+            <ul className={'ul-window'}>
                 {choices.map((choice, index) => (
                     <li key={index}>
                         <label>

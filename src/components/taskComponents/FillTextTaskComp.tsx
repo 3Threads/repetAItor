@@ -25,14 +25,14 @@ const FillTextTaskComp: React.FC<Props> = ({
     };
 
     return (
-        <div className={'px-5 pt-3 pb-3'} style={{textAlign: 'justify'}}>
+        <div className={'large-window'} style={{textAlign: 'justify'}}>
             <Row className="justify-content-center">
                 {options.map((option, index) => (
                     <Col xs={12} sm={6} lg={2} key={index}>
                         <Card className="shadow mb-4">
                             <Card.Body style={{padding: '0', paddingTop:'2px', paddingBottom: '2px'}}>
                                 <Card.Text className="text-center">
-                                    {String.fromCharCode(65 + index)}) {option}
+                                    {option} ({String.fromCharCode(65 + index)})
                                 </Card.Text>
                             </Card.Body>
                         </Card>

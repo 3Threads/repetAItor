@@ -9,10 +9,11 @@ const Footer: React.FC = () => {
             bottom: 0,
             width: '100%',
             marginTop: 'auto',
-            paddingTop: '80px',
+            paddingTop: '40px',
         }}>
-            <Container>
-                <Row>
+            <hr></hr>
+            <Container style={{paddingTop: '40px'}}>
+                <Row className={'footer-window'}>
                     <Col md={4}>
                         <h5 style={{fontWeight: 'bold'}}>ნავიგაცია</h5>
                         <ul className="list-unstyled">

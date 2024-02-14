@@ -15,7 +15,6 @@ export const HomePage = () => {
             <HowItWorks/>
             <Services/>
         </Container>
-
         <Footer/>
     </div>;
 };

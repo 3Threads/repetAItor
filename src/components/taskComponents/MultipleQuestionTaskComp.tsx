@@ -11,9 +11,9 @@ interface Props {
 
 const MultipleQuestionTaskComp: React.FC<Props> = ({questions, questionNumber, text}) => {
     return (
-        <div className={'px-3 pb-3 '}>
-            <h4>{text}</h4>
-            <ul>
+        <div className={'large-window'} >
+            <div style={{textAlign: 'justify'}}>{text}</div>
+            <ul className={'ul-window'}>
                 {questions.map((quest, index) => (
                     <li key={index}>
                         <MultipleChoiceQuestionComp question={quest.question} choices={quest.options}

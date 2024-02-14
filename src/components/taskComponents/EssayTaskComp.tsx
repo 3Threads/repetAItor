@@ -20,7 +20,7 @@ const EssayTaskComp: React.FC<Props> = ({
 
     return (
         <div className={'pt-3 px-3 pb-3'}>
-            <b><h4>{essayTitle}</h4></b>
+            <b><div style={{textAlign: 'justify'}}>{essayTitle}</div></b>
             <div className={"m-2"} style={{paddingTop: '20px'}}>
                 <textarea
                     id={'task' + questionNumber}
@@ -28,15 +28,7 @@ const EssayTaskComp: React.FC<Props> = ({
                     value={answer}
                     onChange={handleAnswerChange}
                     rows={10}
-                    style={{
-                        width: '80%',
-                        marginLeft: '10%',
-                        padding: '8px',
-                        fontSize: '18px',
-                        borderRadius: '4px',
-                        // border: '1px solid #ccc',
-                    }}
-                    className={'test-input'}
+                    className={'test-input big-test-input'}
                     placeholder={user?.subscriptionType === 'Free' ? 'You need to upgrade to write your answer here...': 'Write your essay here...'}
                     disabled={user?.subscriptionType === 'Free'}
                 />
@@ -46,15 +38,7 @@ const EssayTaskComp: React.FC<Props> = ({
                     value={answer}
                     onChange={handleAnswerChange}
                     rows={10}
-                    style={{
-                        width: '80%',
-                        marginLeft: '10%',
-                        padding: '8px',
-                        fontSize: '18px',
-                        borderRadius: '4px',
-                        // border: '1px solid #ccc',
-                    }}
-                    className={'test-input'}
+                    className={'test-input  big-test-input'}
                     placeholder={'Write your essay here...'}
                     hidden
                 />}
