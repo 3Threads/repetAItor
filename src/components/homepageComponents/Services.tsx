@@ -4,7 +4,7 @@ import {Button, Col, Row} from "react-bootstrap";
 import {UserContext} from "../../contexts/UserContext";
 
 export const Services = () => {
-    const {user} = useContext(UserContext); // Use UserContext
+    const {user, setUser} = useContext(UserContext); // Use UserContext
 
     const handleSubscribe = async (service: string) => {
         try {
@@ -24,6 +24,15 @@ export const Services = () => {
                 console.log("subscription ver qna")
                 return
             }
+            const data = await response.json();
+            const userData = {
+                id: data.user.id,
+                name: data.user.username,
+                email: data.user.email,
+                subscriptionType: data.user.subscribe_type
+            };
+            setUser(userData);
+
         } catch (error) {
             console.error('Error submitting form:', error);
         }
