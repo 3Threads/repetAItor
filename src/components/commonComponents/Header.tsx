@@ -10,7 +10,6 @@ import {faBars} from "@fortawesome/free-solid-svg-icons";
 
 export const Header: React.FC = () => {
     const {subject} = useParams();
-    const [showButtons, setShowButtons] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -36,10 +35,6 @@ export const Header: React.FC = () => {
         };
     }, []);
 
-    const handleToggle = () => {
-        setShowButtons(!showButtons);
-    };
-
     return (
         <div className={"custom-navbar"}
              style={{paddingBottom: '0', display: 'flex', justifyContent: 'space-between'}}>
@@ -59,7 +54,7 @@ export const Header: React.FC = () => {
                 </h2>
 
                 {isSmallScreen ? (
-                    <div style={{display: 'flex', justifyContent: 'space-between', order: '2', width:'110px'}}>
+                    <div style={{display: 'flex', justifyContent: 'space-between', order: '2', width: '110px'}}>
                         <Dropdown data-bs-theme="dark">
                             <Dropdown.Toggle className={'btn-sign-in'}
                                              style={{
@@ -172,7 +167,11 @@ export const Header: React.FC = () => {
                                             <Dropdown.Menu>
                                                 <Dropdown.Item>{user.name}</Dropdown.Item>
                                                 <Dropdown.Divider/>
-                                                <Dropdown.Item onClick={() => setUser(null)}>გამოსვლა</Dropdown.Item>
+                                                <Dropdown.Item
+                                                    onClick={() => {
+                                                        setUser(null);
+                                                        window.location.reload();
+                                                    }}>გამოსვლა</Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                         <Button className={'btn-contact m-1'}>დაგვიკავშირდი</Button>
