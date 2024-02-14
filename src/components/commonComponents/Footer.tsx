@@ -14,20 +14,22 @@ const Footer: React.FC = () => {
             <Container>
                 <Row>
                     <Col md={4}>
-                        <h5 style={{fontWeight: 'bold'}}>Navigation</h5>
+                        <h5 style={{fontWeight: 'bold'}}>ნავიგაცია</h5>
                         <ul className="list-unstyled">
                             <li><a className={'footer-a'}
-                                href="/public">Home</a></li>
+                                href={"/tests/georgian"}>ქართული</a></li>
                             <li><a className={'footer-a'}
-                                   href="/about">About Us</a></li>
+                                href={"/tests/english"}>ინგლისური</a></li>
                             <li><a className={'footer-a'}
-                                href="/services">Services</a></li>
+                                href={"/tests/math"}>მათემატიკა</a></li>
                             <li><a className={'footer-a'}
-                                href="/contact">Contact Us</a></li>
+                                href={"/tests/history"}>ისტორია</a></li>
+                            <li><a className={'footer-a'}
+                                href="#/action-2">დაგვიკავშირდი</a></li>
                         </ul>
                     </Col>
                     <Col md={4}>
-                        <h5 style={{fontWeight: 'bold'}}>Company</h5>
+                        <h5 style={{fontWeight: 'bold'}}>კომპანია</h5>
                         <ul className="list-unstyled">
                             <li><a className={'footer-a'}
                                    href="/terms">Terms of Service</a></li>
@@ -38,11 +40,9 @@ const Footer: React.FC = () => {
                         </ul>
                     </Col>
                     <Col md={4}>
-                        <h5 style={{fontWeight: 'bold'}}>Contact</h5>
+                        <h5 style={{fontWeight: 'bold'}}>კავშირი</h5>
                         <address>
-                            1234 Main Street<br/>
-                            City, State ZIP<br/>
-                            <i className="fas fa-phone"></i> Phone: (123) 456-7890<br/>
+                            <i className="fas fa-phone"></i> ნომერი: (123) 456-7890<br/>
                             <i className="fas fa-envelope"></i> Email: info@example.com
                         </address>
                     </Col>
@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
                     <Col>
                         <hr/>
                         <p className="text-center">
-                            © {new Date().getFullYear()} Your Company Name. All Rights Reserved.
+                            © {new Date().getFullYear()} RepetAItor. All Rights Reserved.
                         </p>
                     </Col>
                 </Row>
