@@ -79,7 +79,7 @@ export const Services = () => {
                                     }}
                                     onClick={() => handleSubscribe('PremiumMonthly')}
                                 >
-                                    Subscribe
+                                    ყიდვა
                                 </Button>
                             }
                         annuallyButton=
@@ -94,7 +94,7 @@ export const Services = () => {
                                     }}
                                     onClick={() => handleSubscribe('PremiumAnnually')}
                                 >
-                                    Subscribe
+                                    ყიდვა
                                 </Button>
                             }
                     />
@@ -127,8 +127,9 @@ export const Services = () => {
                                         marginBottom: '8px'
                                     }}
                                     onClick={() => handleSubscribe('UltimateMonthly')}
+                                    disabled
                                 >
-                                    Subscribe
+                                    მალე
                                 </Button>
                             }
                         annuallyButton=
@@ -141,8 +142,9 @@ export const Services = () => {
                                             marginBottom: '8px'
                                         }}
                                         onClick={() => handleSubscribe('UltimateAnnually')}
+                                        disabled
                                 >
-                                    Subscribe
+                                    მალე
                                 </Button>
                             }
                     />
