@@ -1,5 +1,7 @@
-import React from 'react'; // Import useContext
+import React, {useContext} from 'react'; // Import useContext
 import Modal from 'react-bootstrap/Modal';
+import {UserContext} from "../../contexts/UserContext";
+import Button from "react-bootstrap/Button";
 
 interface Props {
     show: boolean;
@@ -8,16 +10,25 @@ interface Props {
 }
 
 function SubscriptionModal({show, handleClose, expireDate}: Props) {
+    const {user} = useContext(UserContext); // Use UserContext
 
     return (
         <div>
             <Modal show={show} onHide={handleClose} centered>
-                <Modal.Header className={"modal-color"} style={{paddingTop: '0', paddingBottom: '0'}} closeButton>
-                    aqaaa
+                <Modal.Header className={"modal-color"} closeButton>
+                    <Modal.Title>წარმატებული გადახდა</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className={"modal-color"}>
-                    {expireDate}
+                    მიმდინარე სტატუსი: {user?.subscriptionType}
+                    <br></br>
+                    ამოწურვის თარიღი: {expireDate}
                 </Modal.Body>
+                <Modal.Footer className={"modal-color"}>
+                    <Button variant="primary" onClick={() => handleClose()}>
+                        დახურვა
+                    </Button>
+
+                </Modal.Footer>
             </Modal>
         </div>
     );
