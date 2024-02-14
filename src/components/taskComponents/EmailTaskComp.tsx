@@ -17,11 +17,22 @@ const EmailTaskComp: React.FC<Props> = ({
         setAnswer(event.target.value);
     };
 
+    // Extract the questions
+    const questions = emailText.match(/<br>\d\.(.*?)$/gm)?.map(q => q.replace(/<br>\d\./, ''));
+
+    // Replace <b> tags with <span class="bordered-text"> tags
+    let styledEmailText = emailText;
+    if (questions) {
+        let i = 0;
+        styledEmailText = styledEmailText.replace(/<b>(.*?)<\/b>/g, function(match) {
+            return `<span class="bordered-text" title="${questions[i++].trim()}">${match.slice(3, -4)}</span>`;
+        });
+    }
 
     return (
-        <div className={'pt-3 px-3 pb-3'}>
-            <div className="p-2">
-                <div dangerouslySetInnerHTML={{__html: emailText}}/>
+        <div>
+            <div className="px-5 pb-3 pt-3" style={{textAlign:'justify'}}>
+                <div dangerouslySetInnerHTML={{__html: styledEmailText}}/>
             </div>
             <div className={"m-2"} style={{paddingTop: '20px'}}>
                 <textarea
@@ -36,10 +47,9 @@ const EmailTaskComp: React.FC<Props> = ({
                         padding: '8px',
                         fontSize: '18px',
                         borderRadius: '4px',
-                        // border: '1px solid #ccc',
                     }}
                     className={'test-input'}
-                    placeholder={'Write your email here...'}
+                    placeholder={user?.subscriptionType === 'Free' ? 'You need to upgrade to write your answer here...': 'Write your essay here...'}
                     disabled={user?.subscriptionType === 'Free'}
                 />
                 {user?.subscriptionType === 'Free' && <textarea
@@ -57,7 +67,7 @@ const EmailTaskComp: React.FC<Props> = ({
                         // border: '1px solid #ccc',
                     }}
                     className={'test-input'}
-                    placeholder={'Write your email here...'}
+                    placeholder={'Write your essay here...'}
                     hidden
                 />}
             </div>

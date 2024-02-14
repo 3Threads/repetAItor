@@ -6,7 +6,7 @@ import LoginModal from "./LoginModal";
 import {UserContext} from "../../contexts/UserContext";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightToBracket, faBars} from "@fortawesome/free-solid-svg-icons";
 
 export const Header: React.FC = () => {
     const {subject} = useParams();
@@ -73,7 +73,9 @@ export const Header: React.FC = () => {
                                             <Dropdown.Item onClick={() => setUser(null)}>გამოსვლა</Dropdown.Item>
                                         </div>
                                     ) : (
-                                        <Dropdown.Item onClick={handleShow}>შესვლა</Dropdown.Item>
+                                        <Dropdown.Item onClick={handleShow}>
+                                            <FontAwesomeIcon icon={faArrowRightToBracket}/>
+                                        </Dropdown.Item>
                                     )
                                 }
                             </Dropdown.Menu>
@@ -178,7 +180,7 @@ export const Header: React.FC = () => {
                                     </div>
                                 ) : (
                                     <div style={{display: 'flex'}}>
-                                        <Button className={'btn-sign-in m-1'} onClick={handleShow}>შესვლა</Button>
+                                        <Button className={'btn-sign-in m-1'} onClick={handleShow}><FontAwesomeIcon size={'lg'}  icon={faArrowRightToBracket} /></Button>
                                         <Button className={'btn-contact m-1'}>დაგვიკავშირდი</Button>
                                     </div>
                                 )
