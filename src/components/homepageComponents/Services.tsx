@@ -1,10 +1,15 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import ServiceCard from "./ServiceCard";
 import {Button, Col, Row} from "react-bootstrap";
 import {UserContext} from "../../contexts/UserContext";
+import SubscriptionModal from "./SubscriptionModal";
 
 export const Services = () => {
     const {user, setUser} = useContext(UserContext); // Use UserContext
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [expireDate, setExpireDate] = useState("");
 
     const handleSubscribe = async (service: string) => {
         try {
@@ -32,6 +37,9 @@ export const Services = () => {
                 subscriptionType: data.user.subscribe_type
             };
             setUser(userData);
+            localStorage.setItem('user', JSON.stringify(userData));
+            setExpireDate(data.user.subscribe_end_date)
+            handleShow();
 
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -159,6 +167,7 @@ export const Services = () => {
                     />
                 </Col>
             </Row>
+            <SubscriptionModal show={show} handleClose={handleClose} expireDate={expireDate}/>
         </div>
     )
 }
