@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Accordion, Col, Row} from "react-bootstrap";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleCheck, faCircleXmark,} from '@fortawesome/free-regular-svg-icons';
+import {UserContext} from "../../contexts/UserContext";
 
 interface Props {
     taskResults: any[];
@@ -11,10 +12,12 @@ interface Props {
 }
 
 function TasksResults({taskResults, userAnswers}: Props) {
+    const {user} = useContext(UserContext); // Use UserContext
     return (
-        <>
+        user && <>
             {
-                taskResults.length !== 0 && <h1 className="mt-5" style={{paddingTop: '40px'}}>საბოლოო ქულა: {taskResults.reduce((accumulator, taskResult) => {
+                taskResults.length !== 0 && <h1 className="mt-5" style={{paddingTop: '40px'}}>საბოლოო
+                    ქულა: {taskResults.reduce((accumulator, taskResult) => {
                         return accumulator + parseInt(taskResult[0]);
                     }, 0)}</h1>
             }
