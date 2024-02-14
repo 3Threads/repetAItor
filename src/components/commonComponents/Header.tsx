@@ -6,7 +6,7 @@ import LoginModal from "./LoginModal";
 import {UserContext} from "../../contexts/UserContext";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightToBracket, faBars} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightToBracket, faBars, faUserPlus} from "@fortawesome/free-solid-svg-icons";
 
 export const Header: React.FC = () => {
     const {subject} = useParams();
@@ -168,6 +168,8 @@ export const Header: React.FC = () => {
                                                                  padding: '12px',
                                                                  backgroundColor: '#8540f5',
                                                                  borderRadius: '20px',
+                                                                 marginRight:'4px',
+                                                                 width: '56px'
                                                              }}>
                                                 <FontAwesomeIcon icon={faUser} size={'xl'}/>
                                             </Dropdown.Toggle>
@@ -185,9 +187,11 @@ export const Header: React.FC = () => {
                                     </div>
                                 ) : (
                                     <div style={{display: 'flex'}}>
-                                        <Button className={'btn-sign-in m-1'} onClick={handleShow}><FontAwesomeIcon
-                                            size={'lg'} icon={faArrowRightToBracket}/></Button>
-                                        <Button className={'btn-contact m-1'}>დაგვიკავშირდი</Button>
+                                        <Button className={'btn-sign-in m-1'} onClick={handleShow} style={{width: '56px'}}><FontAwesomeIcon
+                                            size={'xl'} icon={faUserPlus}/>
+                                        </Button>
+
+                                        <Button className={'btn-contact mt-1'}>დაგვიკავშირდი</Button>
                                     </div>
                                 )
                             }
