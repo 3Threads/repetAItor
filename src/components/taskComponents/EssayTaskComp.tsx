@@ -37,7 +37,7 @@ const EssayTaskComp: React.FC<Props> = ({
                         // border: '1px solid #ccc',
                     }}
                     className={'test-input'}
-                    placeholder={'Write your essay here...'}
+                    placeholder={user?.subscriptionType === 'Free' ? 'You need to upgrade to write your answer here...': 'Write your essay here...'}
                     disabled={user?.subscriptionType === 'Free'}
                 />
                 {user?.subscriptionType === 'Free' && <textarea

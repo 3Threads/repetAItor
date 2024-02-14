@@ -136,7 +136,7 @@ function TasksList({setTaskResults, setUserAnswers}: Props) {
 
     return (
         <>
-            <h2>საგანი: {subject}, წელი: {year}, ვარიანტი: {variant}</h2><br></br>
+            <h2>წელი: {year}, ვარიანტი: {variant}</h2><br></br>
             {user ?
                 <>{tasks.length > 0 && <form onSubmit={handleSubmit}>
                     <input type={"hidden"} value={subject} name={"subject"}/>
