@@ -45,11 +45,16 @@ export const Header: React.FC = () => {
             }}>
                 <h2 style={{border: '0', margin: 0}}>
                     <a href={'/'}
+                       className={'protest-strike-regular'}
                        style={{
                            textDecoration: 'none',
                            color: 'white'
                        }}>
-                        <span style={{color: 'white'}}>A</span>biturient<span style={{color: 'white'}}>I</span>
+                        <span  style={{color: 'white'}}>REPET</span>
+                        <span  style={{color: '#8540f5'}}>A</span>
+                        <span  style={{color: '#8540f5'}}>I</span>
+                        <span style={{color: 'white'}}>TOR</span>
+
                     </a>
                 </h2>
 
@@ -180,7 +185,8 @@ export const Header: React.FC = () => {
                                     </div>
                                 ) : (
                                     <div style={{display: 'flex'}}>
-                                        <Button className={'btn-sign-in m-1'} onClick={handleShow}><FontAwesomeIcon size={'lg'}  icon={faArrowRightToBracket} /></Button>
+                                        <Button className={'btn-sign-in m-1'} onClick={handleShow}><FontAwesomeIcon
+                                            size={'lg'} icon={faArrowRightToBracket}/></Button>
                                         <Button className={'btn-contact m-1'}>დაგვიკავშირდი</Button>
                                     </div>
                                 )
