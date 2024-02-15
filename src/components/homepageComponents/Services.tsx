@@ -82,8 +82,8 @@ export const Services = () => {
                             ]
                         }
                         lastIndex={3}
-                        price={10}
-                        annualPrice={50}
+                        price={20}
+                        annualPrice={180}
                         monthlyButton=
                             {
                                 <Button
@@ -131,8 +131,8 @@ export const Services = () => {
                             ]
                         }
                         lastIndex={6}
-                        price={10}
-                        annualPrice={50}
+                        price={30}
+                        annualPrice={270}
                         monthlyButton=
                             {
                                 <Button
