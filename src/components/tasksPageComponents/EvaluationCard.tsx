@@ -35,22 +35,29 @@ function EvaluationCard({title, point, maxPoint}: Props) {
                             <b>{title}</b>
                         </div>
                         <RingProgress size={150} thickness={16}
-                            sections={[{
-                                value: Math.round(point / maxPoint * 100),
-                                color: '#6d2bf2'
-                            }]}
-                            label={
-                                <Text c="#6d2bf2" fw={700} ta="center" size="xl">
-                                    {Math.round(point / maxPoint * 100)}%
-                                </Text>
-                            }
+                                      sections={[{
+                                          value: Math.round(point / maxPoint * 100),
+                                          color: '#6d2bf2'
+                                      }]}
+                                      label={
+                                          <Text c="#6d2bf2" fw={700} ta="center" size="xl">
+                                              {Math.round(point / maxPoint * 100)}%
+                                          </Text>
+                                      }
                         />
                         <div style={{
                             fontSize: '20px',
                             paddingTop: '6px',
-                            paddingBottom: '4px'
+                            paddingBottom: '4px',
+
                         }}>
-                            {point} / {maxPoint}
+                            <div style={{color: '#A69EBF', display: 'inline-block'}}>
+                                {point}
+                            </div>
+                            <div style={{display: 'inline-block', marginLeft:'6px'}}>/</div>
+                            <div style={{display: 'inline-block', marginLeft:'6px'}}>
+                                {maxPoint}
+                            </div>
                         </div>
                     </Card.Text>
                 </Card.Body>
