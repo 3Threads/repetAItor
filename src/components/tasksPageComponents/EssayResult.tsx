@@ -1,8 +1,6 @@
-import {Card, Col, Row, Table} from "react-bootstrap";
-import {RingProgress, Text} from "@mantine/core";
+import {Col, Row, Table} from "react-bootstrap";
 import React from "react";
 import EvaluationCard from "./EvaluationCard";
-import {log} from "node:util";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleCheck, faCircleXmark} from "@fortawesome/free-regular-svg-icons";
 import {faCircle} from "@fortawesome/free-regular-svg-icons";
@@ -43,7 +41,7 @@ function EssayResult({point, jsonResult}: Props) {
                 />
                 <EvaluationCard
                     title={"Total Points"}
-                    point={jsonResult["my_total_point"]}
+                    point={point}
                     maxPoint={jsonResult["max_total_point"]}
                 />
                 <EvaluationCard
