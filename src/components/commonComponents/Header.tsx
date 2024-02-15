@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
             }}>
                 <h2 style={{border: '0', margin: 0}}>
                     <a href={'/'}
-                       className={'protest-strike-regular'}
+                       className={'protest-riot-regular'}
                        style={{
                            textDecoration: 'none',
                            color: 'white'

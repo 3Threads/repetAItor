@@ -12,9 +12,9 @@ export const WelcomeImage = () => {
             />
         </Col>
         <Col xs={6}>
-            <h2>Explore our products</h2>
-            <p>Discover our latest offerings and find what you need.</p>
-            <Button variant="primary">Shop Now</Button>
+            <h2><b>პლატფორმის შესახებ</b></h2>
+            <p style={{fontSize:'18px'}}>"რეპეტაიტორი" დაგეხმარება მოემზადო ეროვნული გამოცდებისთვის ხელოვნური ინტელექტის გამოყენებით. დაწერე შენთვის სასურველი ტესტი და მიიღე შეფასებები და რჩევები "AI"-სგან.</p>
+            <Button variant="primary">გაიგე მეტი</Button>
         </Col>
     </Row>
 }
