@@ -1,9 +1,10 @@
-import React, {useContext} from 'react';
-import {Accordion, Col, Row} from "react-bootstrap";
-
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCircleCheck, faCircleXmark,} from '@fortawesome/free-regular-svg-icons';
+import React, {useContext} from "react";
 import {UserContext} from "../../contexts/UserContext";
+import {Accordion, Card, Col, Row} from "react-bootstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCircleCheck, faCircleXmark} from "@fortawesome/free-regular-svg-icons";
+import {RingProgress, Text} from "@mantine/core";
+import EssayResult from "./EssayResult";
 
 interface Props {
     taskResults: any[];
@@ -31,7 +32,7 @@ function TasksResults({taskResults, userAnswers}: Props) {
                             დავალება {index + 1} - ჯამური ქულა: {taskResult[0]}
                         </Accordion.Header>
                         <Accordion.Body>
-                            {taskResult[1].length !== 1 &&
+                            {taskResult[1].length !== 1 ?
                                 <div className="mb-3">
                                     <ul style={{
                                         paddingTop: '6px',
@@ -95,6 +96,8 @@ function TasksResults({taskResults, userAnswers}: Props) {
                                         </Row>
                                     </ul>
                                 </div>
+                                :
+                                <EssayResult point={taskResult[1][0][0]} jsonResult={JSON.parse(taskResult[1][0][1])}/>
                             }
                         </Accordion.Body>
                     </Accordion.Item>

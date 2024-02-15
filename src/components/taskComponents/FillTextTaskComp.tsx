@@ -29,7 +29,7 @@ const FillTextTaskComp: React.FC<Props> = ({
             <Row className="justify-content-center">
                 {options.map((option, index) => (
                     <Col xs={12} sm={6} lg={2} key={index}>
-                        <Card className="shadow mb-4">
+                        <Card className="shadow mb-4" style={{backgroundColor: '#2f2348'}}>
                             <Card.Body style={{padding: '0', paddingTop:'2px', paddingBottom: '2px'}}>
                                 <Card.Text className="text-center">
                                     {option} ({String.fromCharCode(65 + index)})

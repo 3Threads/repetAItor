@@ -228,7 +228,7 @@ summary {
 
 
 .card {
-  background-color: #2f2348 !important;
+  //background-color: #2f2348 ;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 10px !important;
   color: white !important;
@@ -302,4 +302,16 @@ summary {
   font-weight: 400;
   font-style: normal;
   font-size: 40px
+}
+
+.progress-bar {
+  background-color: #6d2bf2 !important;
+}
+
+.progress {
+  --bs-progress-bg: #2f2348 !important;
+}
+
+.m-b1ca1fbf {
+  --rp-curve-root-color: #2f2348 !important;
 }

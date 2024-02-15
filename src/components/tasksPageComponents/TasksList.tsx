@@ -127,6 +127,7 @@ function TasksList({setTaskResults, setUserAnswers}: Props) {
             }
             // Handle successful response
             const data = await response.json();
+            console.log(data.points);
             setTaskResults(data.points);
             setUserAnswers(data.answers);
         } catch (error) {
