@@ -30,9 +30,10 @@ import {UserContext} from "../../contexts/UserContext";
 interface Props {
     setTaskResults: React.Dispatch<React.SetStateAction<any[]>>;
     setUserAnswers: React.Dispatch<React.SetStateAction<string[][]>>;
+    setLoadingResults: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function TasksList({setTaskResults, setUserAnswers}: Props) {
+function TasksList({setTaskResults, setUserAnswers, setLoadingResults}: Props) {
     const {subject} = useParams();
     const {year} = useParams();
     const {variant} = useParams();
@@ -117,12 +118,14 @@ function TasksList({setTaskResults, setUserAnswers}: Props) {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         try {
+            setLoadingResults(true);
             const response = await fetch('http://localhost:8000/tasks', {
                 method: 'POST',
                 body: formData,
             });
             if (!response.ok) {
                 console.log('Network response was not ok');
+                setLoadingResults(false);
                 return;
             }
             // Handle successful response
@@ -130,6 +133,8 @@ function TasksList({setTaskResults, setUserAnswers}: Props) {
             console.log(data.points);
             setTaskResults(data.points);
             setUserAnswers(data.answers);
+            setLoadingResults(false);
+
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -150,7 +155,11 @@ function TasksList({setTaskResults, setUserAnswers}: Props) {
                                     className={"btn-task"}
                                 >
                                     <div>
-                                        <div style={{display: 'inline-block', marginRight: '10px', marginBottom:'10px'}}>
+                                        <div style={{
+                                            display: 'inline-block',
+                                            marginRight: '10px',
+                                            marginBottom: '10px'
+                                        }}>
                                             Task {task.task_number}
                                         </div>
                                         <div style={{display: 'inline-block', color: '#8540f5'}}>

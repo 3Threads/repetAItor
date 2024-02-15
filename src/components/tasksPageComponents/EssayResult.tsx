@@ -25,30 +25,22 @@ interface JSON {
 function EssayResult({point, jsonResult}: Props) {
     return (
         <div>
-            <div style={{
-                textAlign: 'center',
-                fontSize: '30px',
-                paddingTop: '14px',
-                paddingBottom: '14px'
-            }}>
-                <b>ესეს შეფასება:</b>
-            </div>
             <Row className="justify-content-center">
-                <EvaluationCard
+                {jsonResult["my_Fluency/Task_fulfilment_point"] && <EvaluationCard
                     title={"Fluency"}
                     point={jsonResult["my_Fluency/Task_fulfilment_point"]}
                     maxPoint={jsonResult["max_Fluency/Task_fulfilment_point"]}
-                />
+                />}
                 <EvaluationCard
                     title={"Total Points"}
                     point={point}
                     maxPoint={jsonResult["max_total_point"]}
                 />
-                <EvaluationCard
+                {jsonResult["my_grammar_point"] && <EvaluationCard
                     title={"Grammar"}
                     point={jsonResult["my_grammar_point"]}
                     maxPoint={jsonResult["max_grammar_point"]}
-                />
+                />}
                 <Col>
                     <div style={{boxShadow: '20px solid black'}}>
                         <div style={{paddingTop: '8px', paddingBottom: '10px', fontSize: '20px'}}><b>გრამატიკული
@@ -86,9 +78,10 @@ function EssayResult({point, jsonResult}: Props) {
                     </div>
 
 
-                    <div style={{paddingTop: '8px', paddingBottom: '10px', fontSize: '20px'}}>
-                        <b>შესაძლო არგუმენტები:</b>
-                    </div>
+                    {jsonResult["possible_arguments"] &&
+                        <div style={{paddingTop: '8px', paddingBottom: '10px', fontSize: '20px'}}>
+                            <b>შესაძლო არგუმენტები:</b>
+                        </div>}
                     <Table responsive="sm">
                         <tbody>
                         {(jsonResult["possible_arguments"] || []).map((argument, index) => (

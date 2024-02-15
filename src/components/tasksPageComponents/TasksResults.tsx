@@ -1,15 +1,13 @@
 import React, {useContext} from "react";
 import {UserContext} from "../../contexts/UserContext";
-import {Accordion, Card, Col, Row} from "react-bootstrap";
+import {Accordion, Col, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleCheck, faCircleXmark} from "@fortawesome/free-regular-svg-icons";
-import {RingProgress, Text} from "@mantine/core";
 import EssayResult from "./EssayResult";
 
 interface Props {
     taskResults: any[];
     userAnswers: string[][];
-
 }
 
 function TasksResults({taskResults, userAnswers}: Props) {
