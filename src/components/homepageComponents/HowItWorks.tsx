@@ -36,7 +36,7 @@ export const HowItWorks = () => {
                     }
                 ].map((step, index) => (
                     <Col key={index} xs={12} sm={6} lg={3} style={{display: 'flex'}}>
-                        <Card className="shadow mb-4" style={{flex: 1}}>
+                        <Card className="shadow mb-4" style={{flex: 1, backgroundColor: '#2f2348'}}>
                             <FontAwesomeIcon icon={step.icon}  size={'6x'} style={{paddingTop: '20px'}}/>
                             <Card.Body>
                                 <Card.Title className="text-center">{step.title}</Card.Title>

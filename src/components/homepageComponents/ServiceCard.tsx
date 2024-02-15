@@ -29,8 +29,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     const [checked, setChecked] = useState(false);
 
     return (
-        <Card style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            <Card.Body style={{display: 'flex', flexDirection: 'column', paddingBottom: '10px'}}>
+        <Card style={{display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#2f2348'}}>
+            <Card.Body style={{display: 'flex', flexDirection: 'column', paddingBottom: '10px',}}>
                 <Card.Title>{name}</Card.Title>
                 <Card.Text>{description}</Card.Text>
                 <Card.Text style={{marginBottom: '0'}}>
