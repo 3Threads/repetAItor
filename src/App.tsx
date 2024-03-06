@@ -6,7 +6,9 @@ import {HomePage} from "./pages/HomePage";
 import {TestLists} from "./pages/TestLists";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TasksPage from "./pages/TasksPage";
-import { UserProvider } from './contexts/UserContext'; // Import UserProvider
+import {UserProvider} from './contexts/UserContext';
+import {TestAddPage} from "./pages/TestAddPage";
+import TaskDetailsPage from "./pages/TaskDetailsPage"; // Import UserProvider
 
 function App() {
     return (
@@ -16,6 +18,8 @@ function App() {
                     <Routes>
                         <Route index element={<HomePage/>}/>
                         <Route path={'/tests/:subject'} element={<TestLists/>}/>
+                        <Route path={'/new-test'} element={<TestAddPage/>}/>
+                        <Route path="/task-details" element={<TaskDetailsPage/>}/>
                         <Route path={'/tests/:subject/:year/:variant'} element={<TasksPage/>}/>
                         <Route path={'*'} element={<h1>404 Not Found</h1>}/>
                     </Routes>
