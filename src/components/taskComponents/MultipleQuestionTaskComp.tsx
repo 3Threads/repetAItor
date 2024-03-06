@@ -13,21 +13,21 @@ const MultipleQuestionTaskComp: React.FC<Props> = ({questions, questionNumber, t
     return (
         <div className={'large-window'} >
             <div style={{textAlign: 'justify'}}>{text}</div>
-            <ul className={'ul-window'}>
-                {questions.map((quest, index) => (
-                    <li key={index}>
-                        <MultipleChoiceQuestionComp question={quest.question} choices={quest.options}
-                                                    questionNumber={index + 1}/>
-                        <input id={'task' + questionNumber}
-                               name={'task' + questionNumber}
-                               type="text"
-                               placeholder={'Answer'}
-                               className={'test-input m-1'}
-                        />
-                    </li>
+            {/*<ul className={'ul-window'}>*/}
+            {/*    {questions.map((quest, index) => (*/}
+            {/*        // <li key={index}>*/}
+            {/*        //     <MultipleChoiceQuestionComp question={quest.question} choices={quest.options}*/}
+            {/*        //                                 questionNumber={index + 1}/>*/}
+            {/*        //     <input id={'task' + questionNumber}*/}
+            {/*        //            name={'task' + questionNumber}*/}
+            {/*        //            type="text"*/}
+            {/*        //            placeholder={'Answer'}*/}
+            {/*        //            className={'test-input m-1'}*/}
+            {/*        //     />*/}
+            {/*        // </li>*/}
 
-                ))}
-            </ul>
+            {/*    ))}*/}
+            {/*</ul>*/}
 
         </div>
     );
