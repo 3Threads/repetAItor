@@ -1,20 +1,20 @@
 import React, {useContext, useEffect, useState} from 'react'; // Import useContext
 import {Accordion} from "react-bootstrap";
 import {
+    ConversationTask,
     EmailTask,
     EssayTask,
     FillTextTask,
+    FillTextWithoutOptionsTask,
     ListeningTask,
+    MatchParagraphsTask,
+    ReadingTask,
     Task,
 } from "../../interfaces/tasks";
 import FillTextTaskComp from "../taskComponents/FillTextTaskComp";
 import EmailTaskComp from "../taskComponents/EmailTaskComp";
 import EssayTaskComp from "../taskComponents/EssayTaskComp";
-import {
-    EmailQuestion,
-    EssayQuestion,
-    MultipleChoiceQuestion,
-} from "../../interfaces/questions";
+import {EmailQuestion, EssayQuestion, MultipleChoiceQuestion, OpenQuestion,} from "../../interfaces/questions";
 import MultipleQuestionTaskComp from "../taskComponents/MultipleQuestionTaskComp";
 import TitlingTaskComp from "../taskComponents/TitlingTaskComp";
 import {useParams} from "react-router-dom";
@@ -51,10 +51,10 @@ function TasksList({setTaskResults, setUserAnswers, setLoadingResults}: Props) {
                 }
                 const data = await response.json();
                 console.log(data);
-                // const parsedTasks: Task[] = parseTasks(data.tasks); // Function to parse the response into Task instances
+                const parsedTasks: Task[] = parseTasks(data.tasks); // Function to parse the response into Task instances
                 setLoading(false);
                 setErrorMessage("")
-                // setTasks(parsedTasks);
+                setTasks(parsedTasks);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -63,51 +63,55 @@ function TasksList({setTaskResults, setUserAnswers, setLoadingResults}: Props) {
         fetchData();
     }, [subject, variant, year]);
 
-    // const parseTasks = (responseData: any[]): Task[] => {
-    //     return responseData.map((task: any) => {
-    //         let created_task;
-    //         if (task.task_type === "listening") {
-    //             const curr_task = task.task as ListeningTask;
-    //             const questions = curr_task.questions as MultipleChoiceQuestion[];
-    //
-    //             created_task = new ListeningTask(questions);
-    //         } else if (task.task_type === "titling") {
-    //             const curr_task = task.task as TitlingTask;
-    //             const questions = curr_task.questions as TitlingQuestion[];
-    //
-    //             created_task = new TitlingTask(questions, curr_task.paragraphs);
-    //         } else if (task.task_type === "reading") {
-    //             const curr_task = task.task as ReadAndWriteTask;
-    //             const questions = curr_task.questions as MultipleChoiceQuestion[];
-    //
-    //             created_task = new ReadAndWriteTask(questions, curr_task.text);
-    //         } else if (task.task_type === "filling") {
-    //             const curr_task = task.task as FillTextTask;
-    //             const questions = curr_task.questions as FillTextQuestion[];
-    //
-    //             created_task = new FillTextTask(questions, curr_task.text, curr_task.options);
-    //         } else if (task.task_type === "articles") {
-    //             const curr_task = task.task as FillWithArticlesTask;
-    //             const questions = curr_task.questions as FillWithArticlesQuestion[];
-    //
-    //             created_task = new FillWithArticlesTask(questions, curr_task.text);
-    //         } else if (task.task_type === "email") {
-    //             const curr_task = task.task as EmailTask;
-    //             const questions = curr_task.questions as EmailQuestion[];
-    //
-    //             created_task = new EmailTask(questions, curr_task.text);
-    //         } else if (task.task_type === "essay") {
-    //             const curr_task = task.task as EssayTask;
-    //             const questions = curr_task.questions as EssayQuestion[];
-    //
-    //             created_task = new EssayTask(questions, curr_task.title);
-    //         } else {
-    //             console.log("Wrong task type");
-    //             created_task = task.task;
-    //         }
-    //         return new Task(task.task_number, task.task_title, task.point, task.task_type, created_task);
-    //     })
-    // };
+    const parseTasks = (responseData: any[]): Task[] => {
+        return responseData.map((task: any) => {
+            let created_task;
+            if (task.task_type === "listening") {
+                created_task = task as ListeningTask;
+                // const questions = curr_task.questions as MultipleChoiceQuestion[];
+
+            } else if (task.task_type === "matching") {
+                created_task = task as MatchParagraphsTask;
+                // const questions = curr_task.questions as OpenQuestion[];
+                //
+                // created_task = new MatchParagraphsTask(questions, curr_task.paragraphs);
+            } else if (task.task_type === "reading") {
+                created_task = task as ReadingTask;
+                // const questions = curr_task.questions as MultipleChoiceQuestion[];
+
+                // created_task = new ReadAndWriteTask(questions, curr_task.text);
+            } else if (task.task_type === "filling") {
+                created_task = task as FillTextTask;
+                // const questions = curr_task.questions as FillTextQuestion[];
+
+                // created_task = new FillTextTask(questions, curr_task.text, curr_task.options);
+            } else if (task.task_type === "filling_without_options") {
+                created_task = task as FillTextWithoutOptionsTask;
+                // const questions = curr_task.questions as FillWithArticlesQuestion[];
+                //
+                // created_task = new FillWithArticlesTask(questions, curr_task.text);
+            } else if (task.task_type === "conversation") {
+                created_task = task as ConversationTask;
+                // const questions = curr_task.questions as FillWithArticlesQuestion[];
+                //
+                // created_task = new FillWithArticlesTask(questions, curr_task.text);
+            } else if (task.task_type === "email") {
+                created_task = task as EmailTask;
+                // const questions = curr_task.questions as EmailQuestion[];
+                //
+                // created_task = new EmailTask(questions, curr_task.text);
+            } else if (task.task_type === "essay") {
+                created_task = task as EssayTask;
+                // const questions = curr_task.questions as EssayQuestion[];
+
+                // created_task = new EssayTask(questions, curr_task.title);
+            } else {
+                console.log("Wrong task type");
+                created_task = task as Task;
+            }
+            return created_task;
+        })
+    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -143,89 +147,91 @@ function TasksList({setTaskResults, setUserAnswers, setLoadingResults}: Props) {
                     <input type={"hidden"} value={subject} name={"subject"}/>
                     <input type={"hidden"} value={year} name={"year"}/>
                     <input type={"hidden"} value={variant} name={"variant"}/>
-                    {/*<Accordion alwaysOpen style={{paddingLeft: '0px'}}>*/}
-                    {/*    {tasks.map((task: Task, index: number) => {*/}
-                    {/*        return <Accordion.Item eventKey={"" + index} className={"btn-accordion"}>*/}
-                    {/*            <Accordion.Header*/}
-                    {/*                className={"btn-task"}*/}
-                    {/*            >*/}
-                    {/*                <div>*/}
-                    {/*                    <div style={{*/}
-                    {/*                        display: 'inline-block',*/}
-                    {/*                        marginRight: '10px',*/}
-                    {/*                        marginBottom: '10px'*/}
-                    {/*                    }}>*/}
-                    {/*                        Task {task.task_number}*/}
-                    {/*                    </div>*/}
-                    {/*                    <div style={{display: 'inline-block', color: '#8540f5'}}>*/}
-                    {/*                        ({task.point} ქულა)*/}
-                    {/*                    </div>*/}
-                    {/*                    <div>*/}
-                    {/*                        {task.task_title}*/}
-                    {/*                    </div>*/}
-                    {/*                </div>*/}
-                    {/*            </Accordion.Header>*/}
-                    {/*            <Accordion.Body>*/}
-                    {/*                {(() => {*/}
-                    {/*                    switch (task.task_type) {*/}
-                    {/*                        case 'filling':*/}
-                    {/*                            const parsed_task = task.task as FillTextTask;*/}
-                    {/*                            return (*/}
-                    {/*                                <FillTextTaskComp*/}
-                    {/*                                    questionNumber={task.task_number}*/}
-                    {/*                                    questionText={parsed_task.text}*/}
-                    {/*                                    splitter={"……"}*/}
-                    {/*                                    options={parsed_task.options}*/}
-                    {/*                                />*/}
-                    {/*                            );*/}
-                    {/*                        case 'email':*/}
-                    {/*                            const email_task: EmailTask = task.task as EmailTask*/}
-                    {/*                            return <EmailTaskComp questionNumber={task.task_number}*/}
-                    {/*                                                  emailText={email_task.text}/>*/}
-                    {/*                        case 'essay':*/}
-                    {/*                            const essay_task = task.task as EssayTask;*/}
-                    {/*                            return <EssayTaskComp questionNumber={task.task_number}*/}
-                    {/*                                                  essayTitle={essay_task.title}/>*/}
-                    {/*                        case 'articles':*/}
-                    {/*                            const fill_with_articles_task = task.task as FillWithArticlesTask;*/}
-                    {/*                            return <FillTextTaskComp questionNumber={task.task_number}*/}
-                    {/*                                                     questionText={fill_with_articles_task.text}*/}
-                    {/*                                                     splitter={"….."}*/}
-                    {/*                                                     options={[]}/>*/}
+                    <Accordion alwaysOpen style={{paddingLeft: '0px'}}>
+                        {tasks.map((task: Task, index: number) => {
+                            return <Accordion.Item eventKey={"" + index} className={"btn-accordion"}>
+                                <Accordion.Header
+                                    className={"btn-task"}
+                                >
+                                    <div>
+                                        <div style={{
+                                            display: 'inline-block',
+                                            marginRight: '10px',
+                                            marginBottom: '10px'
+                                        }}>
+                                            Task {task.task_number}:
+                                        </div>
+                                        <div style={{display: 'inline-block', color: '#8540f5'}}>
+                                            ({task.task_point} ქულა)
+                                        </div>
+                                        <div>
+                                            {task.task_title}
+                                        </div>
+                                    </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    {(() => {
+                                        switch (task.task_type) {
+                                            case 'filling':
+                                                const parsed_task = task as FillTextTask;
+                                                return (
+                                                    <FillTextTaskComp
+                                                        questionNumber={task.task_number}
+                                                        questionText={parsed_task.text}
+                                                        splitter={"……"}
+                                                        options={parsed_task.options}
+                                                    />
+                                                );
+                                            case 'email':
+                                                const email_task: EmailTask = task as EmailTask
+                                                const email_question = email_task.questions[0] as EmailQuestion;
+                                                return <EmailTaskComp questionNumber={task.task_number}
+                                                                      emailText={email_question.text}/>
+                                            case 'essay':
+                                                const essay_task = task as EssayTask;
+                                                const essay_question = essay_task.questions[0] as EssayQuestion
+                                                return <EssayTaskComp questionNumber={task.task_number}
+                                                                      essayTitle={essay_question.essay_title}/>
+                                            case 'filling_without_options':
+                                                const fill_without_options_task = task as FillTextWithoutOptionsTask
+                                                return <FillTextTaskComp questionNumber={task.task_number}
+                                                                         questionText={fill_without_options_task.text}
+                                                                         splitter={"….."}
+                                                                         options={[]}/>
 
-                    {/*                        case 'reading':*/}
-                    {/*                            const read_and_write_task = task.task as ReadAndWriteTask;*/}
-                    {/*                            const read_and_write_questions = read_and_write_task.getQuestions() as MultipleChoiceQuestion[];*/}
-                    {/*                            return <MultipleQuestionTaskComp*/}
-                    {/*                                questionNumber={task.task_number}*/}
-                    {/*                                text={read_and_write_task.text}*/}
-                    {/*                                questions={read_and_write_questions}/>*/}
+                                            case 'reading':
+                                                const reading_task = task as ReadingTask;
+                                                const reading_questions = reading_task.questions as MultipleChoiceQuestion[];
+                                                return <MultipleQuestionTaskComp
+                                                    questionNumber={task.task_number}
+                                                    text={reading_task.text}
+                                                    questions={reading_questions}/>
 
-                    {/*                        case 'listening':*/}
-                    {/*                            const listening_task = task.task as ListeningTask;*/}
-                    {/*                            const listening_questions = listening_task.getQuestions() as MultipleChoiceQuestion[];*/}
-                    {/*                            return <MultipleQuestionTaskComp*/}
-                    {/*                                questionNumber={task.task_number}*/}
-                    {/*                                text={""}*/}
-                    {/*                                questions={listening_questions}/>*/}
+                                            case 'listening':
+                                                const listening_task = task as ListeningTask;
+                                                const listening_questions = listening_task.questions as MultipleChoiceQuestion[];
+                                                return <MultipleQuestionTaskComp
+                                                    questionNumber={task.task_number}
+                                                    text={""}
+                                                    questions={listening_questions}/>
 
-                    {/*                        case 'titling':*/}
-                    {/*                            const titling_task = task.task as TitlingTask;*/}
-                    {/*                            const titling_questions = titling_task.getQuestions() as TitlingQuestion[];*/}
-                    {/*                            const paragraphs = titling_questions.map((question: TitlingQuestion) => question.title);*/}
-                    {/*                            return <TitlingTaskComp questionNumber={task.task_number}*/}
-                    {/*                                                    question={task.task_title}*/}
-                    {/*                                                    titles={titling_task.paragraphs}*/}
-                    {/*                                                    paragraphs={paragraphs}/>*/}
-                    {/*                        default:*/}
-                    {/*                            return <div>Task {task.task_number}: {task.task_title}</div>;*/}
-                    {/*                    }*/}
-                    {/*                })()}*/}
-                    {/*            </Accordion.Body>*/}
-                    {/*        </Accordion.Item>*/}
+                                            case 'matching':
+                                                const matching_task = task as MatchParagraphsTask;
+                                                const matching_questions = matching_task.questions as OpenQuestion[];
+                                                const paragraphs = matching_questions.map((question: OpenQuestion) => question.question_text);
+                                                return <TitlingTaskComp questionNumber={task.task_number}
+                                                                        question={task.task_title}
+                                                                        titles={matching_task.paragraphs}
+                                                                        paragraphs={paragraphs}/>
+                                            default:
+                                                return <div>Task {task.task_number}: {task.task_title}</div>;
+                                        }
+                                    })()}
+                                </Accordion.Body>
+                            </Accordion.Item>
 
-                    {/*    })}*/}
-                    {/*</Accordion>*/}
+                        })}
+                    </Accordion>
                     <button type={"submit"} className={'btn-sign-in mt-2 mb-5'}
                             style={{float: 'right'}}>დასრულება
                     </button>

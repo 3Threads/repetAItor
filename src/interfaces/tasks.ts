@@ -1,13 +1,9 @@
 // Define TaskType interface
 import {Question} from "./questions";
 
-export interface Task {
-    getQuestions(): Question[];
-
-}
 
 // Define TaskType class
-abstract class TaskTypeImpl implements Task {
+export abstract class Task {
     protected constructor(
         public questions: Question[],
         public task_id: number,
@@ -18,17 +14,13 @@ abstract class TaskTypeImpl implements Task {
         public exam_id: number
     ) {
     }
-
-    // Implement getQuestions method
-    getQuestions(): Question[] {
-        return this.questions;
-    }
 }
 
 // Define ListeningTask class
-export class ListeningTask extends TaskTypeImpl {
+export class ListeningTask extends Task {
     public text_title: string;
     public text: string;
+
     constructor(
         task_id: number,
         task_number: number,
@@ -39,17 +31,18 @@ export class ListeningTask extends TaskTypeImpl {
         questions: Question[],
         text_title: string,
         text: string
-       ) {
-            super(questions, task_id, task_number, task_title, task_point, task_type, exam_id);
-            this.text_title = text_title;
-            this.text = text;
+    ) {
+        super(questions, task_id, task_number, task_title, task_point, task_type, exam_id);
+        this.text_title = text_title;
+        this.text = text;
     }
 
 }
 
-export class MatchParagraphsTask extends TaskTypeImpl {
+export class MatchParagraphsTask extends Task {
     public text_title: string;
     public paragraphs: string[];
+
     constructor(
         task_id: number,
         task_number: number,
@@ -67,9 +60,10 @@ export class MatchParagraphsTask extends TaskTypeImpl {
     }
 }
 
-export class ReadingTask extends TaskTypeImpl {
+export class ReadingTask extends Task {
     public text_title: string;
     public text: string;
+
     constructor(
         task_id: number,
         task_number: number,
@@ -88,7 +82,7 @@ export class ReadingTask extends TaskTypeImpl {
 }
 
 // Define FillTextTask class
-export class FillTextTask extends TaskTypeImpl {
+export class FillTextTask extends Task {
     public text_title: string;
     public text: string;
     public options: string[];
@@ -113,9 +107,10 @@ export class FillTextTask extends TaskTypeImpl {
 }
 
 // Define FillWithArticlesTask class
-export class FillTextWithoutOptionsTask extends TaskTypeImpl {
+export class FillTextWithoutOptionsTask extends Task {
     public text_title: string;
     public text: string;
+
     constructor(
         task_id: number,
         task_number: number,
@@ -134,10 +129,11 @@ export class FillTextWithoutOptionsTask extends TaskTypeImpl {
 }
 
 // Define EmailTask class
-export class ConversationTask extends TaskTypeImpl {
+export class ConversationTask extends Task {
     public text_title: string;
     public text: string;
     public dialogue: string[];
+
     constructor(
         task_id: number,
         task_number: number,
@@ -157,7 +153,7 @@ export class ConversationTask extends TaskTypeImpl {
     }
 }
 
-export class EmailTask extends TaskTypeImpl {
+export class EmailTask extends Task {
     constructor(
         task_id: number,
         task_number: number,
@@ -173,7 +169,7 @@ export class EmailTask extends TaskTypeImpl {
 }
 
 // Define EssayTask class
-export class EssayTask extends TaskTypeImpl {
+export class EssayTask extends Task {
     constructor(
         task_id: number,
         task_number: number,
