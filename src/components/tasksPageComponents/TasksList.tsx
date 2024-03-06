@@ -68,43 +68,20 @@ function TasksList({setTaskResults, setUserAnswers, setLoadingResults}: Props) {
             let created_task;
             if (task.task_type === "listening") {
                 created_task = task as ListeningTask;
-                // const questions = curr_task.questions as MultipleChoiceQuestion[];
-
             } else if (task.task_type === "matching") {
                 created_task = task as MatchParagraphsTask;
-                // const questions = curr_task.questions as OpenQuestion[];
-                //
-                // created_task = new MatchParagraphsTask(questions, curr_task.paragraphs);
             } else if (task.task_type === "reading") {
                 created_task = task as ReadingTask;
-                // const questions = curr_task.questions as MultipleChoiceQuestion[];
-
-                // created_task = new ReadAndWriteTask(questions, curr_task.text);
             } else if (task.task_type === "filling") {
                 created_task = task as FillTextTask;
-                // const questions = curr_task.questions as FillTextQuestion[];
-
-                // created_task = new FillTextTask(questions, curr_task.text, curr_task.options);
             } else if (task.task_type === "filling_without_options") {
                 created_task = task as FillTextWithoutOptionsTask;
-                // const questions = curr_task.questions as FillWithArticlesQuestion[];
-                //
-                // created_task = new FillWithArticlesTask(questions, curr_task.text);
             } else if (task.task_type === "conversation") {
                 created_task = task as ConversationTask;
-                // const questions = curr_task.questions as FillWithArticlesQuestion[];
-                //
-                // created_task = new FillWithArticlesTask(questions, curr_task.text);
             } else if (task.task_type === "email") {
                 created_task = task as EmailTask;
-                // const questions = curr_task.questions as EmailQuestion[];
-                //
-                // created_task = new EmailTask(questions, curr_task.text);
             } else if (task.task_type === "essay") {
                 created_task = task as EssayTask;
-                // const questions = curr_task.questions as EssayQuestion[];
-
-                // created_task = new EssayTask(questions, curr_task.title);
             } else {
                 console.log("Wrong task type");
                 created_task = task as Task;
