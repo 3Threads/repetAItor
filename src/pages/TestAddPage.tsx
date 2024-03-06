@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Header} from '../components/commonComponents/Header';
 import {Col, Container, Row, Dropdown, Button} from 'react-bootstrap';
 import Footer from '../components/commonComponents/Footer';
-import NewTasksList from '../components/tasksPageComponents/NewTasksList';
 import {useNavigate} from "react-router-dom";
 
 export const TestAddPage: React.FC = () => {
@@ -122,12 +121,12 @@ export const TestAddPage: React.FC = () => {
                         </div>
                         <Button onClick={handleNextPage} variant="primary">Next</Button>
 
-                        <NewTasksList
-                            subject={selectedSubject}
-                            year={customYear}
-                            variant={variant}
-                            selectedItems={selectedItems}
-                        />
+                        {/*<NewTasksList*/}
+                        {/*    subject={selectedSubject}*/}
+                        {/*    year={customYear}*/}
+                        {/*    variant={variant}*/}
+                        {/*    selectedItems={selectedItems}*/}
+                        {/*/>*/}
                     </Col>
                     <Col xs={'1'}> </Col>
                 </Row>

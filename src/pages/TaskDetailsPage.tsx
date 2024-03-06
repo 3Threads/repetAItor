@@ -2,7 +2,6 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import {Header} from "../components/commonComponents/Header";
 import {Button, Col, Container, Dropdown, Row} from "react-bootstrap";
-import NewTasksList from "../components/tasksPageComponents/NewTasksList";
 import Footer from "../components/commonComponents/Footer";
 
 interface LocationState {
@@ -45,7 +44,6 @@ const TaskDetailsPage: React.FC = () => {
         </Container>
         <Footer/>
     </div>
-
   );
 };
 
